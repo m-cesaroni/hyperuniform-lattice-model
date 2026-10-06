@@ -11,5 +11,6 @@ Small scripts that produced specific numbers quoted in `docs/nota-tecnica.html`.
 | `settori_urto.py` | sector decomposition of a push on a face / channel / cell / void (light sector share) |
 | `urto_meccanico.py` | conservative push dynamics: equilibrium vs random lattice, face/channel/void directions |
 | `desi_geometrico.py` | geometric fit of DESI DR2 BAO + CMB acoustic scale with Λ and with a varying birth rate |
+| `figures.py` | regenerates the four figures of `docs/figures/` from the lattices, the hydrogen outputs and the saved S(k) data |
 
 The light-propagation results (speed, dispersion, scattering) come from `../mt_trasparenza.py` and `../mt_luce.py`; the hydrogen results from `../mt_idrogeno_pc.py`. The Kähler–Dirac spectral checks use `../kdlib.py`. The gravity numbers quoted in the note (1/r profile from the critical contagion, Mercury from saturation) were obtained with scripts from an earlier phase that are not yet consolidated here; they will be added in a later release.
