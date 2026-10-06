@@ -39,6 +39,7 @@
   .small { color: var(--soft); font-size: .92rem; }
   a { color: var(--acc); }
   .refs li { font-size: .9rem; color: var(--soft); }
+figure{margin:1.4rem 0}figure img{max-width:100%;display:block;border:1px solid var(--line);border-radius:4px;background:#fff}figcaption{color:var(--soft);font-size:.9rem;margin-top:.5rem}
 </style>
 </head>
 <body>
@@ -57,6 +58,8 @@
     <li><b>Mechanical equilibrium.</b> The points repel each other with a finite-range potential and are relaxed until the forces vanish. The resulting lattice is <em>hyperuniform</em> (S(k) → 0 as k → 0, fluctuations ∝ surface) and locally isotropic in the directions of its neighbours. This condition is what makes everything else work.</li>
     <li><b>The Delaunay–Voronoi duality as the home of the fields.</b> 0-forms on cells, 1-forms on links (dual to Voronoi faces), 2-forms on triangles (dual to edges), 3-forms on tetrahedra (dual to vertices). Diagonal Hodge stars are ratios of dual measures. The EM field lives on the 1- and 2-forms; the spinor on all four (Kähler–Dirac).</li>
   </ol>
+  <figure><img src="figures/fig1_lattice.png" alt="Plane section of the equilibrium lattice and the three places of the interstice"><figcaption>Figure 1. (a) A plane section of a 20 000-cell equilibrium lattice: cells of radius 0.44 ℓ_P cut by the plane, with the Voronoi partition of the section. (b) The three places of the interstice: the aperture between two cells, the channel where three meet, the void among four.</figcaption></figure>
+  <figure><img src="figures/fig4_hyperuniformity.png" alt="Structure factor of four lattices"><figcaption>Figure 2. Structure factor S(k) of four lattices: Poisson, random with a minimum distance, random then relaxed to equilibrium, grown by births and pushes. Only the two lattices in equilibrium are hyperuniform; their origin does not matter.</figcaption></figure>
   <p class="small">Time evolution: Hermitian Hamiltonian K = d + d† (symmetrised with the Hodge stars); for light, an energy-exact leapfrog. Units: mean lattice step = 1, c = 1 in the continuum.</p>
   <p><b>Matrix mechanics.</b> The state is a vector of amplitudes on the elements of the complex; the position X_a is diagonal (coordinate of the dual centre of each element: cell, link midpoint, triangle centre, tetrahedron centre); K is sparse, with entries only between adjacent elements. For any diagonal matrix ([X_a, K])_{αβ} = (x_α − x_β)_a K_{αβ}, real and antisymmetric, hence [X_a, K] = iV_a with V_a Hermitian: Heisenberg's equation dX_a/dt = i[K, X_a] = V_a identifies V_a with the velocity (displacement along the passage × stiffness of the passage). Robertson's inequality follows: ΔX_a·ΔK ≥ ½|⟨V_a⟩|. In the Schrödinger limit [X_a, P_a] = i in lattice units (cell × radian per cell): ħ is a unit conversion. The uncertainty principle is verified from the spectrum of K (table), saturating the Gaussian minimum above one cell and reduced below it (minimal length).</p>
 
@@ -101,6 +104,9 @@
       <tr><td>Apertures around channels (Delaunay triangles)</td><td class="n">typical imbalance 0.21–0.23 rad at φ = 0.70</td><td class="n">Koide angle 0.222</td><td><span class="tag warn">depends on φ</span></td></tr>
     </tbody>
   </table>
+
+  <figure><img src="figures/fig2_hydrogen_levels.png" alt="Hydrogen levels on the lattice against Rydberg"><figcaption>Figure 3. Hydrogen on the lattice: levels against Rydberg with the deviation of the binding energy. n = 1, 2 from the 2.7-million-cell run (a₀ = 4 cells, box 32 a₀); n = 3 from the 50 a₀ box (a₀ = 2.5).</figcaption></figure>
+  <figure><img src="figures/fig3_lyman_convergence.png" alt="Lyman-alpha oscillator strength: convergence"><figcaption>Figure 4. Lyman-α oscillator strength of six runs against 1/a₀², with the box term removed (open markers), the fit f = f∞ + 0.10/a₀² + c/box², the observed value 0.4162 and the extrapolated range.</figcaption></figure>
 
   <h2>4. What it reproduces, and with how many assumptions</h2>
   <div class="cols">
