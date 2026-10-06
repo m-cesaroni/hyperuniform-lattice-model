@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A discrete, random, equilibrium vacuum — technical note</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1a1f26; --soft: #5c6670; --line: #d9d6cf;
+    --acc: #8a3b12; --ok: #1f6f5a; --warn: #8a6a12; --no: #8a2a2a; --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #16191d; --panel: #1e2328; --ink: #e8e6e1; --soft: #a0a6ad; --line: #343b43; --acc: #e0905c; --ok: #6fc3a8; --warn: #d9b55c; --no: #d97a7a; }
+  }
+  :root[data-theme="dark"] { --bg: #16191d; --panel: #1e2328; --ink: #e8e6e1; --soft: #a0a6ad; --line: #343b43; --acc: #e0905c; --ok: #6fc3a8; --warn: #d9b55c; --no: #d97a7a; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Source Serif 4", Georgia, serif; font-size: 17px; line-height: 1.55; }
+  main { max-width: 860px; margin: 0 auto; padding: 44px 24px 64px; }
+  h1 { font-size: 1.9rem; font-weight: 600; line-height: 1.15; margin: 0 0 6px; letter-spacing: -.01em; }
+  .sub { color: var(--soft); margin: 0 0 26px; font-style: italic; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  p { margin: 0 0 12px; }
+  .abstract { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--acc); padding: 14px 18px; margin: 0 0 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 10px 0 14px; }
+  th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--soft); font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+  td.n { font-family: var(--mono); font-size: .88rem; white-space: nowrap; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .72rem; padding: 1px 7px; border-radius: 3px; border: 1px solid var(--line); color: var(--soft); white-space: nowrap; }
+  .tag.ok { color: var(--ok); border-color: var(--ok); } .tag.warn { color: var(--warn); border-color: var(--warn); } .tag.no { color: var(--no); border-color: var(--no); }
+  ul, ol { padding-left: 1.2em; margin: 0 0 12px; } li { margin: 0 0 6px; }
+  code, .mono { font-family: var(--mono); font-size: .88rem; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; } @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  .small { color: var(--soft); font-size: .92rem; }
+  a { color: var(--acc); }
+  .refs li { font-size: .9rem; color: var(--soft); }
+</style>
+</head>
+<body>
+<main>
+  <h1>A discrete, random, equilibrium vacuum: what it reproduces, what it predicts, what it cannot yet do</h1>
+  <p class="sub">Working note — M. Cesaroni, October 2026. Model and numerical checks; no claim of completeness. Italian original: <a href="nota-tecnica.html">nota-tecnica.html</a>. Terms are defined in the <a href="glossary.html">glossary</a>.</p>
+
+  <div class="abstract">
+    <p><b>In three sentences.</b> Space is modelled as a three-dimensional <em>random</em> lattice of cells in mechanical equilibrium; light, matter and gravity are ways of using the faces, edges and vertices of the Voronoi tessellation. On that lattice the electromagnetic field (discrete exterior calculus) and a Kähler–Dirac field come out right without tuning: exact c, isotropy, no birefringence, no long-wavelength scattering, the relativistic energy–momentum relation as an algebraic identity. Time is not a coordinate of the model: it is the count of chirality inversions of a massive vibration, and time dilation, special and gravitational, is bookkeeping. From the same structure come the factor 2 in light deflection, Mercury's perihelion from the saturation of a probabilistic occupation, and three generations from the geometry of channels; the model predicts a constant dark energy and a black-hole shadow 4.6 % larger than in general relativity, and dies if the data say otherwise.</p>
+  </div>
+
+  <h2>1. The model, in standard terms</h2>
+  <p>Three choices, all different from the known discrete-spacetime programmes (causal sets, dynamical triangulations, spin networks, cellular automata):</p>
+  <ol>
+    <li><b>Random lattice, not crystalline.</b> Points with a minimum distance, fixed density, periodic boundaries. No preferred axes; rotational invariance is statistical.</li>
+    <li><b>Mechanical equilibrium.</b> The points repel each other with a finite-range potential and are relaxed until the forces vanish. The resulting lattice is <em>hyperuniform</em> (S(k) → 0 as k → 0, fluctuations ∝ surface) and locally isotropic in the directions of its neighbours. This condition is what makes everything else work.</li>
+    <li><b>The Delaunay–Voronoi duality as the home of the fields.</b> 0-forms on cells, 1-forms on links (dual to Voronoi faces), 2-forms on triangles (dual to edges), 3-forms on tetrahedra (dual to vertices). Diagonal Hodge stars are ratios of dual measures. The EM field lives on the 1- and 2-forms; the spinor on all four (Kähler–Dirac).</li>
+  </ol>
+  <p class="small">Time evolution: Hermitian Hamiltonian K = d + d† (symmetrised with the Hodge stars); for light, an energy-exact leapfrog. Units: mean lattice step = 1, c = 1 in the continuum.</p>
+  <p><b>Matrix mechanics.</b> The state is a vector of amplitudes on the elements of the complex; the position X_a is diagonal (coordinate of the dual centre of each element: cell, link midpoint, triangle centre, tetrahedron centre); K is sparse, with entries only between adjacent elements. For any diagonal matrix ([X_a, K])_{αβ} = (x_α − x_β)_a K_{αβ}, real and antisymmetric, hence [X_a, K] = iV_a with V_a Hermitian: Heisenberg's equation dX_a/dt = i[K, X_a] = V_a identifies V_a with the velocity (displacement along the passage × stiffness of the passage). Robertson's inequality follows: ΔX_a·ΔK ≥ ½|⟨V_a⟩|. In the Schrödinger limit [X_a, P_a] = i in lattice units (cell × radian per cell): ħ is a unit conversion. The uncertainty principle is verified from the spectrum of K (table), saturating the Gaussian minimum above one cell and reduced below it (minimal length).</p>
+
+  <h2>2. Time</h2>
+  <p>There is no time coordinate in the model. The lattice updates in steps — <em>batches</em> — but a step is not an instant: it is a global counter that no observer can read. Physical time is something else, and it is defined operationally.</p>
+  <ul>
+    <li><b>Proper time is a count.</b> A massive vibration inverts its chirality at frequency 2E/ħ (Zitterbewegung); the mass operator is what inverts. The proper time of a particle is the number of inversions it has completed. On the lattice, for every eigenstate, ⟨Γ⟩ = m/E, and the number of inversions per step is the share T of the budget, with I² + T² = 1 exact. T = dτ/dt = 1/γ follows without postulating relativity; at discrete steps the relation becomes cos ω = cos μ · cos κ and tends to the continuous one for small angles.</li>
+    <li><b>Light has no time.</b> The EM field lives on the 1- and 2-forms and has no inversion term: no count, τ = 0, consistent with relativity. This is also why light does not interact with itself and is not localisable: nothing happens to it between emission and absorption.</li>
+    <li><b>Gravitational dilation is a rhythm.</b> Near a mass the occupation n slows the inversions: T² = e^(−n), whence redshift, GPS, Shapiro, and — with the same deficit read in space as well — γ = 1. The binding energy of hydrogen in Dirac's theory is exactly the deficit of the electron's proper time: ⟨β⟩ = √(1 − α²), E = mT.</li>
+    <li><b>Before the first vibration there is no time.</b> A lattice without massive excitations has steps but no clocks. The initial growth epoch has a number of steps, not a duration: "how long did inflation last" is not a well-posed question in the model, and a birth rate per step in that epoch is not a physical quantity. Time begins with the first excitation, i.e. with the first push on a closed shell of equilibrium cells.</li>
+    <li><b>The twin paradox and the energy–time uncertainty</b> are counts: the travelling twin spent more budget in motion and less in inversions; knowing E to precision ΔE requires ΔE·Δt ≳ ħ because it requires counting enough steps.</li>
+  </ul>
+  <p class="small">Verified constraint: the conversion between steps and the proper time of a cosmic observer does <em>not</em> drift with the epoch — a fit to the DESI DR2 BAO distances excludes a clock factor depending on Ω_m (parameter ≈ 0 ± 0.1). The model's time does not rewrite cosmological chronology. Experimental reference for the time–mass identification: Lan et al., <em>Science</em> 339 (2013), the Compton clock.</p>
+
+  <h2>3. Numerical results (lattices from 4·10³ to 2.7·10⁶ cells)</h2>
+  <table>
+    <thead><tr><th>Quantity</th><th>Result</th><th>Reference</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Speed of light (long waves)</td><td class="n">1.0002 ± 0.0005</td><td class="n">1</td><td><span class="tag ok">no normalisation</span></td></tr>
+      <tr><td>Anisotropy of c between directions</td><td class="n">1.3 % (small lattice)</td><td class="n">0</td><td><span class="tag ok">decreases with size</span></td></tr>
+      <tr><td>Dispersion: c(k) = c₀[1 − β(ka)ⁿ]</td><td class="n">n = 1.84 ± 0.06, β ≈ 0.01–0.14</td><td class="n">linear excluded (Fermi)</td><td><span class="tag ok">quadratic</span></td></tr>
+      <tr><td>Velocity difference between helicities</td><td class="n">&lt; 10⁻³ (spin ½), &lt; 10⁻⁷ (EM)</td><td class="n">&lt; 10⁻¹⁶ (GRB)</td><td><span class="tag ok">compatible</span></td></tr>
+      <tr><td>Scattering of light, waves ≥ 16 steps</td><td class="n">&lt; 1.2·10⁻⁷ per unit time</td><td class="n">sharp galaxies</td><td><span class="tag ok">not detected</span></td></tr>
+      <tr><td>Scattering law at onset</td><td class="n">Γ ∝ k^p, p ≈ 6–8 (eq.), 2 (spin in cells)</td><td class="n">p ≥ 3.4 suffices at TeV</td><td><span class="tag ok">the k² was doubling</span></td></tr>
+      <tr><td>Scattering ratio equilibrium / non-equilibrium lattice</td><td class="n">1/10 – 1/100</td><td class="n">—</td><td><span class="tag ok">equilibrium matters</span></td></tr>
+      <tr><td>Inversion share T = ⟨Γ⟩ vs m/E, eigenstate by eigenstate</td><td class="n">deviation 7·10⁻¹⁵</td><td class="n">1/γ</td><td><span class="tag ok">time = count</span></td></tr>
+      <tr><td>Oscillation along the spin axis (packet at rest)</td><td class="n">period π/E, transverse &lt; 10⁻²</td><td class="n">Zitterbewegung</td><td><span class="tag ok">measured</span></td></tr>
+      <tr><td>Anticommutation {K, Γ} and E² = K² + m² (Kähler–Dirac)</td><td class="n">0 and 10⁻¹⁴ on all eigenstates</td><td class="n">identity</td><td><span class="tag ok">theorem</span></td></tr>
+      <tr><td>Discrete-step version</td><td class="n">cos ω = cos μ · cos κ, deviation 10⁻¹⁵</td><td class="n">spherical Pythagoras</td><td><span class="tag ok">theorem</span></td></tr>
+      <tr><td>Spurious low-energy modes (doubling)</td><td class="n">258/260 (spin in cells); 0 (Kähler–Dirac)</td><td class="n">Nielsen–Ninomiya</td><td><span class="tag warn">2 residual tastes</span></td></tr>
+      <tr><td>Field profile from a critical contagion</td><td class="n">r^(−0.986)</td><td class="n">1/r</td><td><span class="tag ok">discrete Poisson</span></td></tr>
+      <tr><td>Occupation from independent engagements</td><td class="n">1 − e^(−n), var/mean = 1.000</td><td class="n">—</td><td><span class="tag ok">Poisson</span></td></tr>
+      <tr><td>Hyperuniformity: S(k) at small k</td><td class="n">0.002 (eq.) vs 0.05 (RSA) vs 0.9 (Poisson)</td><td class="n">—</td><td><span class="tag ok">measured</span></td></tr>
+      <tr><td>Δx·Δk from ⟨K²⟩ for Gaussian packets of width s</td><td class="n">0.49 (s = 1–2 cells); 0.45 (s = 0.6)</td><td class="n">½</td><td><span class="tag ok">spectrum of K</span></td></tr>
+      <tr><td>Δω·N½ (survival under e^{−iK})</td><td class="n">0.80 – 0.87</td><td class="n">≥ π/4 = 0.785</td><td><span class="tag ok">Mandelstam–Tamm</span></td></tr>
+      <tr><td>Hydrogen, Schrödinger of the model on 2.7·10⁶ cells (a₀ = 4 cells, box 32 a₀)</td><td class="n">1s −1.2 %; 2p +0.17 %; 2s −0.28 %</td><td class="n">−μα²/2n²</td><td><span class="tag ok">Laplacian from Hodge weights</span></td></tr>
+      <tr><td>2s–2p degeneracy; 2p triplet; 3d under a spherical wall</td><td class="n">0.45 %; 4·10⁻⁵; 1·10⁻⁴</td><td class="n">0; 0; 0</td><td><span class="tag ok">no symmetry imposed</span></td></tr>
+      <tr><td>Lyman-α oscillator strength (⟨2p|X|1s⟩); extrapolation to infinite resolution and box (6 runs)</td><td class="n">0.425; 0.410 – 0.414</td><td class="n">0.4162</td><td><span class="tag ok">+2.2 % / −1 %</span></td></tr>
+      <tr><td>n = 3 manifold (box 50 a₀): 3s, 3p, 3d degenerate among themselves and with Rydberg/9; sums 1s→n=3, 2s→n=3, 2p→n=3</td><td class="n">0.4 %; 0.082 / 0.468 / 0.699</td><td class="n">0; 0.0791 / 0.4349 / 0.7094</td><td><span class="tag ok">+3.9 % / +7.7 % / −1.5 %</span></td></tr>
+      <tr><td>Balmer 2p→3d oscillator strength (boxes 42 a₀ and 32 a₀)</td><td class="n">0.678; 0.690</td><td class="n">0.6958</td><td><span class="tag ok">−2.6 % / −0.8 %</span></td></tr>
+      <tr><td>Controls: packing fraction 0.60–0.80; periodic vs spherical wall (n = 2); 10 % weight noise; 10× worse relaxation</td><td class="n">Δf ≤ 1 %; identical to 0.05 %; ΔE ≤ 0.4 %; ΔE ≤ 0.3 %</td><td class="n">—</td><td><span class="tag ok">stable</span></td></tr>
+      <tr><td>Apertures around channels (Delaunay triangles)</td><td class="n">typical imbalance 0.21–0.23 rad at φ = 0.70</td><td class="n">Koide angle 0.222</td><td><span class="tag warn">depends on φ</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. What it reproduces, and with how many assumptions</h2>
+  <div class="cols">
+    <div>
+      <p><b>With no free parameter</b></p>
+      <ul>
+        <li>Relativistic energy–momentum relation and the budget v² + (1/γ)² = 1 as consequences of the anticommutation motion–inversion; proper time as the count of inversions.</li>
+        <li>The hydrogen spectrum in the Rydberg scale, the accidental degeneracies and the intensities of Lyman-α and Balmer 2p→3d from the lattice Schrödinger equation, without tuned constants; the cubic splitting of the 3d states belongs to the periodic images and disappears under a spherical wall.</li>
+        <li>Zitterbewegung frequency 2E/ħ, oscillation along the spin axis, amplitude c/2m.</li>
+        <li>Deflection 1.7516″, Shapiro 123.7 μs, GPS +38.5 μs/day from the principle "one deficit read in time and in space" (γ = 1).</li>
+        <li>Mercury 42.99″/century from the saturation of the occupation (β = 1), with no added term.</li>
+        <li>Three generations, no fourth: three faces around a Voronoi edge; Koide's relation Q = 2/3 as an identity of the three projections at 120°.</li>
+        <li>No magnetic monopoles (d² = 0) and no light–light interaction (linearity), by structure.</li>
+      </ul>
+    </div>
+    <div>
+      <p><b>With one parameter or one identification</b></p>
+      <ul>
+        <li>Hierarchy 1 : 207 : 3477 if the dipole angle is the typical imbalance of the channels, which comes out 0.21–0.23 rad at packing fraction 0.70 (0.28 at 0.60; 0.17–0.21 at 0.80).</li>
+        <li>Neutrino masses 0.38 / 8.9 / 50.7 meV (Brannen's scheme): two parameters, reproduces both Δm².</li>
+        <li>G equivalent to 5–6 "engagements per inversion" with the cell at the Planck scale; ≈ half of the 11.7 neighbours that fix α = 1/N².</li>
+        <li>Uniform chirality of the universe from the first birth-ordered tetrahedron (sign); the amount of the baryon asymmetry remains to be derived.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5. The known obstacles, by name</h2>
+  <ul>
+    <li><b>Lorentz invariance.</b> A preferred frame exists (the lattice). It is statistically invisible: corrections are quadratic, E_QG,2 ≈ 2.7 E_Planck against current limits ≈ 10⁻⁸ E_Planck; the time of flight of GRB 090510 comes out 2·10⁻¹⁹ s.</li>
+    <li><b>Fermion doubling.</b> A spinor placed in the cells produces a constant density of spurious modes (p = 2 in the scattering: conversion into lattice modes). Kähler–Dirac removes them at the price of two nearly degenerate tastes (0.1–0.3 % splitting at λ = 15 steps). Not solved: the main open problem on matter.</li>
+    <li><b>Aether.</b> It is Lorentz's aether made invisible by hyperuniformity: real parts, undetectable by waves longer than the cells. Where it differs from GR it is measurable (below).</li>
+    <li><b>Speed of the gravitational contagion.</b> The 1/r profile was obtained with a random walk, incompatible with GW170817 by 30 orders of magnitude. The profile survives as the static solution of a wave equation; the mechanism must be redone.</li>
+    <li><b>Vacuum energy and masses.</b> The model does not solve the hierarchy: it translates it into "why inversion is rare" (m/m_P per step). The 120 orders of magnitude of the vacuum energy remain.</li>
+  </ul>
+
+  <h2>6. Falsifiable predictions</h2>
+  <table>
+    <thead><tr><th>Prediction</th><th>Value</th><th>Test</th><th>If false</th></tr></thead>
+    <tbody>
+      <tr><td>Constant dark energy (w = −1)</td><td class="n">Λ; p₀ = 3H₀t_P ≈ 4·10⁻⁶¹ per cell per step</td><td>final DESI, Euclid (2027–2030)</td><td>a w₀wₐ at 5σ requires a relaxation dynamics not yet written</td></tr>
+      <tr><td>Black-hole shadow</td><td class="n">+4.6 % relative to GR (T² = e^(−n), no horizon)</td><td>ngEHT, Sgr A* (uncertainty today ≈ 9 %)</td><td>the strong-field saturation is wrong</td></tr>
+      <tr><td>Second-order solar deflection</td><td class="n">+0.69 μas relative to GR</td><td>LATOR-type missions</td><td>same</td></tr>
+      <tr><td>No fourth generation</td><td class="n">exactly 3</td><td>already verified (Z, Higgs)</td><td>—</td></tr>
+      <tr><td>Sum of neutrino masses</td><td class="n">60 meV, normal ordering, Majorana</td><td>cosmology 2030–34</td><td>the three-projection neutrino scheme falls</td></tr>
+      <tr><td>No vacuum birefringence; dispersion only quadratic</td><td class="n">—</td><td>GRB polarisation, Fermi/CTA</td><td>the lattice would have a geometric handedness</td></tr>
+    </tbody>
+  </table>
+
+  <h2>7. What it cannot do (today)</h2>
+  <ol>
+    <li>Separate or interpret the two tastes of the Kähler–Dirac field.</li>
+    <li>Construct the "cell–void exchange" mass operator that anticommutes with K (the naive version transports instead of inverting).</li>
+    <li>Fix the packing fraction of the vacuum: Koide's angle is a one-parameter coincidence until φ is derived.</li>
+    <li>The growth of structure with this gravity (needed to compare the 60 meV with lensing limits).</li>
+    <li>The weak sector (W, Z, coupling to one chirality) and the amount of the baryon asymmetry.</li>
+  </ol>
+
+  <h2>8. Reproducibility</h2>
+  <p>All numbers in the table come from Python scripts (numpy, scipy) that run on a laptop: lattice generation (RSA, equilibrium, growth by adjacent births, CCC crystal as control), measurements of S(k) and number variance, light propagation with discrete exterior calculus (leapfrog, energy conserved to 10⁻¹²), Weyl and Kähler–Dirac operators with exact diagonalisation on small lattices, Monte Carlo contagion. Times: 30 minutes for 3·10⁴ cells, an hour and a half for 1.3·10⁵. The scripts are in the repository's <code>code/</code> folder (<code>mt_trasparenza.py</code>, <code>mt_luce.py</code>, <code>kdlib.py</code>, <code>mt_idrogeno_pc.py</code>), and in <code>code/analysis/</code> those that produce the individual numbers of the table (channel geometry, neighbours, uncertainty, commutator, sectors, pushes, DESI fit). The gravity numbers — 1/r profile from the contagion, Mercury from saturation — come from scripts of an earlier phase not yet consolidated in the repository: they will be added in a later version.</p>
+
+  <h2>9. Literature it rests on</h2>
+  <ol class="refs">
+    <li>Desbrun, Hirani, Leok, Marsden — Discrete exterior calculus (2005); Bossavit — Computational electromagnetism.</li>
+    <li>Nielsen, Ninomiya — No-go theorem for lattice chiral fermions (1981); Christ, Friedberg, Lee — Random lattice field theory (1982); Rabin — Kähler–Dirac fermions on lattices (1982).</li>
+    <li>Torquato, Stillinger — Hyperuniformity (2003); Leseur, Pierrat, Carminati — Transparency of hyperuniform media (2016); Donev, Stillinger, Torquato — Jammed packings are hyperuniform (2005).</li>
+    <li>Feynman, Hibbs — Checkerboard (1965); Kac (1974); Gaveau, Jacobson, Kac, Schulman — Telegraph/Dirac and Brownian motion (1984); Nelson — Stochastic mechanics (1966).</li>
+    <li>Koide (1982); Brannen — Koide for neutrinos (2006).</li>
+    <li>Sorkin — Causal sets; Ambjørn, Jurkiewicz, Loll — CDT; 't Hooft — Cellular automaton interpretation; Einstein — Äther und Relativitätstheorie (Leiden, 1920).</li>
+    <li>DESI DR2 (2025–26); Vasileiou et al. — Fermi constraints on Lorentz violation (2013); EHT Sgr A* (2022); Will — PPN confrontation (2014).</li>
+  </ol>
+</main>
+</body>
+</html>

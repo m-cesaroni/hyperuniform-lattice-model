@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Max Theory — glossary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1a1f26; --soft: #5c6670; --line: #d9d6cf;
+    --acc: #8a3b12; --ok: #1f6f5a; --warn: #8a6a12; --no: #8a2a2a; --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #16191d; --panel: #1e2328; --ink: #e8e6e1; --soft: #a0a6ad; --line: #343b43; --acc: #e0905c; --ok: #6fc3a8; --warn: #d9b55c; --no: #d97a7a; }
+  }
+  :root[data-theme="dark"] { --bg: #16191d; --panel: #1e2328; --ink: #e8e6e1; --soft: #a0a6ad; --line: #343b43; --acc: #e0905c; --ok: #6fc3a8; --warn: #d9b55c; --no: #d97a7a; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Source Serif 4", Georgia, serif; font-size: 17px; line-height: 1.55; }
+  main { max-width: 860px; margin: 0 auto; padding: 44px 24px 64px; }
+  h1 { font-size: 1.9rem; font-weight: 600; line-height: 1.15; margin: 0 0 6px; letter-spacing: -.01em; }
+  .sub { color: var(--soft); margin: 0 0 26px; font-style: italic; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  p { margin: 0 0 12px; }
+  .abstract { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--acc); padding: 14px 18px; margin: 0 0 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 10px 0 14px; }
+  th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--soft); font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+  td.n { font-family: var(--mono); font-size: .88rem; white-space: nowrap; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .72rem; padding: 1px 7px; border-radius: 3px; border: 1px solid var(--line); color: var(--soft); white-space: nowrap; }
+  .tag.ok { color: var(--ok); border-color: var(--ok); } .tag.warn { color: var(--warn); border-color: var(--warn); } .tag.no { color: var(--no); border-color: var(--no); }
+  ul, ol { padding-left: 1.2em; margin: 0 0 12px; } li { margin: 0 0 6px; }
+  code, .mono { font-family: var(--mono); font-size: .88rem; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; } @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  .small { color: var(--soft); font-size: .92rem; }
+  a { color: var(--acc); }
+  .refs li { font-size: .9rem; color: var(--soft); }
+
+.gl{width:100%;border-collapse:collapse;margin:1.2rem 0;font-size:.95rem}
+.gl th,.gl td{text-align:left;vertical-align:top;padding:.55rem .6rem;border-bottom:1px solid var(--line)}
+.gl th{font-weight:600;font-size:.85rem;letter-spacing:.02em}
+.gl td:first-child{white-space:nowrap;font-weight:600}
+.gl td:first-child i{display:block;font-weight:400;font-size:.82rem;opacity:.75}
+.gl tr.sec td{background:var(--panel);font-weight:600;font-size:.85rem;letter-spacing:.03em;text-transform:uppercase}
+</style>
+</head>
+<body>
+<main>
+  <h1>Glossary</h1>
+  <p class="sub">The vocabulary of Max Theory, each term with its Italian original, its meaning in the model and its nearest counterpart in standard physics. The documents use these terms consistently; where the correspondence is only partial, the third column names the closest concept, not an identity. — M. Cesaroni, October 2026.</p>
+
+  <table class="gl">
+    <thead><tr><th>Term</th><th>In the model</th><th>Standard counterpart</th></tr></thead>
+    <tbody>
+<tr class="sec"><td colspan="3">The lattice</td></tr>
+<tr><td>Cell<i>cella</i></td><td>The elementary unit of space: spherical, never in contact with its neighbours, one Planck length across. Cells carry states and time; nothing physical is smaller than a cell.</td><td>Lattice site; Delaunay vertex; Voronoi cell. A Planck-scale quantum of space.</td></tr>
+<tr><td>Step<i>batch</i></td><td>The global update counter of the lattice. One step is not an instant: it is one application of the rules, converted to one Planck time only when translated into seconds. Steps carry time only where a massive vibration counts them.</td><td>Discrete update step of a lattice dynamics. Not a time coordinate.</td></tr>
+<tr><td>Interstice<i>interstizio</i></td><td>The space between cells. It carries the conditions of passage — phase differences, torsions, contraction, agreement — but no states and no time. Elastic, with stiffnesses fixed by geometry.</td><td>The Voronoi/Delaunay complex (faces, edges, vertices) with its Hodge weights; the elastic medium.</td></tr>
+<tr><td>Aperture<i>varco</i></td><td>The passage between two neighbouring cells. Seat of the electric field (a phase difference across it). Stretching stiffness = face area / length.</td><td>Voronoi face ↔ Delaunay link; a 1-form; Hodge star ⋆₁.</td></tr>
+<tr><td>Channel<i>canale</i></td><td>The line onto which three cells open. Seat of the magnetic field (the torsion left by differences going round it). Three faces around a channel → three generations. Torsion stiffness = channel length / triangle area.</td><td>Voronoi edge ↔ Delaunay triangle; a 2-form; Hodge star ⋆₂.</td></tr>
+<tr><td>Void<i>vuoto</i></td><td>The region among four cells, the fourth part of the interstice. Light never enters it; the spin vibration does. The cell/void agreement is chirality.</td><td>Voronoi vertex ↔ Delaunay tetrahedron; a 3-form.</td></tr>
+<tr><td>Connection<i>collegamento</i></td><td>The segment joining the centres of two neighbouring cells; the dual reading of an aperture. Typical length 0.97 ℓ_P; short below 0.8; inert beyond 1.3.</td><td>Delaunay edge.</td></tr>
+<tr><td>Stiff neighbour<i>vicina rigida</i></td><td>A neighbouring cell whose connection is shorter than 1.3 ℓ_P and therefore transmits pushes rigidly. N = 11.7 per cell in the equilibrium vacuum; α = 1/N².</td><td>Effective coordination number.</td></tr>
+<tr><td>Push<i>spinta</i></td><td>The elastic force a cell exerts on a neighbour through the interstice. Equilibrium is the closing of the pushes on every cell; the transmission of altered pushes, one cell per step, carries gravity.</td><td>Interparticle force; momentum conservation; the elastic field of the medium.</td></tr>
+<tr><td>Equilibrium<i>equilibrio</i></td><td>The state in which the pushes close on every cell: no phase difference, no cost, no time. Such a lattice is hyperuniform, isotropic and transparent. The condition on which every result depends.</td><td>Mechanically relaxed (jammed) random packing; hyperuniformity, S(k) → 0.</td></tr>
+<tr><td>Hodge weights<i>pesi di Hodge</i></td><td>The ratios of dual measures (face/length, length/area) that weight every passage. They are the only "constants" of the interstice, and they are fixed by the positions of the cells.</td><td>Diagonal Hodge star of discrete exterior calculus.</td></tr>
+<tr class="sec"><td colspan="3">Excitations and the budget</td></tr>
+<tr><td>Vibration<i>vibrazione</i></td><td>An excitation of the lattice: a pattern of amplitudes on cells and interstice that is re-excited cell after cell. A particle is a vibration; it does not move, it is re-ignited.</td><td>Field quantum; wave packet.</td></tr>
+<tr><td>Ignition<i>accensione</i></td><td>The re-excitation of the next cell along the direction of motion. Light is a sequence of ignitions, one cell per step, without ever entering a cell.</td><td>Propagation at c; the photon has no proper time.</td></tr>
+<tr><td>Budget<i>budget</i></td><td>The unit total available to every vibration, partitioned over orthogonal axes: I² + T² + qIG² = 1. The relativistic mass-shell relation written in units of budget.</td><td>Normalisation of the four-velocity; E² = p² + m².</td></tr>
+<tr><td>Propagation share I<i>quota di propagazione</i></td><td>The share of the budget spent in not pausing. Light has I = 1 always.</td><td>v/c.</td></tr>
+<tr><td>Time share T<i>quota di tempo</i></td><td>The share spent in pauses: each pause is one tick of the clock. T = dτ/dt.</td><td>1/γ; in Dirac's theory ⟨β⟩ = m/E.</td></tr>
+<tr><td>Field share qIG<i>quota ceduta al campo</i></td><td>The share withdrawn by engaged cells; depends on position only.</td><td>Gravitational potential; redshift factor.</td></tr>
+<tr><td>Pause<i>sosta, stazionamento</i></td><td>The chirality inversion of a massive vibration: the part that passes through apertures and voids is reversed. The count of pauses is proper time. At rest, one inversion every 1/m steps.</td><td>Dirac mass term; Zitterbewegung; ⟨Γ⟩ = m/E on every eigenstate.</td></tr>
+<tr><td>Inversion amplitude<i>ampiezza di inversione</i></td><td>The rate of pauses per step: the mass of a vibration in lattice units. For the electron 4·10⁻²³ per step; for the Planck mass, 1.</td><td>Mass in Planck units, m/m_P.</td></tr>
+<tr><td>Phase difference<i>scarto di fase</i></td><td>A mismatch of phase across an aperture. It costs the square of the mismatch; equal differences add, opposite ones cancel. Written by a vibration, it is work spent; crossed, it is reflection; released, it is light.</td><td>Electric field (1-form); gauge-field energy density.</td></tr>
+<tr><td>Torsion<i>torsione</i></td><td>The circulation of phase differences around a channel.</td><td>Magnetic field (2-form); the curl.</td></tr>
+<tr><td>Agreement<i>accordo</i></td><td>The relation — in phase or in antiphase — between the vibration on the cells and the one in the voids. It distinguishes the two copies of the spin vibration and is what the weak interaction acts upon.</td><td>Chirality; the weak doublet; a Higgs-like reflective state of the interstice.</td></tr>
+<tr><td>Orientation (handedness)<i>verso, mano</i></td><td>The single chirality of the lattice, decided by chance at the first tetrahedron and inherited by adjacency. It fixes the handedness of the weak interaction and which phase is called matter.</td><td>Parity violation; the sign of the matter–antimatter asymmetry.</td></tr>
+<tr><td>Kähler–Dirac vibration<i>vibrazione di Kähler-Dirac</i></td><td>The spin vibration distributed over all four parts of the interstice: cells, apertures, channels, voids. Free of spurious modes; it comes in two nearly degenerate copies.</td><td>Kähler–Dirac (geometric) fermion; two tastes.</td></tr>
+<tr><td>Copies<i>copie, doppioni</i></td><td>The two nearly identical spin vibrations produced by the cell/void duality (splitting 0.1–0.3 %). Read as the weak doublet, not as a defect.</td><td>Fermion doubling (Nielsen–Ninomiya); taste multiplicity.</td></tr>
+<tr><td>K<i>operatore del reticolo</i></td><td>The sparse Hermitian operator that advances the state by one step; one entry per passage. [X_a, K] = iV_a is an identity.</td><td>Lattice Hamiltonian d + d† (symmetrised); the Kähler–Dirac operator.</td></tr>
+<tr class="sec"><td colspan="3">Gravity</td></tr>
+<tr><td>Engagement<i>impegno</i></td><td>What happens to a cell visited repeatedly by a pausing vibration: it spends part of its own steps for the engagement and withdraws a share from whatever passes through it. The mean number of engagements per cell, n, falls as 1/r.</td><td>Source term of the gravitational field.</td></tr>
+<tr><td>Occupation<i>occupazione</i></td><td>The probability that a cell carries at least one engagement: 1 − e^(−n). It saturates; the rate of time is T² = e^(−n). No horizon, no singularity.</td><td>Metric time dilation, g₀₀; saturation replaces the Schwarzschild singularity.</td></tr>
+<tr><td>Contagion<i>contagio</i></td><td>The spreading of engagement to neighbouring cells without loss at the source. Critical contagion gives the 1/r profile; the transient travels at one cell per step.</td><td>Poisson's equation (static); retarded propagation of the field.</td></tr>
+<tr><td>Contraction<i>contrazione</i></td><td>The denser packing of cells near a mass, by the same fraction as the slowing of time: the same deficit read in space. A free rod counts more cells; a bound rod the same number.</td><td>Spatial part of the metric; the factor 2 in light deflection; what interferometers measure.</td></tr>
+<tr class="sec"><td colspan="3">Hadrons and the cosmos</td></tr>
+<tr><td>Vortex<i>vortice</i></td><td>A closed circulation of internal phase around a channel: one full turn, one third per face. The proton. The number of turns is conserved.</td><td>Baryon; baryon number as winding number; confinement.</td></tr>
+<tr><td>String (vortex line)<i>corda</i></td><td>The line of cells each carrying the full winding; energy proportional to length; it pinches into two turns when stretched.</td><td>QCD flux tube; dual superconductor ("t Hooft–Mandelstam); pair creation, jets.</td></tr>
+<tr><td>Scale Λ<i>rigidità del vuoto contro gli avvolgimenti, ε₀</i></td><td>The stiffness of the equilibrium vacuum against windings: 10⁻⁸⁰ E_P per engaged cell. Measured in four ways (string tension, proton mass, tube width, g_A), not derived.</td><td>√σ = 440 MeV; Λ_QCD; the constituent quark mass.</td></tr>
+<tr><td>Reflection of the aperture<i>riflessione del varco</i></td><td>The function that assigns a cost to a phase mismatch across an aperture. The electron amplitude (temporal mismatch) and the scale Λ (spatial mismatch) are two values of it; deriving the function is the central open problem.</td><td>Mass generation; the hierarchy problem in MT's terms.</td></tr>
+<tr><td>Birth<i>nascita</i></td><td>The creation of a new cell at the centre of a connection stretched beyond 1.3 ℓ_P. Almost everywhere at the beginning (inflation), nowhere at equilibrium, almost never today: p₀ = 3H₀t_P ≈ 4·10⁻⁶¹ per cell per step.</td><td>Cosmic expansion; the cosmological constant (w = −1).</td></tr>
+<tr><td>Dark matter<i>materia oscura (mtdm)</i></td><td>Frozen spherical contractions of the interstice: regions whose connections were never stretched. No events, no time, mass proportional to radius.</td><td>Cold, collisionless dark matter.</td></tr>
+<tr class="sec"><td colspan="3">Labels used in the documents</td></tr>
+<tr><td>demonstrated<i>dimostrato</i></td><td>A theorem, or a numerical result reproduced by the code in the repository.</td><td></td></tr>
+<tr><td>coherent<i>coerente</i></td><td>A mechanism that reproduces the data but still depends on a choice, or on a scale, not yet derived.</td><td></td></tr>
+<tr><td>open<i>aperto</i></td><td>A problem not yet solved, stated with its target number.</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <p class="small">Conventions. Lattice units: mean cell spacing = 1 (one Planck length), one step = one Planck time, c = 1. Translation choices fixed for all English documents: <em>pause</em> (not "stop" or "rest"), <em>aperture</em> (not "gap"), <em>channel</em>, <em>void</em>, <em>engagement</em> (not "occupation", which is reserved for the probability 1 − e^(−n)), <em>agreement</em>, <em>orientation</em> or <em>handedness</em> for the Italian <em>verso/mano</em>, <em>birth</em>, <em>step</em> for <em>batch</em>.</p>
+</main>
+</body>
+</html>
