@@ -36,7 +36,7 @@ Four scales are taken from experiment, not derived: the electron's inversion amp
 ## Repository layout
 
 ```
-docs/          technical-note.html (technical note, English) · nota-tecnica.html (the same, Italian) · overview.html (full working document, English) · riepilogo.html (the same, Italian) · hydrogen.md (English)
+docs/          technical-note.html (technical note, English) · nota-tecnica.html (the same, Italian) · overview.html (full working document, English) · riepilogo.html (the same, Italian) · glossary.html (MT terms ↔ standard physics, English) · hydrogen.md (English)
 docs/capitoli/ the working document split into six chapters, each with its status legend and open items, published as linked deposits:
                1 Il tessuto · 2 La vibrazione · 3 Quark e nuclei · 4 Le generazioni e la mano · 5 La gravità · 6 L'inizio e il cosmo
 code/          mt_trasparenza.py (lattice generation, equilibrium, light scattering) · mt_luce.py (electromagnetic field, DEC)
