@@ -1,5 +1,7 @@
 # Max Theory (MT)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23189702.svg)](https://doi.org/10.5281/zenodo.23189702)
+
 A discrete model of space: a three-dimensional random lattice of cells that do not touch, held in mechanical equilibrium (every cell's pushes close), with the space between cells — the *interstice* — carrying the rules of passage. Light, matter, time and gravity are read as ways of using the cells and the passages between them: light as a phase shift that runs through the faces and twists around the edges of the Voronoi complex; mass as the reflection of a vibration at the interstice; proper time as the count of those reflections; gravity as the fraction of a cell's steps spent on engagements launched by stationing matter.
 
 The name honours Max Planck and his *mathematical artifice* of 1900 — the first acceptance that nature counts in steps. It has nothing to do with the author's name, which is why the author signs with an initial.
