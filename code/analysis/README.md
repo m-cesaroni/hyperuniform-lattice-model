@@ -5,7 +5,7 @@ Small scripts that produced specific numbers quoted in `docs/nota-tecnica.html`.
 | script | result in the note |
 |---|---|
 | `canali_koide.py` | typical imbalance of the three apertures around a channel vs packing fraction (Koide angle candidate) |
-| `vicine_riempimento.py` | number of rigid neighbours N and channel imbalance vs packing fraction (α fixes the filling) |
+| `vicine_riempimento.py` | number of stiff neighbours N and channel imbalance vs packing fraction (α fixes the packing fraction) |
 | `indeterminazione.py` | Δx·Δk from ⟨K²⟩ and Δω·N½ from survival under e^{−iK} |
 | `commutatore_lyman.py` | check of [X_a,K] = iV_a and Lyman-α quadrature with analytic vs lattice states |
 | `settori_urto.py` | sector decomposition of a push on a face / channel / cell / void (light sector share) |
