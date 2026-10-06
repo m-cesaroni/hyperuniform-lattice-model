@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Max Theory — start here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1a1f26; --soft: #5c6670; --line: #d9d6cf;
+    --acc: #8a3b12; --ok: #1f6f5a; --warn: #8a6a12; --no: #8a2a2a; --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #16191d; --panel: #1e2328; --ink: #e8e6e1; --soft: #a0a6ad; --line: #343b43; --acc: #e0905c; --ok: #6fc3a8; --warn: #d9b55c; --no: #d97a7a; }
+  }
+  :root[data-theme="dark"] { --bg: #16191d; --panel: #1e2328; --ink: #e8e6e1; --soft: #a0a6ad; --line: #343b43; --acc: #e0905c; --ok: #6fc3a8; --warn: #d9b55c; --no: #d97a7a; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Source Serif 4", Georgia, serif; font-size: 17px; line-height: 1.55; }
+  main { max-width: 860px; margin: 0 auto; padding: 44px 24px 64px; }
+  h1 { font-size: 1.9rem; font-weight: 600; line-height: 1.15; margin: 0 0 6px; letter-spacing: -.01em; }
+  .sub { color: var(--soft); margin: 0 0 26px; font-style: italic; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  p { margin: 0 0 12px; }
+  .abstract { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--acc); padding: 14px 18px; margin: 0 0 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 10px 0 14px; }
+  th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--soft); font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+  td.n { font-family: var(--mono); font-size: .88rem; white-space: nowrap; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .72rem; padding: 1px 7px; border-radius: 3px; border: 1px solid var(--line); color: var(--soft); white-space: nowrap; }
+  .tag.ok { color: var(--ok); border-color: var(--ok); } .tag.warn { color: var(--warn); border-color: var(--warn); } .tag.no { color: var(--no); border-color: var(--no); }
+  ul, ol { padding-left: 1.2em; margin: 0 0 12px; } li { margin: 0 0 6px; }
+  code, .mono { font-family: var(--mono); font-size: .88rem; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; } @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  .small { color: var(--soft); font-size: .92rem; }
+  a { color: var(--acc); }
+  .refs li { font-size: .9rem; color: var(--soft); }
+figure{margin:1.4rem 0}figure img{max-width:100%;display:block;border:1px solid var(--line);border-radius:4px;background:#fff}figcaption{color:var(--soft);font-size:.9rem;margin-top:.5rem}
+
+.path{list-style:none;padding:0;margin:1rem 0}
+.path li{display:grid;grid-template-columns:2.2rem 1fr;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--line)}
+.path li b{font-family:var(--mono);font-size:.85rem;color:var(--acc);padding-top:.15rem}
+.path li span{display:block}
+.path li em{color:var(--soft);font-style:normal;font-size:.9rem}
+.box{border:1px solid var(--line);border-radius:6px;padding:.9rem 1.1rem;margin:1.2rem 0;background:var(--panel)}
+</style>
+</head>
+<body>
+<main>
+  <h1>Start here</h1>
+  <p class="sub">A reading path through the material in this repository. Ten minutes for the first three steps; the rest as needed. — M. Cesaroni, October 2026. <a href="riepilogo.html">Versione italiana del documento completo</a>.</p>
+
+  <h2>What this is</h2>
+  <p>A discrete model of space. Space is a three-dimensional random lattice of spherical cells that never touch, held in mechanical equilibrium; the space between cells carries the rules of passage. Light, matter, time and gravity are read as ways of using the cells and the passages between them. The name honours Max Planck and the mathematical artifice with which he opened quantum physics in 1900.</p>
+  <p>It is a <strong>working model</strong>, not an established theory. Every statement in the documents carries one of three labels:</p>
+  <div class="box">
+    <p style="margin:.2rem 0"><span class="tag ok">demonstrated</span> a theorem, or a numerical result reproduced by the code in this repository</p>
+    <p style="margin:.2rem 0"><span class="tag warn">coherent</span> a mechanism that reproduces the data but still depends on a choice, or on a scale, not yet derived</p>
+    <p style="margin:.2rem 0"><span class="tag no">open</span> a problem not yet solved, stated with its target number</p>
+  </div>
+
+  <h2>What has been verified</h2>
+  <p>On random equilibrium lattices of 4·10³ to 2.7·10⁶ cells, with the code included: light propagates at speed 1.0002, isotropically, with quadratic dispersion, no birefringence and no long-wavelength scattering; a Kähler–Dirac vibration satisfies E² = K² + m² exactly, without spurious modes; the uncertainty relations follow from the spectrum of the lattice operator; and the hydrogen atom comes out with its levels within 1–2 % of Rydberg, the 2s–2p degeneracy to 0.45 %, the Lyman-α oscillator strength at 0.425 against the observed 0.4162, and Balmer 2p→3d at 0.690 against 0.6958. Gravity is reproduced in its profile (1/r, Mercury, light deflection) but its strength G is not derived; three generations follow from the geometry of the channels; the model predicts a constant dark energy and a black-hole shadow 4.6 % larger than in general relativity.</p>
+
+  <h2>In what order to read</h2>
+  <ol class="path">
+    <li><b>1</b><span><a href="technical-note.html">Technical note</a> <em>— the model in standard terms, the table of numerical results, the predictions, the known obstacles, the open problems. Twenty minutes. Italian original: <a href="nota-tecnica.html">nota-tecnica.html</a>.</em></span></li>
+    <li><b>2</b><span><a href="glossary.html">Glossary</a> <em>— the vocabulary of the model, each term with its meaning and its nearest standard counterpart. Keep it open while reading anything else.</em></span></li>
+    <li><b>3</b><span><a href="figures/">Figures</a> <em>— the lattice and the three places of the interstice, the hydrogen levels, the Lyman-α convergence, the structure factor of four lattices.</em></span></li>
+    <li><b>4</b><span><a href="hydrogen.md">Hydrogen on the lattice</a> <em>— the most complete numerical result, with its controls, and how to run it (<code>code/mt_idrogeno_pc.py</code>; outputs in <code>results/</code>).</em></span></li>
+    <li><b>5</b><span><a href="overview.html">Overview</a> <em>— the full working document: eighteen sections, every mechanism with its label, and the list of what is missing. Italian original: <a href="riepilogo.html">riepilogo.html</a>, also published as six chapters.</em></span></li>
+    <li><b>6</b><span>The code <em>— <code>code/</code> holds the four current scripts (lattice and transparency, light, Kähler–Dirac, hydrogen) and <code>code/analysis/</code> the small scripts behind individual numbers of the note, each listed in its README.</em></span></li>
+  </ol>
+
+  <h2>How to reproduce a number</h2>
+  <p>Install <code>numpy</code> and <code>scipy</code> (<code>requirements.txt</code>). The hydrogen run of <code>results/prova.txt</code> takes about ten minutes and 2 GB on a laptop: <code>python mt_idrogeno_pc.py --n 100000 --a0 3.0 --out test</code>, run from <code>code/</code>. The 2.7-million-cell runs take hours and are reported in <code>results/</code>. Each script of <code>code/analysis/</code> prints the number it is responsible for; <code>prepara_reticoli.py</code> builds the lattices they read.</p>
+
+  <h2>What to expect, and what not</h2>
+  <p>Expect numbers that can be checked, labels that say how much weight each claim carries, and a list of open problems with target values. Do not expect a derivation of the constants: four scales — the electron's inversion amplitude, the hadronic scale Λ, the birth rate of cells today, the weak scale — are measured within the model, not derived, and the technical note says so in each place. Criticism of a specific number, a specific mechanism or a specific label is the most useful thing a reader can send.</p>
+
+  <p class="small">Code under MIT; documents under CC BY 4.0. Citation details in <code>CITATION.cff</code>.</p>
+</main>
+</body>
+</html>
