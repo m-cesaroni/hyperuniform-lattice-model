@@ -6,7 +6,7 @@ authors:
   - family-names: "Cesaroni"
     given-names: "M."
 version: "1.0.0"
-date-released: "2026-10-07"
+date-released: "2026-10-06"
 license: MIT
 repository-code: "https://github.com/m-cesaroni/hyperuniform-lattice-model"
 keywords:
