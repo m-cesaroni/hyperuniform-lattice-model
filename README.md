@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23189702.svg)](https://doi.org/10.5281/zenodo.23189702)
 
-A discrete model of space: a three-dimensional random lattice of cells that do not touch, held in mechanical equilibrium (every cell's pushes close), with the space between cells — the *interstice* — carrying the rules of passage. Light, matter, time and gravity are read as ways of using the cells and the passages between them: light as a phase shift that runs through the faces and twists around the edges of the Voronoi complex; mass as the reflection of a vibration at the interstice; proper time as the count of those reflections; gravity as the fraction of a cell's steps spent on engagements launched by stationing matter.
+A discrete model of space: a three-dimensional random lattice of cells that do not touch, held in mechanical equilibrium (every cell's pushes close), with the space between cells — the *interstice* — carrying the rules of passage. Light, matter, time and gravity are read as ways of using the cells and the passages between them: light as a phase difference that runs through the faces (apertures) and twists around the edges (channels) of the Voronoi complex; mass as the inversion of a vibration at the interstice — its pause; proper time as the count of those pauses; gravity as the fraction of a cell's steps spent on engagements launched by pausing matter.
 
 The name honours Max Planck and his *mathematical artifice* of 1900 — the first acceptance that nature counts in steps. It has nothing to do with the author's name, which is why the author signs with an initial.
 
@@ -15,7 +15,7 @@ The name honours Max Planck and his *mathematical artifice* of 1900 — the firs
 | Speed of light on a random equilibrium lattice (discrete exterior calculus) | 1.0002, isotropic to 1 % | 1 |
 | Light dispersion | quadratic in E/E_Planck, scale 2.7 E_Planck; GRB 090510 delay 2·10⁻¹⁹ s | linear excluded |
 | Vacuum birefringence; scattering of long waves | < 10⁻⁷; undetected (< 1.2·10⁻⁷), onset ∝ k⁶ | transparent vacuum |
-| Kähler–Dirac vibration: E² = K² + m², I² + T² = 1 | exact to 10⁻¹⁴; no spurious modes; two tastes split by 0.1–0.3 % | theorem + measured |
+| Kähler–Dirac vibration: E² = K² + m², I² + T² = 1 | exact to 10⁻¹⁴; no spurious modes; two copies (tastes) split by 0.1–0.3 % | theorem + measured |
 | Uncertainty relations from the spectrum of K | Δx·Δk = 0.49 (≥ 1 cell), Δω·N½ = 0.80 ≥ π/4 | Robertson, Mandelstam–Tamm |
 | Hydrogen (Schrödinger of MT, up to 2.7·10⁶ cells) | 1s −1.2 %; 2p +0.17 % (triplet 4·10⁻⁵); 2s–2p 0.45 %; n = 3 manifold 0.4 % | Rydberg, accidental degeneracies |
 | Lyman-α oscillator strength (direct / extrapolated) | 0.425 / 0.410–0.414 | 0.4162 |
@@ -31,7 +31,7 @@ Dark energy constant (w = −1); black-hole shadow 4.6 % larger than in general 
 
 ## What is not derived
 
-Four scales are taken from experiment, not derived: the electron's inversion amplitude (4·10⁻²³ per step), the rigidity of the vacuum against phase windings (the hadronic scale Λ, measured four ways), the birth rate of cells (4·10⁻⁶¹ per cell per step), and the weak scale (2·10⁻¹⁷ E_Planck). The two copies of the spin-½ vibration, the accord operator (weak sector), the dynamics of gravitational waves on the lattice and the growth of cosmic structure are open constructions. The list, with target numbers, closes `docs/riepilogo.html`.
+Four scales are taken from experiment, not derived: the electron's inversion amplitude (4·10⁻²³ per step), the rigidity of the vacuum against phase windings (the hadronic scale Λ, measured four ways), the birth rate of cells (4·10⁻⁶¹ per cell per step), and the weak scale (2·10⁻¹⁷ E_Planck). The two copies of the spin-½ vibration, the agreement operator (weak sector), the dynamics of gravitational waves on the lattice and the growth of cosmic structure are open constructions. The list, with target numbers, closes `docs/riepilogo.html`.
 
 ## Repository layout
 
