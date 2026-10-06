@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MT · Capitolo 1 — Max Theory — Riepilogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C1420;
+  --panel:#131F31;
+  --panel-2:#18273D;
+  --line:#243651;
+  --line-soft:#1B2A40;
+  --txt:#DEE6F2;
+  --txt-2:#8698B6;
+  --txt-3:#5D6E8A;
+  /* semantica: ambra = stazionamento (massa, tempo) */
+  --staz:#F0B24A;
+  /* semantica: ciano = propagazione (luce, energia) */
+  --prop:#5BC8D8;
+  /* semantica: viola = quota ceduta al campo */
+  --campo:#B98CE0;
+  --ok:#6FD1A6;
+  --open:#E0765F;
+  --display:'Sora',system-ui,sans-serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--txt);
+  font-family:var(--body);font-size:18px;line-height:1.68;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line);
+  padding:82px 0 0;
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--txt-3);margin:0 0 26px;
+}
+h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(46px,8vw,86px);line-height:.94;
+  letter-spacing:-.035em;margin:0 0 4px;
+}
+h1 .sub{display:block;color:var(--txt-3);font-weight:400;
+  font-size:clamp(20px,3vw,30px);letter-spacing:-.02em;margin-top:14px}
+.thesis{
+  font-size:clamp(19px,2.4vw,23px);line-height:1.55;color:var(--txt-2);
+  max-width:34em;margin:30px 0 0;font-weight:300;
+}
+.thesis em{color:var(--txt);font-style:normal}
+
+/* identita' centrale */
+.identity{
+  margin:52px 0 0;padding:30px 32px;
+  border:1px solid var(--line);border-radius:3px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+}
+.identity .eq{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(20px,4vw,34px);letter-spacing:-.02em;
+  text-align:center;margin:0;white-space:nowrap;
+  overflow-x:auto;
+}
+.i-p{color:var(--prop)}
+.i-t{color:var(--staz)}
+.i-g{color:var(--campo)}
+.legend{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:26px;background:var(--line);border:1px solid var(--line);
+}
+.legend div{background:var(--panel);padding:14px 16px}
+.legend b{
+  font-family:var(--mono);font-size:13px;font-weight:700;
+  display:block;margin-bottom:3px;
+}
+.legend span{font-size:14.5px;color:var(--txt-2);line-height:1.45}
+@media(max-width:660px){.legend{grid-template-columns:1fr}}
+
+/* reticolo */
+.lattice{display:block;width:100%;height:150px;margin-top:58px}
+
+/* ---------- SEZIONI ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--line-soft)}
+.snum{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--txt-3);text-transform:uppercase;
+  display:block;margin-bottom:12px;
+}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(28px,4.4vw,40px);line-height:1.08;
+  letter-spacing:-.03em;margin:0 0 26px;max-width:20em;
+}
+h3{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.015em;margin:38px 0 10px;color:var(--txt);
+}
+p{margin:0 0 18px;max-width:38em}
+strong{font-weight:500;color:#fff}
+.k{font-family:var(--mono);font-size:.88em;color:var(--prop)}
+.km{font-family:var(--mono);font-size:.88em;color:var(--staz)}
+
+/* blocco formula */
+.f{
+  font-family:var(--mono);font-size:16px;
+  border-left:2px solid var(--line);
+  padding:14px 0 14px 20px;margin:24px 0;color:var(--txt);
+  overflow-x:auto;
+}
+.f small{display:block;font-size:13px;color:var(--txt-3);
+  margin-top:8px;font-family:var(--body);font-size:15px}
+
+/* tag di stato epistemico */
+.tag{
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;border-radius:2px;
+  white-space:nowrap;display:inline-block;vertical-align:2px;
+}
+.t-der{color:var(--ok);border-color:#2C5A48}
+.t-ass{color:var(--staz);border-color:#5C4620}
+.t-con{color:var(--open);border-color:#5C3129}
+
+/* citazione storica */
+.quote{
+  margin:34px 0;padding:26px 30px;
+  border:1px solid var(--line);border-left:2px solid var(--campo);
+  background:var(--panel);
+}
+.quote p{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(18px,2.6vw,22px);line-height:1.45;
+  letter-spacing:-.015em;color:var(--txt);margin:0;max-width:none;
+}
+.quote cite{
+  display:block;margin-top:16px;font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--txt-3);
+}
+
+/* tabella risultati */
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:15px}
+.tbl th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--txt-3);font-weight:400;
+  text-align:left;padding:0 14px 11px 0;border-bottom:1px solid var(--line);
+}
+.tbl td{
+  padding:15px 14px 15px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.tbl td:first-child{color:var(--txt);max-width:16em}
+.tbl .num{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.tbl .num b{color:var(--prop);font-weight:500}
+.tbl .oss{font-family:var(--mono);font-size:13.5px;color:var(--txt-2);white-space:nowrap}
+@media(max-width:720px){
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+  .tbl td{border:0;padding:2px 0}
+  .tbl td:first-child{font-family:var(--display);font-weight:600;margin-bottom:6px}
+}
+
+/* card griglia */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);margin:30px 0}
+.grid > div{background:var(--panel);padding:22px 24px}
+.grid h4{
+  font-family:var(--display);font-size:16px;font-weight:600;
+  margin:0 0 8px;letter-spacing:-.01em;
+}
+.grid p{font-size:15.5px;color:var(--txt-2);margin:0;max-width:none}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+
+/* lista aperti */
+.open-list{list-style:none;padding:0;margin:24px 0 0;counter-reset:o}
+.open-list li{
+  counter-increment:o;position:relative;
+  padding:18px 0 18px 46px;border-top:1px solid var(--line-soft);
+  max-width:40em;
+}
+.open-list li::before{
+  content:counter(o,decimal-leading-zero);
+  position:absolute;left:0;top:19px;
+  font-family:var(--mono);font-size:12px;color:var(--open);
+}
+.open-list b{display:block;font-family:var(--display);font-weight:600;
+  font-size:17px;color:var(--txt);margin-bottom:4px}
+.open-list span{font-size:16px;color:var(--txt-2)}
+
+footer{padding:56px 0 90px;color:var(--txt-3);font-size:15px}
+footer .wrap{max-width:940px}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(14px);
+    transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="fade">
+  <span class="snum">Capitolo 1 di 6</span>
+  <h2>Il tessuto</h2>
+  <p class="lead">Celle, interstizio, equilibrio, iperuniformità, la luce.</p>
+  <p class="lead" style="font-size:.95rem">Legenda dei cartellini: <span class="tag t-der">dimostrato</span> un teorema o un risultato numerico verificato · <span class="tag t-ass">coerente</span> un meccanismo che riproduce i dati ma dipende da una scelta o da una scala non derivata · <span class="tag t-con">aperto</span> un nodo da sciogliere, con il suo numero bersaglio.</p>
+  <p class="lead" style="font-size:.9rem">Indice: <a href="capitolo-1.html">1. Il tessuto</a> · <a href="capitolo-2.html">2. La vibrazione</a> · <a href="capitolo-3.html">3. Quark e nuclei</a> · <a href="capitolo-4.html">4. Le generazioni e la mano</a> · <a href="capitolo-5.html">5. La gravità</a> · <a href="capitolo-6.html">6. L'inizio e il cosmo</a> · <a href="../nota-tecnica.html">nota tecnica</a> · <a href="../riepilogo.html">documento completo</a></p>
+  <p class="lead" style="font-size:.9rem">Deposito: DOI da inserire — M. Cesaroni, ottobre 2026. Capitolo precedente e successivo collegati nel record Zenodo.</p>
+</section>
+<section class="fade">
+  <span class="snum">04b — Il tessuto</span>
+  <h2>Celle, varchi, canali, vuoti</h2>
+  <p>
+    Le celle non si toccano; lo spazio fra loro è l'interstizio, e la geometria lo divide da sola in tre
+    luoghi: il <strong>varco</strong> fra due celle, il <strong>canale</strong> dove se ne affacciano tre,
+    il <strong>vuoto</strong> fra quattro. Ogni cella possiede la regione di spazio più vicina a lei; due
+    celle vicine condividono una faccia. Tutto ciò che MT chiama luce, campo, chiralità e gravità vive
+    in questi luoghi.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>L'equilibrio</h4>
+      <p>Il vuoto funziona solo se su ogni cella le spinte delle vicine si chiudono. Un reticolo così è
+      iperuniforme: le fluttuazioni di densità su scala grande vanno a zero, come la superficie e non come
+      il volume. È la stessa condizione che rende la luce isotropa e trasparente, e che dà l'angolo di Koide.
+      <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Non conta come nasce</h4>
+      <p>Un reticolo cresciuto per nascite adiacenti e uno casuale poi lasciato assestare danno la stessa
+      iperuniformità e la stessa trasparenza. Conta che sia in equilibrio, non la sua storia.
+      <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Dove vive la luce</h4>
+      <p>Il campo elettrico è lo scarto di fase lungo un varco; il campo magnetico è la torsione che quello
+      scarto lascia facendo il giro dei varchi attorno a un canale. La luce è lo scambio fra i due, una cella
+      per batch, senza mai entrare in una cella. Per questo non ha carica, non sosta, non ha tempo e non
+      interagisce con sé stessa. <span class="tag t-der">verificato sul reticolo</span></p>
+    </div>
+    <div>
+      <h4>Dove vive la mano</h4>
+      <p>L'accordo fra la vibrazione sulle celle e quella nei vuoti — in fase o in controfase — è la
+      chiralità. Vive in celle e vuoti, che la luce non tocca: il vuoto può avere un verso senza essere
+      birifrangente. <span class="tag t-ass">continuo; da verificare sul reticolo</span></p>
+    </div>
+  </div>
+</section>
+<section class="fade">
+  <span class="snum">04g — L'interstizio come collegamento elastico</span>
+  <h2>Due rigidità, nessuna costante</h2>
+  <p>
+    Il vuoto è il tessuto nello stato di riposo: celle in stasi, spinte chiuse, nessuno scarto di fase. Non costa nulla,
+    per definizione di equilibrio; non ha tempo, perché non ha eventi; non fluttua da solo — Casimir e Lamb sono i
+    passaggi interstiziali che le vibrazioni <em>presenti</em> inducono attorno a sé. L'interstizio porta le
+    <strong>condizioni di passaggio</strong>: scarti nei varchi, torsioni attorno ai canali, contrazione, accordo con i
+    vuoti. Le celle portano stati e tempo; l'interstizio porta condizioni. Una condizione non è un evento.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Rigidità geometriche</h4>
+      <p>Lo stiramento di un varco vale faccia/lunghezza; la torsione di un canale vale lunghezza del canale/area del
+      triangolo. Sono le stelle di Hodge usate per la luce: rapporti di misure, fissati dalle posizioni delle celle.
+      L'elasticità dell'interstizio non ha parametri. <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Corto è rigido</h4>
+      <p>I canali con i collegamenti più corti hanno torsione 1,44; i più lunghi 0,25: rapporto sei, con dipendenza
+      ripidissima dalla lunghezza. Oltre 1,3 ℓ_P un collegamento non è più rigido: la cella confina ma non è più vicina.
+      Le vicine rigide per cella sono 11,7 — lo stesso peso d'influenza che dà α = 1/N². <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Che cosa costa uno scarto</h4>
+      <p>Uno scarto di fase su un varco è lavoro speso da chi l'ha scritto, riflessione per chi lo attraversa, luce in
+      potenza se viene lasciato andare: l'energia è il quadrato dello scarto, come per la luce. Scarti uguali si sommano
+      (repulsione), opposti si annullano (attrazione). <span class="tag t-der">struttura</span></p>
+    </div>
+    <div>
+      <h4>L'elettrone nelle due proprietà</h4>
+      <p>La sua ampiezza di inversione è un disaccordo, non un numero isolato: la fase che ruota nel tempo contro il
+      varco che la vorrebbe ferma — lo <strong>scarto</strong>. Da qui la massa dei leptoni carichi, maggiore di quella
+      dei neutrini perché una fase che ruota si accorda peggio: carica e massa dallo stesso disaccordo. Lo
+      <strong>spin</strong> è la relazione fra la fase e il giro dei passaggi: la torsione attorno ai canali. Massa dallo
+      scarto, spin dalla torsione. La posizione dell'elettrone fra le tre generazioni è geometrica — la proiezione
+      minima del dipolo sulle tre facce del canale, vicina allo zero — e resta libera solo la scala assoluta.
+      <span class="tag t-ass">struttura</span></p>
+    </div>
+    <div>
+      <h4>Quattro regimi</h4>
+      <p>Lineare (luce, campi deboli); saturante (occupazione 1−e^(−n): Mercurio, rigidità ε₀ contro gli avvolgimenti:
+      la corda); bloccato (l'mtdm); e, prima dell'equilibrio, plastico: la spinta assorbita nel riassetto. La nascita del
+      tempo è il passaggio da plastico a elastico. Eco storica: l'etere di MacCullagh (1839), rigido alla rotazione e non
+      alla compressione, che dà le equazioni della luce. <span class="tag t-ass">lettura</span></p>
+    </div>
+  </div>
+  <h3>Il riferimento</h3>
+  <p>
+    Cella = ℓ_P, batch = t_P, luce = una cella per batch. Collegamento tipico 0,97 ℓ_P, corti sotto 0,8, inerti oltre 1,3;
+    raggio di cella 0,44 ℓ_P, interstizio fra vicine tipiche 0,1 ℓ_P. La massa di Planck è la massa massima di una
+    vibrazione: ampiezza di inversione 1 per batch. Con questo riferimento la gravità richiede κ ≈ 5–6 impegni per
+    inversione, e con N = 11,7 è N/2: ipotesi con meccanismo — un'inversione impegna la semisfera di vicine verso cui
+    torna. Se regge, G è il numero di vicine rigide diviso due. <span class="tag t-ass">da verificare</span>
+  </p>
+  <p>
+    Le tre scale non derivate, in numeri puri. L'ampiezza di inversione dell'elettrone, 4·10⁻²³ per batch: invariante
+    (da fermo completa un'inversione ogni 10²² batch, in moto ogni 10²²·γ), con struttura — è il disaccordo della fase
+    rotante con lo scarto del varco, e la sua posizione fra le generazioni è fissata dal canale — ma con la scala
+    assoluta libera. La rigidità del vuoto contro gli avvolgimenti, 10⁻⁸⁰ E_P per cella (10⁻³⁹ per cella di lunghezza
+    di corda, sommando la sezione del tubo): il disaccordo della fase avvolta nello spazio con lo stesso varco. Le
+    nascite, 4·10⁻⁶¹ per cella per batch. I primi due sono due valori della stessa funzione — la riflessione del varco in
+    funzione del disaccordo — per due disaccordi diversi; una derivazione sarebbe quella funzione, o una relazione fra le
+    tre scale. <span class="tag t-con">aperto</span>
+  </p>
+</section>
+<section class="fade">
+  <span class="snum">04c — Luce ed elettrone</span>
+  <h2>La stessa geometria per entrambi</h2>
+  <p>
+    Il fotone usa due delle quattro parti dell'interstizio: il campo elettrico nei varchi, quello
+    magnetico nei canali. L'elettrone le usa tutte e quattro: una vibrazione distribuita sulle celle, sui
+    varchi, sui canali e sui vuoti — la costruzione che la matematica chiama di Kähler-Dirac. Sul reticolo
+    casuale in equilibrio:
+  </p>
+  <div class="grid">
+    <div>
+      <h4>La luce</h4>
+      <p>Velocità 1,0002 senza aggiustamenti, isotropa; dipendenza dall'energia quadratica e minuscola
+      (ritardo di 10⁻¹⁹ s per il fotone da 31 GeV di GRB 090510); nessuna rotazione della polarizzazione
+      (10⁻⁷); nessuna diffusione per onde più lunghe di una dozzina di celle, poi una crescita come k⁶:
+      le galassie lontane arrivano nitide anche nell'ipotesi più pessimistica. Il reticolo in equilibrio
+      diffonde 10–100 volte meno di uno qualunque. <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>L'elettrone</h4>
+      <p>Lo spin messo nelle celle produce una marea di modi spuri — il problema dei doppioni — e non è
+      utilizzabile. La vibrazione sulle quattro parti non ne ha nessuno: molteplicità esatte, velocità 0,998,
+      budget I² + T² = 1 esatto a 10⁻¹⁴ con l'inversione pari/dispari come sosta, oscillazione lungo l'asse
+      dello spin con il periodo giusto. La sosta è il rovesciamento della parte che passa — varchi e vuoti —: agisce
+      nell'interstizio e paga sulle celle, con ampiezza che dipende dal disaccordo di fase e che impegna la semisfera
+      di vicine verso cui torna (κ = N/2). <span class="tag t-der">misurato</span> <span class="tag t-ass">lettura</span></p>
+    </div>
+    <div>
+      <h4>Il prezzo: due copie</h4>
+      <p>Otto componenti sono due particelle di Dirac, non una, e il reticolo le distingue solo per lo
+      0,1–0,3%. Lo spin ½ emerge dalla geometria solo in coppia — come in natura: elettrone e neutrino, quark su e
+      giù. Le copie sono il doppietto debole, distinte dall'accordo cella/vuoto; resta da costruire l'operatore
+      dell'accordo e da verificare i numeri. <span class="tag t-ass">doppietto; costruzione da fare</span></p>
+    </div>
+    <div>
+      <h4>Il sistema solare delle masse</h4>
+      <p>Nell'idrogeno di Dirac la quota di inversione è esattamente √(1−α²) e quella di moto α: l'energia
+      di legame è il rallentamento del tempo proprio dell'elettrone. Lo zig-zag a velocità c con inversioni al
+      ritmo di Compton ha coefficiente di diffusione ħ/2m, quello di Nelson. <span class="tag t-ass">esatto in Dirac, non ancora sul reticolo</span></p>
+    </div>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

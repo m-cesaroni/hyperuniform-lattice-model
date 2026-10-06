@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MT · Capitolo 4 — Max Theory — Riepilogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C1420;
+  --panel:#131F31;
+  --panel-2:#18273D;
+  --line:#243651;
+  --line-soft:#1B2A40;
+  --txt:#DEE6F2;
+  --txt-2:#8698B6;
+  --txt-3:#5D6E8A;
+  /* semantica: ambra = stazionamento (massa, tempo) */
+  --staz:#F0B24A;
+  /* semantica: ciano = propagazione (luce, energia) */
+  --prop:#5BC8D8;
+  /* semantica: viola = quota ceduta al campo */
+  --campo:#B98CE0;
+  --ok:#6FD1A6;
+  --open:#E0765F;
+  --display:'Sora',system-ui,sans-serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--txt);
+  font-family:var(--body);font-size:18px;line-height:1.68;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line);
+  padding:82px 0 0;
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--txt-3);margin:0 0 26px;
+}
+h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(46px,8vw,86px);line-height:.94;
+  letter-spacing:-.035em;margin:0 0 4px;
+}
+h1 .sub{display:block;color:var(--txt-3);font-weight:400;
+  font-size:clamp(20px,3vw,30px);letter-spacing:-.02em;margin-top:14px}
+.thesis{
+  font-size:clamp(19px,2.4vw,23px);line-height:1.55;color:var(--txt-2);
+  max-width:34em;margin:30px 0 0;font-weight:300;
+}
+.thesis em{color:var(--txt);font-style:normal}
+
+/* identita' centrale */
+.identity{
+  margin:52px 0 0;padding:30px 32px;
+  border:1px solid var(--line);border-radius:3px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+}
+.identity .eq{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(20px,4vw,34px);letter-spacing:-.02em;
+  text-align:center;margin:0;white-space:nowrap;
+  overflow-x:auto;
+}
+.i-p{color:var(--prop)}
+.i-t{color:var(--staz)}
+.i-g{color:var(--campo)}
+.legend{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:26px;background:var(--line);border:1px solid var(--line);
+}
+.legend div{background:var(--panel);padding:14px 16px}
+.legend b{
+  font-family:var(--mono);font-size:13px;font-weight:700;
+  display:block;margin-bottom:3px;
+}
+.legend span{font-size:14.5px;color:var(--txt-2);line-height:1.45}
+@media(max-width:660px){.legend{grid-template-columns:1fr}}
+
+/* reticolo */
+.lattice{display:block;width:100%;height:150px;margin-top:58px}
+
+/* ---------- SEZIONI ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--line-soft)}
+.snum{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--txt-3);text-transform:uppercase;
+  display:block;margin-bottom:12px;
+}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(28px,4.4vw,40px);line-height:1.08;
+  letter-spacing:-.03em;margin:0 0 26px;max-width:20em;
+}
+h3{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.015em;margin:38px 0 10px;color:var(--txt);
+}
+p{margin:0 0 18px;max-width:38em}
+strong{font-weight:500;color:#fff}
+.k{font-family:var(--mono);font-size:.88em;color:var(--prop)}
+.km{font-family:var(--mono);font-size:.88em;color:var(--staz)}
+
+/* blocco formula */
+.f{
+  font-family:var(--mono);font-size:16px;
+  border-left:2px solid var(--line);
+  padding:14px 0 14px 20px;margin:24px 0;color:var(--txt);
+  overflow-x:auto;
+}
+.f small{display:block;font-size:13px;color:var(--txt-3);
+  margin-top:8px;font-family:var(--body);font-size:15px}
+
+/* tag di stato epistemico */
+.tag{
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;border-radius:2px;
+  white-space:nowrap;display:inline-block;vertical-align:2px;
+}
+.t-der{color:var(--ok);border-color:#2C5A48}
+.t-ass{color:var(--staz);border-color:#5C4620}
+.t-con{color:var(--open);border-color:#5C3129}
+
+/* citazione storica */
+.quote{
+  margin:34px 0;padding:26px 30px;
+  border:1px solid var(--line);border-left:2px solid var(--campo);
+  background:var(--panel);
+}
+.quote p{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(18px,2.6vw,22px);line-height:1.45;
+  letter-spacing:-.015em;color:var(--txt);margin:0;max-width:none;
+}
+.quote cite{
+  display:block;margin-top:16px;font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--txt-3);
+}
+
+/* tabella risultati */
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:15px}
+.tbl th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--txt-3);font-weight:400;
+  text-align:left;padding:0 14px 11px 0;border-bottom:1px solid var(--line);
+}
+.tbl td{
+  padding:15px 14px 15px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.tbl td:first-child{color:var(--txt);max-width:16em}
+.tbl .num{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.tbl .num b{color:var(--prop);font-weight:500}
+.tbl .oss{font-family:var(--mono);font-size:13.5px;color:var(--txt-2);white-space:nowrap}
+@media(max-width:720px){
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+  .tbl td{border:0;padding:2px 0}
+  .tbl td:first-child{font-family:var(--display);font-weight:600;margin-bottom:6px}
+}
+
+/* card griglia */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);margin:30px 0}
+.grid > div{background:var(--panel);padding:22px 24px}
+.grid h4{
+  font-family:var(--display);font-size:16px;font-weight:600;
+  margin:0 0 8px;letter-spacing:-.01em;
+}
+.grid p{font-size:15.5px;color:var(--txt-2);margin:0;max-width:none}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+
+/* lista aperti */
+.open-list{list-style:none;padding:0;margin:24px 0 0;counter-reset:o}
+.open-list li{
+  counter-increment:o;position:relative;
+  padding:18px 0 18px 46px;border-top:1px solid var(--line-soft);
+  max-width:40em;
+}
+.open-list li::before{
+  content:counter(o,decimal-leading-zero);
+  position:absolute;left:0;top:19px;
+  font-family:var(--mono);font-size:12px;color:var(--open);
+}
+.open-list b{display:block;font-family:var(--display);font-weight:600;
+  font-size:17px;color:var(--txt);margin-bottom:4px}
+.open-list span{font-size:16px;color:var(--txt-2)}
+
+footer{padding:56px 0 90px;color:var(--txt-3);font-size:15px}
+footer .wrap{max-width:940px}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(14px);
+    transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="fade">
+  <span class="snum">Capitolo 4 di 6</span>
+  <h2>Le generazioni e la mano</h2>
+  <p class="lead">Canali, koide, neutrini, chiralità, verso.</p>
+  <p class="lead" style="font-size:.95rem">Legenda dei cartellini: <span class="tag t-der">dimostrato</span> un teorema o un risultato numerico verificato · <span class="tag t-ass">coerente</span> un meccanismo che riproduce i dati ma dipende da una scelta o da una scala non derivata · <span class="tag t-con">aperto</span> un nodo da sciogliere, con il suo numero bersaglio.</p>
+  <p class="lead" style="font-size:.9rem">Indice: <a href="capitolo-1.html">1. Il tessuto</a> · <a href="capitolo-2.html">2. La vibrazione</a> · <a href="capitolo-3.html">3. Quark e nuclei</a> · <a href="capitolo-4.html">4. Le generazioni e la mano</a> · <a href="capitolo-5.html">5. La gravità</a> · <a href="capitolo-6.html">6. L'inizio e il cosmo</a> · <a href="../nota-tecnica.html">nota tecnica</a> · <a href="../riepilogo.html">documento completo</a></p>
+  <p class="lead" style="font-size:.9rem">Deposito: DOI da inserire — M. Cesaroni, ottobre 2026. Capitolo precedente e successivo collegati nel record Zenodo.</p>
+</section>
+<section class="fade">
+  <span class="snum">04e — Le generazioni e la mano</span>
+  <h2>Tre, e un solo verso</h2>
+  <p>
+    Attorno a un canale si incontrano esattamente tre facce, e le tre aperture sommano a 360°: in media 120°
+    ciascuna. Una vibrazione che staziona ha un dipolo, e il dipolo proietta sulle tre facce tre valori
+    h_i = a[1 + √2 cos(θ − 2πi/3)]. Da qui la relazione di Koide, Q = 2/3, esce come teorema per qualunque θ;
+    le masse misurate la soddisfano a cinque cifre. Tre generazioni perché le facce attorno a una linea sono
+    tre; nessuna quarta perché non esiste una quarta faccia. Vale per i leptoni carichi, i neutrini e i quark.
+    <span class="tag t-der">geometria</span>
+  </p>
+  <div class="grid">
+    <div>
+      <h4>L'angolo di Koide dal reticolo</h4>
+      <p>Nel vuoto in equilibrio le aperture non sono esattamente 120°: lo sbilanciamento tipico di un canale
+      ha mediana 0,214 e media 0,227 radianti. L'angolo che riproduce 1 : 207 : 3477 è 0,222. Esce solo in
+      equilibrio (un reticolo casuale dà 0,51) e dipende dal riempimento: 0,28 a 0,60, 0,17–0,21 a 0,80.
+      Con il riempimento fissato da MT, le tre masse diventerebbero un calcolo senza parametri.
+      <span class="tag t-ass">coincidenza di un parametro</span></p>
+    </div>
+    <div>
+      <h4>I neutrini</h4>
+      <p>Stesso canale, fase che non ruota: quasi senza massa e di Majorana. Lo schema delle tre proiezioni,
+      con angolo e scala propri, riproduce entrambe le differenze di massa misurate e dà m = 0,38, 8,9, 50,7
+      meV, somma 60 meV, ordinamento normale. La cosmologia sta stringendo proprio lì: la misura decisiva è
+      attesa fra il 2030 e il 2034. <span class="tag t-ass">fit a due parametri</span></p>
+    </div>
+    <div>
+      <h4>La mano</h4>
+      <p>Quattro celle ordinate per nascita formano un tetraedro con una chiralità, decisa dal caso quando nasce
+      la quarta. L'accordo fra cella e vuoto prende quel segno e lo eredita per adiacenza: un solo verso per
+      l'universo, nessun dominio speculare. Lo stesso verso fissa la mano dell'interazione debole, letta al
+      cento per cento, e quale fase chiamiamo materia, letta a tre parti su dieci miliardi — la tacca del
+      motore al quarzo, che decide il verso senza spingere. <span class="tag t-ass">segno spiegato, quantità da derivare</span></p>
+    </div>
+    <div>
+      <h4>Il mescolamento</h4>
+      <p>La simmetria a 120° del canale produce stati di massa che sono sovrapposizioni «di Fourier» delle
+      tre facce: mescolamento grande, 35° e 45°, come osservato per i neutrini; lo scostamento di 8,6° dallo
+      zero è da calcolare. <span class="tag t-ass">struttura, non numero</span></p>
+    </div>
+  </div>
+</section>
+<section class="fade">
+  <span class="snum">Aperto</span>
+  <h2>I nodi di questo capitolo</h2>
+  <ol class="open-list">
+<li>
+      <b>Il riempimento del vuoto: fissato da α, test in sospeso</b>
+      <span>Il numero di vicine rigide N cresce con il riempimento (10,3 a 0,60; 11,3 a 0,80) e lo sbilanciamento dei
+      canali cala (0,28 → 0,17): α = 1/N² fissa il riempimento, e il riempimento deve dare l'angolo di Koide, 0,222.
+      Con il peso di stiramento N vale 11,0 a 0,70 (1/122, non 1/137), mentre lo sbilanciamento torna (0,215–0,227).
+      Da decidere dal meccanismo della sosta quale peso definisce una vicina — stiramento, o distribuzione
+      dell'inversione fra le vicine (κ = N/2) — perché i due conteggi differiscono del 6%, che è la precisione che
+      serve. Poi le masse dei leptoni sono un calcolo senza parametri, con bersaglio 206,77 e 3477,2.</span>
+    </li>
+<li>
+      <b>La quantità dell'asimmetria</b>
+      <span>Il verso del primo vuoto spiega il segno della prevalenza della materia; le tre parti su dieci miliardi
+      richiedono di sapere quanto l'accordo del tessuto pesa sulla fase di una sosta nascente.</span>
+    </li>
+  </ol>
+</section>
+</div>
+</body>
+</html>

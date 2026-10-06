@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MT · Capitolo 6 — Max Theory — Riepilogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C1420;
+  --panel:#131F31;
+  --panel-2:#18273D;
+  --line:#243651;
+  --line-soft:#1B2A40;
+  --txt:#DEE6F2;
+  --txt-2:#8698B6;
+  --txt-3:#5D6E8A;
+  /* semantica: ambra = stazionamento (massa, tempo) */
+  --staz:#F0B24A;
+  /* semantica: ciano = propagazione (luce, energia) */
+  --prop:#5BC8D8;
+  /* semantica: viola = quota ceduta al campo */
+  --campo:#B98CE0;
+  --ok:#6FD1A6;
+  --open:#E0765F;
+  --display:'Sora',system-ui,sans-serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--txt);
+  font-family:var(--body);font-size:18px;line-height:1.68;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line);
+  padding:82px 0 0;
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--txt-3);margin:0 0 26px;
+}
+h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(46px,8vw,86px);line-height:.94;
+  letter-spacing:-.035em;margin:0 0 4px;
+}
+h1 .sub{display:block;color:var(--txt-3);font-weight:400;
+  font-size:clamp(20px,3vw,30px);letter-spacing:-.02em;margin-top:14px}
+.thesis{
+  font-size:clamp(19px,2.4vw,23px);line-height:1.55;color:var(--txt-2);
+  max-width:34em;margin:30px 0 0;font-weight:300;
+}
+.thesis em{color:var(--txt);font-style:normal}
+
+/* identita' centrale */
+.identity{
+  margin:52px 0 0;padding:30px 32px;
+  border:1px solid var(--line);border-radius:3px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+}
+.identity .eq{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(20px,4vw,34px);letter-spacing:-.02em;
+  text-align:center;margin:0;white-space:nowrap;
+  overflow-x:auto;
+}
+.i-p{color:var(--prop)}
+.i-t{color:var(--staz)}
+.i-g{color:var(--campo)}
+.legend{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:26px;background:var(--line);border:1px solid var(--line);
+}
+.legend div{background:var(--panel);padding:14px 16px}
+.legend b{
+  font-family:var(--mono);font-size:13px;font-weight:700;
+  display:block;margin-bottom:3px;
+}
+.legend span{font-size:14.5px;color:var(--txt-2);line-height:1.45}
+@media(max-width:660px){.legend{grid-template-columns:1fr}}
+
+/* reticolo */
+.lattice{display:block;width:100%;height:150px;margin-top:58px}
+
+/* ---------- SEZIONI ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--line-soft)}
+.snum{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--txt-3);text-transform:uppercase;
+  display:block;margin-bottom:12px;
+}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(28px,4.4vw,40px);line-height:1.08;
+  letter-spacing:-.03em;margin:0 0 26px;max-width:20em;
+}
+h3{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.015em;margin:38px 0 10px;color:var(--txt);
+}
+p{margin:0 0 18px;max-width:38em}
+strong{font-weight:500;color:#fff}
+.k{font-family:var(--mono);font-size:.88em;color:var(--prop)}
+.km{font-family:var(--mono);font-size:.88em;color:var(--staz)}
+
+/* blocco formula */
+.f{
+  font-family:var(--mono);font-size:16px;
+  border-left:2px solid var(--line);
+  padding:14px 0 14px 20px;margin:24px 0;color:var(--txt);
+  overflow-x:auto;
+}
+.f small{display:block;font-size:13px;color:var(--txt-3);
+  margin-top:8px;font-family:var(--body);font-size:15px}
+
+/* tag di stato epistemico */
+.tag{
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;border-radius:2px;
+  white-space:nowrap;display:inline-block;vertical-align:2px;
+}
+.t-der{color:var(--ok);border-color:#2C5A48}
+.t-ass{color:var(--staz);border-color:#5C4620}
+.t-con{color:var(--open);border-color:#5C3129}
+
+/* citazione storica */
+.quote{
+  margin:34px 0;padding:26px 30px;
+  border:1px solid var(--line);border-left:2px solid var(--campo);
+  background:var(--panel);
+}
+.quote p{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(18px,2.6vw,22px);line-height:1.45;
+  letter-spacing:-.015em;color:var(--txt);margin:0;max-width:none;
+}
+.quote cite{
+  display:block;margin-top:16px;font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--txt-3);
+}
+
+/* tabella risultati */
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:15px}
+.tbl th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--txt-3);font-weight:400;
+  text-align:left;padding:0 14px 11px 0;border-bottom:1px solid var(--line);
+}
+.tbl td{
+  padding:15px 14px 15px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.tbl td:first-child{color:var(--txt);max-width:16em}
+.tbl .num{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.tbl .num b{color:var(--prop);font-weight:500}
+.tbl .oss{font-family:var(--mono);font-size:13.5px;color:var(--txt-2);white-space:nowrap}
+@media(max-width:720px){
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+  .tbl td{border:0;padding:2px 0}
+  .tbl td:first-child{font-family:var(--display);font-weight:600;margin-bottom:6px}
+}
+
+/* card griglia */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);margin:30px 0}
+.grid > div{background:var(--panel);padding:22px 24px}
+.grid h4{
+  font-family:var(--display);font-size:16px;font-weight:600;
+  margin:0 0 8px;letter-spacing:-.01em;
+}
+.grid p{font-size:15.5px;color:var(--txt-2);margin:0;max-width:none}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+
+/* lista aperti */
+.open-list{list-style:none;padding:0;margin:24px 0 0;counter-reset:o}
+.open-list li{
+  counter-increment:o;position:relative;
+  padding:18px 0 18px 46px;border-top:1px solid var(--line-soft);
+  max-width:40em;
+}
+.open-list li::before{
+  content:counter(o,decimal-leading-zero);
+  position:absolute;left:0;top:19px;
+  font-family:var(--mono);font-size:12px;color:var(--open);
+}
+.open-list b{display:block;font-family:var(--display);font-weight:600;
+  font-size:17px;color:var(--txt);margin-bottom:4px}
+.open-list span{font-size:16px;color:var(--txt-2)}
+
+footer{padding:56px 0 90px;color:var(--txt-3);font-size:15px}
+footer .wrap{max-width:940px}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(14px);
+    transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="fade">
+  <span class="snum">Capitolo 6 di 6</span>
+  <h2>L'inizio e il cosmo</h2>
+  <p class="lead">Crescita, nascite, energia oscura, materia oscura.</p>
+  <p class="lead" style="font-size:.95rem">Legenda dei cartellini: <span class="tag t-der">dimostrato</span> un teorema o un risultato numerico verificato · <span class="tag t-ass">coerente</span> un meccanismo che riproduce i dati ma dipende da una scelta o da una scala non derivata · <span class="tag t-con">aperto</span> un nodo da sciogliere, con il suo numero bersaglio.</p>
+  <p class="lead" style="font-size:.9rem">Indice: <a href="capitolo-1.html">1. Il tessuto</a> · <a href="capitolo-2.html">2. La vibrazione</a> · <a href="capitolo-3.html">3. Quark e nuclei</a> · <a href="capitolo-4.html">4. Le generazioni e la mano</a> · <a href="capitolo-5.html">5. La gravità</a> · <a href="capitolo-6.html">6. L'inizio e il cosmo</a> · <a href="../nota-tecnica.html">nota tecnica</a> · <a href="../riepilogo.html">documento completo</a></p>
+  <p class="lead" style="font-size:.9rem">Deposito: DOI da inserire — M. Cesaroni, ottobre 2026. Capitolo precedente e successivo collegati nel record Zenodo.</p>
+</section>
+<section class="fade">
+  <span class="snum">01 — Il postulato</span>
+  <h2>Tutto discende da p₀</h2>
+  <p>
+    Lo spaziotempo è un reticolo discreto di celle. A ogni passo — il <strong>batch</strong> —
+    una cella già attiva può generarne una adiacente con probabilità <span class="k">p₀</span>.
+    Non c'è altro parametro: le costanti della fisica dovrebbero emergere da qui.
+  </p>
+  <div class="f">
+    E_min = −ln(p₀)&nbsp;&nbsp;&nbsp;&nbsp;ρ_vac = p₀ · E_min
+    <small>Il costo di creazione di una cella e la densità di energia del vuoto,
+    entrambi funzioni della sola p₀.</small>
+  </div>
+  <p>
+    Due valori candidati sono emersi da vincoli indipendenti, e non coincidono.
+    <span class="k">p₀ = 2α² = 1,06502·10⁻⁴</span> viene dall'identificazione con la probabilità
+    di emissione di due fotoni simmetrizzati in elettrodinamica. <span class="k">p₀ = 0,001</span>
+    viene invece dalla condizione geometrica di pivot, δ² = ρ_vac.
+    <span class="tag t-con">nodo aperto</span>
+  </p>
+  <p>
+    I due non sono in contraddizione: la stessa condizione δ² = ρ_vac fissa anche il numero
+    di vicini di ogni cella, tramite <span class="k">N = 1/√(p₀ · E_min)</span>. Con p₀ = 0,001
+    dà <strong>12</strong> — il kissing number di sfere tangenti. Con p₀ = 2α² dà <strong>32</strong> —
+    sfere con spazio interstiziale. Due geometrie, due valori, una sola formula.
+  </p>
+  <h3>Riletto in ottobre</h3>
+  <p>
+    I due valori non vanno conciliati: nessuno dei due è il p₀ di oggi. Finché non c'è vibrazione i batch
+    non portano tempo, e una probabilità per batch nell'epoca della crescita iniziale non è una grandezza
+    fisica: di quell'epoca contano solo i conteggi e la struttura che ne è uscita. L'unico p₀ fisico è quello
+    di oggi, fissato dall'espansione: <span class="k">p₀ = 3H₀t_P ≈ 4·10⁻⁶¹</span> nascite per cella per batch,
+    il pavimento di un tessuto che non ha mai finito di equilibrarsi. Le identificazioni di costanti costruite
+    su p₀ = 0,001 — Λ, ħ_MT, α = p₀(−ln p₀) — sono abbandonate: una costante non può dipendere dall'epoca.
+    <span class="tag t-der">risolto per rilettura</span>
+  </p>
+</section>
+<section class="fade">
+  <span class="snum">04f — L'inizio e il cosmo</span>
+  <h2>Crescita senza tempo</h2>
+  <p>
+    Le celle nascono dove le spinte non si chiudono. Una cella sola è il massimo squilibrio; con due c'è il
+    varco, con tre il canale, con quattro il vuoto; la prima cella in equilibrio compare con il primo guscio
+    chiuso, tredici celle. Finché il gruppo è squilibrato ogni cella ne genera: crescita esponenziale, cioè
+    inflazione, senza durata perché senza vibrazioni non c'è tempo. Finisce quando il tessuto si equilibra.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>La prima vibrazione</h4>
+      <p>Una spinta su un tessuto squilibrato viene assorbita dal riassetto; su un guscio chiuso diventa
+      un'oscillazione che si propaga. È il primo batch con tempo, e il Big Bang caldo è l'equilibrio del
+      tessuto che converte le spinte in luce. Energia totale: lo squilibrio iniziale rilasciato, redistribuito
+      da allora. <span class="tag t-der">verificato nel modello meccanico</span></p>
+    </div>
+    <div>
+      <h4>Luce dai varchi, materia dalle celle</h4>
+      <p>Un urto su un varco va per l'89% nel settore della luce; su un canale per il 54%; su una cella o un
+      vuoto per lo 0%. Il settore della luce — varchi e canali che si rincorrono — è chiuso: non tocca mai
+      una cella. Da un urto orientato la luce esce di traverso e ciò che tocca le celle lungo l'asse.
+      <span class="tag t-der">esatto</span></p>
+    </div>
+    <div>
+      <h4>L'energia oscura è costante</h4>
+      <p>Le nascite di oggi sono il residuo dell'equilibrio incompiuto, inibite dove passa il tempo — cioè
+      quasi in nessun luogo. La gravità non può alimentarle (manca un fattore 10⁵) e il tempo proprio che
+      varia non ha la forma dei dati. MT prevede una Λ. Se la variazione preferita da DESI si consoliderà,
+      MT dovrà cercarla nella dinamica dell'assestamento. <span class="tag t-der">previsione</span></p>
+    </div>
+    <div>
+      <h4>La materia oscura</h4>
+      <p>Contrazioni sferiche congelate dell'interstizio: si
+      reggono perché la contrazione ferma il tempo che servirebbe a riaprirsi, con compattezza 2M/R ≈ 95 e
+      massa proporzionale al raggio, da un milligrammo in su. Oscure perché non stazionano, fredde, senza
+      urti, formate solo nell'universo primordiale. Il rapporto 5,4 con la materia è da calcolare.
+      <span class="tag t-con">speculazione con numeri</span></p>
+    </div>
+  </div>
+</section>
+<section class="fade">
+  <span class="snum">04i — L'inizio dai centri</span>
+  <h2>Un punto, un collegamento, un triangolo, un tetraedro</h2>
+  <p>
+    Il reticolo ha due letture duali: dalle celle (cella, varco, canale, vuoto) e dai centri (punto, collegamento,
+    triangolo, tetraedro). Prima di quattro punti non esiste un volume chiuso, né dentro né fuori: le due letture
+    coincidono. Il primo tetraedro chiude il primo volume e le separa: <strong>il primo vuoto è anche la prima
+    cella</strong>, e la scelta di quale sia quale è la stessa scelta del verso. Una, due, tre dimensioni — tante quante le
+    nascite avvenute prima che esistesse un collegamento da stirare — poi i gusci, l'elasticità, il tempo.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>La regola di nascita</h4>
+      <p>Una cella nasce al centro di ogni collegamento stirato oltre 1,3 ℓ_P: «le spinte non si chiudono» detto dai
+      collegamenti. All'inizio quasi tutti sono stirati (inflazione); in equilibrio nessuno (le nascite cessano); oggi
+      quasi mai (il pavimento). Dal quinto punto le nascite avvengono dentro i collegamenti, quindi dentro lo spazio che
+      c'è: la dimensione resta tre, e il disordine del tessuto è il prezzo di non aprirne una quarta.
+      <span class="tag t-ass">da simulare: quattro punti e la regola</span></p>
+    </div>
+    <div>
+      <h4>Gli mtdm come collegamenti mai stirati</h4>
+      <p>Le nascite allungano, non allargano: una regione con collegamenti compressi non ha modo di equilibrarsi. Resta
+      contratta, senza eventi, senza tempo — l'mtdm. Abbondanza: la frazione di collegamenti rimasti compressi
+      all'equilibrio, da confrontare con 5,4. <span class="tag t-ass">meccanismo con numero bersaglio</span></p>
+    </div>
+    <div>
+      <h4>Le due copie come lettura primale e duale</h4>
+      <p>La vibrazione con spin nasce in due copie quasi identiche: sarebbero la stessa vibrazione descritta dalle celle e
+      dai vuoti, distinte in segno dal verso e in misura dall'asimmetria fra la statistica delle celle e quella dei vuoti.
+      Test: lo scarto fra le copie (0,1–0,3%) contro l'asimmetria primale/duale misurata sul reticolo.
+      <span class="tag t-con">ipotesi con test</span></p>
+    </div>
+    
+  </div>
+</section>
+<section class="fade">
+  <span class="snum">Aperto</span>
+  <h2>I nodi di questo capitolo</h2>
+  <ol class="open-list">
+<li>
+      <b>La crescita per stiramento</b>
+      <span>Quattro punti e la regola «una cella al centro di ogni collegamento oltre 1,3 ℓ_P»: deve spegnersi da sola,
+      dare un tessuto iperuniforme, e lasciare una frazione di regioni compresse pari a 5,4 masse ordinarie.</span>
+    </li>
+<li>
+      <b>Il costo di una nascita</b>
+      <span>«L'energia totale si conserva» è un'intenzione finché non si sa che cosa costa una cella nuova e chi
+      paga. Dopo la transizione all'equilibrio le nascite sembrano non costare nulla; va dimostrato.</span>
+    </li>
+<li>
+      <b>La crescita delle strutture</b>
+      <span>I 60 meV dei neutrini si confrontano con i dati solo attraverso la crescita delle strutture nella gravità
+      di MT, dove MT può differire dalla relatività. Il calcolo delle perturbazioni non esiste ancora.</span>
+    </li>
+  </ol>
+</section>
+</div>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MT · Capitolo 3 — Max Theory — Riepilogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C1420;
+  --panel:#131F31;
+  --panel-2:#18273D;
+  --line:#243651;
+  --line-soft:#1B2A40;
+  --txt:#DEE6F2;
+  --txt-2:#8698B6;
+  --txt-3:#5D6E8A;
+  /* semantica: ambra = stazionamento (massa, tempo) */
+  --staz:#F0B24A;
+  /* semantica: ciano = propagazione (luce, energia) */
+  --prop:#5BC8D8;
+  /* semantica: viola = quota ceduta al campo */
+  --campo:#B98CE0;
+  --ok:#6FD1A6;
+  --open:#E0765F;
+  --display:'Sora',system-ui,sans-serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--txt);
+  font-family:var(--body);font-size:18px;line-height:1.68;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line);
+  padding:82px 0 0;
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--txt-3);margin:0 0 26px;
+}
+h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(46px,8vw,86px);line-height:.94;
+  letter-spacing:-.035em;margin:0 0 4px;
+}
+h1 .sub{display:block;color:var(--txt-3);font-weight:400;
+  font-size:clamp(20px,3vw,30px);letter-spacing:-.02em;margin-top:14px}
+.thesis{
+  font-size:clamp(19px,2.4vw,23px);line-height:1.55;color:var(--txt-2);
+  max-width:34em;margin:30px 0 0;font-weight:300;
+}
+.thesis em{color:var(--txt);font-style:normal}
+
+/* identita' centrale */
+.identity{
+  margin:52px 0 0;padding:30px 32px;
+  border:1px solid var(--line);border-radius:3px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+}
+.identity .eq{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(20px,4vw,34px);letter-spacing:-.02em;
+  text-align:center;margin:0;white-space:nowrap;
+  overflow-x:auto;
+}
+.i-p{color:var(--prop)}
+.i-t{color:var(--staz)}
+.i-g{color:var(--campo)}
+.legend{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:26px;background:var(--line);border:1px solid var(--line);
+}
+.legend div{background:var(--panel);padding:14px 16px}
+.legend b{
+  font-family:var(--mono);font-size:13px;font-weight:700;
+  display:block;margin-bottom:3px;
+}
+.legend span{font-size:14.5px;color:var(--txt-2);line-height:1.45}
+@media(max-width:660px){.legend{grid-template-columns:1fr}}
+
+/* reticolo */
+.lattice{display:block;width:100%;height:150px;margin-top:58px}
+
+/* ---------- SEZIONI ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--line-soft)}
+.snum{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--txt-3);text-transform:uppercase;
+  display:block;margin-bottom:12px;
+}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(28px,4.4vw,40px);line-height:1.08;
+  letter-spacing:-.03em;margin:0 0 26px;max-width:20em;
+}
+h3{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.015em;margin:38px 0 10px;color:var(--txt);
+}
+p{margin:0 0 18px;max-width:38em}
+strong{font-weight:500;color:#fff}
+.k{font-family:var(--mono);font-size:.88em;color:var(--prop)}
+.km{font-family:var(--mono);font-size:.88em;color:var(--staz)}
+
+/* blocco formula */
+.f{
+  font-family:var(--mono);font-size:16px;
+  border-left:2px solid var(--line);
+  padding:14px 0 14px 20px;margin:24px 0;color:var(--txt);
+  overflow-x:auto;
+}
+.f small{display:block;font-size:13px;color:var(--txt-3);
+  margin-top:8px;font-family:var(--body);font-size:15px}
+
+/* tag di stato epistemico */
+.tag{
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;border-radius:2px;
+  white-space:nowrap;display:inline-block;vertical-align:2px;
+}
+.t-der{color:var(--ok);border-color:#2C5A48}
+.t-ass{color:var(--staz);border-color:#5C4620}
+.t-con{color:var(--open);border-color:#5C3129}
+
+/* citazione storica */
+.quote{
+  margin:34px 0;padding:26px 30px;
+  border:1px solid var(--line);border-left:2px solid var(--campo);
+  background:var(--panel);
+}
+.quote p{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(18px,2.6vw,22px);line-height:1.45;
+  letter-spacing:-.015em;color:var(--txt);margin:0;max-width:none;
+}
+.quote cite{
+  display:block;margin-top:16px;font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--txt-3);
+}
+
+/* tabella risultati */
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:15px}
+.tbl th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--txt-3);font-weight:400;
+  text-align:left;padding:0 14px 11px 0;border-bottom:1px solid var(--line);
+}
+.tbl td{
+  padding:15px 14px 15px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.tbl td:first-child{color:var(--txt);max-width:16em}
+.tbl .num{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.tbl .num b{color:var(--prop);font-weight:500}
+.tbl .oss{font-family:var(--mono);font-size:13.5px;color:var(--txt-2);white-space:nowrap}
+@media(max-width:720px){
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+  .tbl td{border:0;padding:2px 0}
+  .tbl td:first-child{font-family:var(--display);font-weight:600;margin-bottom:6px}
+}
+
+/* card griglia */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);margin:30px 0}
+.grid > div{background:var(--panel);padding:22px 24px}
+.grid h4{
+  font-family:var(--display);font-size:16px;font-weight:600;
+  margin:0 0 8px;letter-spacing:-.01em;
+}
+.grid p{font-size:15.5px;color:var(--txt-2);margin:0;max-width:none}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+
+/* lista aperti */
+.open-list{list-style:none;padding:0;margin:24px 0 0;counter-reset:o}
+.open-list li{
+  counter-increment:o;position:relative;
+  padding:18px 0 18px 46px;border-top:1px solid var(--line-soft);
+  max-width:40em;
+}
+.open-list li::before{
+  content:counter(o,decimal-leading-zero);
+  position:absolute;left:0;top:19px;
+  font-family:var(--mono);font-size:12px;color:var(--open);
+}
+.open-list b{display:block;font-family:var(--display);font-weight:600;
+  font-size:17px;color:var(--txt);margin-bottom:4px}
+.open-list span{font-size:16px;color:var(--txt-2)}
+
+footer{padding:56px 0 90px;color:var(--txt-3);font-size:15px}
+footer .wrap{max-width:940px}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(14px);
+    transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="fade">
+  <span class="snum">Capitolo 3 di 6</span>
+  <h2>Quark e nuclei</h2>
+  <p class="lead">Vortice, corda, g_a, decadimento beta.</p>
+  <p class="lead" style="font-size:.95rem">Legenda dei cartellini: <span class="tag t-der">dimostrato</span> un teorema o un risultato numerico verificato · <span class="tag t-ass">coerente</span> un meccanismo che riproduce i dati ma dipende da una scelta o da una scala non derivata · <span class="tag t-con">aperto</span> un nodo da sciogliere, con il suo numero bersaglio.</p>
+  <p class="lead" style="font-size:.9rem">Indice: <a href="capitolo-1.html">1. Il tessuto</a> · <a href="capitolo-2.html">2. La vibrazione</a> · <a href="capitolo-3.html">3. Quark e nuclei</a> · <a href="capitolo-4.html">4. Le generazioni e la mano</a> · <a href="capitolo-5.html">5. La gravità</a> · <a href="capitolo-6.html">6. L'inizio e il cosmo</a> · <a href="../nota-tecnica.html">nota tecnica</a> · <a href="../riepilogo.html">documento completo</a></p>
+  <p class="lead" style="font-size:.9rem">Deposito: DOI da inserire — M. Cesaroni, ottobre 2026. Capitolo precedente e successivo collegati nel record Zenodo.</p>
+<p class="lead" style="font-size:.9rem">Nota: questo capitolo parla delle tre facce del canale attorno a cui si avvolge la fase del quark; la geometria del canale e il perché siano tre sono nel capitolo 4.</p>
+</section>
+<section class="fade">
+  <span class="snum">04h — Quark, protone, nuclei</span>
+  <h2>Il protone è un vortice chiuso</h2>
+  <p>
+    Il quark è un terzo di giro della fase interna attorno a un canale; il protone è una circolazione chiusa con un giro
+    intero, un terzo per faccia, che non si divide perché un terzo di giro non si chiude. Il numero di giri è topologico:
+    si conserva in ogni urto — è il numero barionico — e il protone, configurazione più leggera con un giro, non decade.
+    Le sue masse: 1% dai quark, 99% dalla vibrazione condivisa, come osservato.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>La corda è una linea di vortice</h4>
+      <p>L'avvolgimento è <em>attorno</em> alla corda, non lungo di essa: un giro lungo l'anello si allungherebbe gratis.
+      Ogni cella della linea porta lo stesso giro intero, quindi lo stesso costo: energia proporzionale alla lunghezza.
+      Tirare un quark significa trasferire a un terzo del giro parte del budget in moto; il filo di celle attraversate si
+      allunga finché conviene strozzarlo in due giri: la creazione di coppia, i getti. <span class="tag t-der">struttura</span></p>
+    </div>
+    <div>
+      <h4>Da dove viene la tensione</h4>
+      <p>Energia del gradiente (2π)²κ/A che vuole allargare il vortice, contro il costo ε₀·A delle celle impegnate — la
+      saturazione dell'occupazione — che vuole restringerlo. Il minimo fissa la sezione del tubo e la tensione: è il
+      superconduttore duale di 't Hooft e Mandelstam, con il condensato identificato nel vuoto in equilibrio e la sua
+      rigidità nella saturazione. I tubi di flusso della QCD su reticolo sono larghi ~0,5 fm. <span class="tag t-ass">meccanismo noto, sede nuova</span></p>
+    </div>
+    <div>
+      <h4>Il bilancio delle masse</h4>
+      <p>Quota di moto nħc/L più impegno σL: minimo E = 2√(nħcσ). Con √σ = 440 MeV e nient'altro: 880 MeV (protone 938),
+      1245 (Δ 1232), 1524 (N 1520), 1760 (N ~1700); M² lineare in n, cioè Regge. Lunghezza impegnata 0,45–0,96 fm,
+      3–6·10¹⁹ celle. Il pione (Goldstone) resta fuori schema; la ρ torna a 0,8 fm. <span class="tag t-ass">un parametro, preso dalla QCD</span></p>
+    </div>
+    <div>
+      <h4>I nuclei</h4>
+      <p>Due circolazioni che condividono celle le pagano una volta sola: massa(A)+massa(B)−massa(AB) = energia
+      liberata, il difetto di massa. Deutone 2,22 MeV = 2,3 attometri condivisi, lo 0,24% del protone; nuclei 8 MeV per
+      nucleone = 0,85%. Saturazione del legame perché si condivide solo con i canali adiacenti; termine di superficie dai
+      vicini mancanti; picco del ferro dal bilancio condivisione/repulsione di fase. EMC e coppie a corto raggio sono la
+      misura della condivisione. La fusione totale (Möbius) solo nella materia di quark. <span class="tag t-ass">frazioni da derivare</span></p>
+    </div>
+    <div>
+      <h4>Bombardare un protone</h4>
+      <p>Vibrazione entrante lunga: rinculo intero. Più corta: modo più alto, le risonanze, che tornano emettendo un
+      piccolo giro. Molto corta: un terzo del giro spinto via, il filo si stira e si strozza, un getto di adroni; mai
+      un quark solo. La circolarità non si rompe: si moltiplica. <span class="tag t-der">lettura dei dati</span></p>
+    </div>
+    <div>
+      <h4>Il decadimento beta</h4>
+      <p>Il neutrone è il protone con una faccia di accordo più cara (1,29 MeV). A ogni batch proprio la vibrazione
+      <em>tenta</em> l'escursione nel vuoto — la corrente cella–vuoto, lo stesso scambio che «trasportava» quando lo
+      cercavamo come sosta: il W è il quanto di quel passaggio, 80 GeV il suo costo. Il tentativo si risolve solo se c'è
+      una destinazione con ritmo da liberare: il neutrone ne ha una (p = 6·10⁻⁴⁷ per batch, τ = 878 s), il protone libero
+      no (Q = −1,80 MeV: tenta e torna). La probabilità costante per batch proprio è la legge esponenziale e la
+      dilatazione (muoni al CERN: 64,44 μs previsti, 64,42 misurati). Un solo numero per tutte le vibrazioni, G_F dal
+      muone: dà il τ a 0,3%, il neutrone a 0,8% (resto: correzioni radiative). La coppia elettrone–antineutrino nasce dalla
+      conservazione della fase rotante e del doppietto; lo spettro continuo è un solo scarto spartito fra due; la mano
+      (Wu) è il verso. Previsione: il doppio beta senza neutrini esiste. <span class="tag t-der">verificato (teoria di Fermi, letta)</span> <span class="tag t-con">G_F non derivata: 2·10⁻¹⁷ E_P</span></p>
+    </div>
+    <div>
+      <h4>Il g_A come budget del quark confinato</h4>
+      <p>Nel ritmo del neutrone il fattore 1 + 3g_A² = 5,88 è uno scarto esatto (la fase rotante si conserva: g_V = 1) e
+      tre torsioni. Il limite rigido delle tre facce ingranate dà 5/3; la riduzione a 1,275 è la quota di moto della
+      vibrazione confinata: g_A = (5/3)(1 − 4I²/3), e il valore misurato richiede I² = 0,176 — il quark nel vortice spende
+      l'82% del budget in sosta. Per una vibrazione di Dirac confinata in R questo vale mR = 1,20: con R = 0,84 fm,
+      ampiezza di inversione del quark dentro il vortice 282 MeV (un terzo del protone: 313). Libero ne avrebbe 2–5: la
+      differenza è la riflessione del tubo su un terzo di giro — la «massa costituente», la rottura chirale, in MT il
+      disaccordo nello spazio letto come sosta. È la quarta misura della stessa scala Λ dopo tensione di corda, massa
+      del protone e larghezza del tubo. Il calcolo è il modello a sacca con quark massivi; MT lo legge, non lo scopre.
+      <span class="tag t-der">calcolato</span> <span class="tag t-ass">lettura</span></p>
+    </div>
+    <div>
+      <h4>Che cosa manca</h4>
+      <p>ε₀ è preso dalla tensione di corda, non derivato: in unità di Planck è (Λ/E_P)⁴ — la gerarchia, nella forma
+      «perché il vuoto in equilibrio è così poco rigido contro gli avvolgimenti». Nessuna simulazione la dà senza un
+      meccanismo che leghi le due scale. <span class="tag t-con">aperto</span></p>
+    </div>
+  </div>
+</section>
+<section class="fade">
+  <span class="snum">Aperto</span>
+  <h2>I nodi di questo capitolo</h2>
+  <ol class="open-list">
+<li>
+      <b>Il costo dell'escursione nel vuoto (G_F)</b>
+      <span>La scala debole, 246 GeV = 2·10⁻¹⁷ E_P, è la quarta scala non derivata: il prezzo dell'escursione della
+      vibrazione nel settore dei vuoti e ritorno. L'operatore della corrente cella–vuoto in forma esatta — con il verso,
+      che produce la coppia — è la costruzione da fare; la sua debolezza è la stessa con cui il tessuto sente il verso.</span>
+    </li>
+<li>
+      <b>La scala Λ: la rigidità del vuoto contro gli avvolgimenti</b>
+      <span>Una scala sola, misurata in quattro modi e non derivata: la tensione di corda (√σ = 440 MeV), la massa del
+      protone e delle risonanze dal bilancio moto/impegno, la larghezza del tubo (~0,5 fm), e l'ampiezza di inversione del
+      quark dentro il vortice (282 MeV, da g_A). In unità di Planck: 10⁻⁸⁰ E_P per cella impegnata, 10⁻³⁹ per cella di
+      lunghezza di corda. È il valore che la riflessione del varco assume per un disaccordo nello spazio — un terzo di
+      giro di fase per cella — così come l'ampiezza dell'elettrone, 4·10⁻²³, è il valore della stessa riflessione per il
+      disaccordo nel tempo. Da essa dipendono protone, risonanze, corda, massa costituente e frazioni condivise nei
+      nuclei. Derivarla significa derivare la funzione di riflessione del varco dal disaccordo di fase: un calcolo sul
+      varco, non sull'adrone, che fisserebbe insieme la gerarchia adronica e quella leptonica. Nessuna simulazione la
+      dà senza quel meccanismo.</span>
+    </li>
+  </ol>
+</section>
+</div>
+</body>
+</html>

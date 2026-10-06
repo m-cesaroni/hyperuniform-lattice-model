@@ -1,0 +1,22 @@
+reticolo 100000 celle, lato 42.1 = 14.0 a0; alpha = 0.125, mu = 2.6667, a0 = 3.0 celle; Rydberg di MT = 0.020833
+vicine per cella 14.22; rigidita' dei varchi: mediana 0.368
+
+ k   E reticolo      <r>/a0   anisotropia   identificato (sovrapposizione^2)
+  0    -0.0204494     1.52      0.00       1s (1.00)
+  1    -0.0062614     6.06      0.00       2s (0.95)
+  2    -0.0047194     4.24      1.25       2p (0.95)
+  3    -0.0047191     4.24      1.13       2p (0.95)
+  4    -0.0047183     4.25      1.34       2p (0.95)
+  5    -0.0023877     6.36      0.49       2p (0.00)
+  6    -0.0023803     6.35      0.48       3s (0.00)
+  7    -0.0010463     7.02      0.01       3s (0.71)
+  8     0.0003227     6.69      1.01       3p (0.44)
+  9     0.0003235     6.69      1.05       3p (0.44)
+
+1s: -0.0204494  contro Rydberg -0.0208333: scarto -1.84%   <r>/a0 = 1.520 (continuo 1,500)
+2p (tre stati): -0.0047189 ± 4.8e-07  contro -0.0052083: scarto -9.40%;  degenerazione fra i tre: 1.0e-04
+2s: -0.0062614  contro -0.0052083: scarto +20.22%;  separazione 2s-2p: +32.69% (continuo 0)
+rapporto E(1s)/E(2p) = 4.3335 (Rydberg 4)
+
+Lyman-alfa: Sum|<2p|r|1s>|^2 = 2.1307 a0^2 (continuo 1,6653; quadratura sul reticolo con funzioni analitiche 1.7890)
+            Delta E = 0.37753 hartree (continuo 0,37500);  forza d'oscillatore f = 0.5363  (osservato 0,4162; scarto +28.8%)

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Un vuoto discreto, casuale e in equilibrio — nota tecnica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    --bg: #f6f5f1; --panel: #ffffff; --ink: #1a1f26; --soft: #5c6670; --line: #d9d6cf;
+    --acc: #8a3b12; --ok: #1f6f5a; --warn: #8a6a12; --no: #8a2a2a; --mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #16191d; --panel: #1e2328; --ink: #e8e6e1; --soft: #a0a6ad; --line: #343b43; --acc: #e0905c; --ok: #6fc3a8; --warn: #d9b55c; --no: #d97a7a; }
+  }
+  :root[data-theme="dark"] { --bg: #16191d; --panel: #1e2328; --ink: #e8e6e1; --soft: #a0a6ad; --line: #343b43; --acc: #e0905c; --ok: #6fc3a8; --warn: #d9b55c; --no: #d97a7a; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  html, body { height: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Source Serif 4", Georgia, serif; font-size: 17px; line-height: 1.55; }
+  main { max-width: 860px; margin: 0 auto; padding: 44px 24px 64px; }
+  h1 { font-size: 1.9rem; font-weight: 600; line-height: 1.15; margin: 0 0 6px; letter-spacing: -.01em; }
+  .sub { color: var(--soft); margin: 0 0 26px; font-style: italic; }
+  h2 { font-size: 1.15rem; font-weight: 600; margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line); }
+  p { margin: 0 0 12px; }
+  .abstract { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--acc); padding: 14px 18px; margin: 0 0 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; margin: 10px 0 14px; }
+  th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-weight: 600; color: var(--soft); font-size: .85rem; letter-spacing: .04em; text-transform: uppercase; }
+  td.n { font-family: var(--mono); font-size: .88rem; white-space: nowrap; }
+  .tag { display: inline-block; font-family: var(--mono); font-size: .72rem; padding: 1px 7px; border-radius: 3px; border: 1px solid var(--line); color: var(--soft); white-space: nowrap; }
+  .tag.ok { color: var(--ok); border-color: var(--ok); } .tag.warn { color: var(--warn); border-color: var(--warn); } .tag.no { color: var(--no); border-color: var(--no); }
+  ul, ol { padding-left: 1.2em; margin: 0 0 12px; } li { margin: 0 0 6px; }
+  code, .mono { font-family: var(--mono); font-size: .88rem; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; } @media (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+  .small { color: var(--soft); font-size: .92rem; }
+  a { color: var(--acc); }
+  .refs li { font-size: .9rem; color: var(--soft); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Un vuoto discreto, casuale e in equilibrio: che cosa riproduce, che cosa prevede, che cosa non sa fare</h1>
+  <p class="sub">Nota di lavoro — M. Cesaroni, ottobre 2026. Modello e verifiche numeriche; nessuna pretesa di completezza.</p>
+
+  <div class="abstract">
+    <p><b>In tre frasi.</b> È un modello in cui lo spazio è un reticolo tridimensionale <em>casuale</em> di celle in equilibrio
+    meccanico, e luce, materia e gravità sono modi di usare le facce, gli spigoli e i vertici della tassellazione di Voronoi.
+    Su quel reticolo il campo elettromagnetico (calcolo esterno discreto) e un campo di Kähler-Dirac vengono fuori giusti senza
+    aggiustamenti: c esatta, isotropia, nessuna birifrangenza, nessuna diffusione a onde lunghe, relazione relativistica
+    energia-momento come identità algebrica. Il tempo non è una coordinata del modello: è il conteggio delle inversioni
+    di chiralità di una vibrazione massiva, e la dilatazione temporale, speciale e gravitazionale, è contabilità. Dalla stessa struttura escono il fattore 2 nella deflessione, Mercurio dalla
+    saturazione di un'occupazione probabilistica, e tre generazioni dalla geometria dei canali; il modello prevede un'energia
+    oscura costante e un'ombra dei buchi neri più grande del 4,6% rispetto alla RG, e muore se i dati diranno il contrario.</p>
+  </div>
+
+  <h2>1. Il modello, in termini standard</h2>
+  <p>Tre scelte, tutte diverse dai programmi di spaziotempo discreto noti (insiemi causali, triangolazioni dinamiche,
+  reti di spin, automi cellulari):</p>
+  <ol>
+    <li><b>Reticolo casuale, non cristallino.</b> Punti con distanza minima, densità fissata, condizioni periodiche. Niente assi
+    privilegiati; l'invarianza per rotazioni è statistica.</li>
+    <li><b>Equilibrio meccanico.</b> I punti si respingono con un potenziale a portata finita e vengono rilassati fino a forze nulle.
+    Il reticolo risultante è <em>iperuniforme</em> (S(k)→0 per k→0, fluttuazioni ∝ superficie) e, sopra, localmente isotropo
+    nelle direzioni delle vicine. Questa è la condizione che fa funzionare tutto il resto.</li>
+    <li><b>Dualità Delaunay–Voronoi come sede dei campi.</b> 0-forme sulle celle, 1-forme sui collegamenti (duali alle facce di
+    Voronoi), 2-forme sui triangoli (duali agli spigoli), 3-forme sui tetraedri (duali ai vertici). Le stelle di Hodge diagonali
+    sono rapporti di misure duali. Il campo EM vive sulle 1- e 2-forme; lo spinore su tutte e quattro (Kähler-Dirac).</li>
+  </ol>
+  <p class="small">Dinamica in tempo: Hamiltoniana hermitiana K = d + d† (simmetrizzata con le stelle di Hodge); per la luce,
+  leapfrog esatto in energia. Unità: passo medio del reticolo = 1, c = 1 nel continuo.</p>
+  <p><b>Meccanica delle matrici.</b> Lo stato è un vettore di ampiezze sugli elementi del complesso; la posizione X_a è
+  diagonale (coordinata del centro duale di ogni elemento: cella, punto medio del collegamento, centro del triangolo,
+  centro del tetraedro); K è sparsa, con elementi solo fra elementi adiacenti. Per ogni matrice diagonale vale
+  ([X_a, K])_{αβ} = (x_α − x_β)_a K_{αβ}, reale antisimmetrica, quindi [X_a, K] = iV_a con V_a hermitiana: l'equazione di
+  Heisenberg dX_a/dt = i[K, X_a] = V_a identifica V_a con la velocità (spostamento lungo il passaggio × rigidità del
+  passaggio). Da qui Robertson: ΔX_a·ΔK ≥ ½|⟨V_a⟩|. Nel limite di Schrödinger [X_a, P_a] = i in unità di reticolo
+  (cella × radiante per cella): ħ è la conversione di unità. Il principio di indeterminazione è verificato dallo spettro di K
+  (tabella), saturo al minimo gaussiano sopra la cella e ridotto sotto (lunghezza minima).</p>
+
+  <h2>2. Il tempo</h2>
+  <p>Nel modello non esiste una coordinata temporale. Il reticolo si aggiorna a passi — li chiamo <em>batch</em> — ma un
+  passo non è un istante: è un contatore globale che nessun osservatore può leggere. Il tempo fisico è un'altra cosa, ed è
+  definito operativamente.</p>
+  <ul>
+    <li><b>Il tempo proprio è un conteggio.</b> Una vibrazione massiva inverte la propria chiralità con frequenza 2E/ħ
+    (Zitterbewegung); l'operatore di massa è ciò che inverte. Il tempo proprio di una particella è il numero di inversioni
+    che ha compiuto. Questo non è una metafora: sul reticolo, per ogni autostato, ⟨Γ⟩ = m/E e il numero di inversioni per
+    batch è la quota T del budget, con I² + T² = 1 esatto. T = dτ/dt = 1/γ segue senza postulare la relatività; a passi
+    discreti la relazione diventa cos ω = cos μ · cos κ e tende a quella continua per angoli piccoli.</li>
+    <li><b>La luce non ha tempo.</b> Il campo EM vive sulle 1- e 2-forme e non ha un termine di inversione: nessun conteggio,
+    τ = 0, coerentemente con la relatività. È anche il motivo per cui non interagisce con sé stessa e non è localizzabile:
+    nessun evento le accade fra emissione e assorbimento.</li>
+    <li><b>La dilatazione gravitazionale è un ritmo.</b> Vicino a una massa l'occupazione n rallenta le inversioni:
+    T² = e^(−n), da cui redshift, GPS, Shapiro, e — con lo stesso deficit letto anche nello spazio — γ = 1. L'energia di
+    legame dell'idrogeno, nella teoria di Dirac, è esattamente il deficit di tempo proprio dell'elettrone:
+    ⟨β⟩ = √(1 − α²), E = mT.</li>
+    <li><b>Prima della prima vibrazione non c'è tempo.</b> Un reticolo senza eccitazioni massive ha passi ma non orologi.
+    L'epoca di crescita iniziale ha un numero di passi, non una durata: «quanto è durata l'inflazione» non è una domanda
+    ben posta nel modello, e un tasso di nascita per passo in quell'epoca non è una grandezza fisica. Il tempo comincia con
+    la prima eccitazione, cioè con il primo urto su un guscio di celle in equilibrio.</li>
+    <li><b>Il paradosso dei gemelli e l'indeterminazione energia-tempo</b> sono conteggi: il gemello in viaggio ha speso più
+    budget in moto e meno in inversioni; conoscere E con precisione ΔE richiede ΔE·Δt ≳ ħ perché richiede di contare
+    abbastanza passi.</li>
+  </ul>
+  <p class="small">Vincolo verificato: la conversione fra passi e tempo proprio di un osservatore cosmico <em>non</em> deriva
+  con l'epoca — un adattamento alle distanze BAO di DESI DR2 esclude un fattore di orologio dipendente da Ω_m (parametro
+  ≈ 0 ± 0,1). Il tempo di MT non riscrive la cronologia cosmologica. Riferimento sperimentale per l'identificazione
+  tempo–massa: Lan et al., <em>Science</em> 339 (2013), orologio di Compton.</p>
+
+  <h2>3. Risultati numerici (reticoli da 4·10³ a 1,3·10⁵ celle)</h2>
+  <table>
+    <thead><tr><th>Quantità</th><th>Risultato</th><th>Riferimento</th><th>Stato</th></tr></thead>
+    <tbody>
+      <tr><td>Velocità della luce (onde lunghe)</td><td class="n">1,0002 ± 0,0005</td><td class="n">1</td><td><span class="tag ok">senza normalizzazione</span></td></tr>
+      <tr><td>Anisotropia di c fra direzioni</td><td class="n">1,3 %  (reticolo piccolo)</td><td class="n">0</td><td><span class="tag ok">cala con la dimensione</span></td></tr>
+      <tr><td>Dispersione: c(k) = c₀[1 − β(ka)ⁿ]</td><td class="n">n = 1,84 ± 0,06, β ≈ 0,01–0,14</td><td class="n">lineare esclusa (Fermi)</td><td><span class="tag ok">quadratica</span></td></tr>
+      <tr><td>Differenza di velocità fra eliche</td><td class="n">&lt; 10⁻³ (spin ½), &lt; 10⁻⁷ (EM)</td><td class="n">&lt; 10⁻¹⁶ (GRB)</td><td><span class="tag ok">compatibile</span></td></tr>
+      <tr><td>Diffusione della luce, onde ≥ 16 passi</td><td class="n">&lt; 1,2·10⁻⁷ per unità di tempo</td><td class="n">galassie nitide</td><td><span class="tag ok">non rilevata</span></td></tr>
+      <tr><td>Legge di diffusione all'accensione</td><td class="n">Γ ∝ k^p, p ≈ 6–8 (eq.), 2 (spin nelle celle)</td><td class="n">p ≥ 3,4 basta per i TeV</td><td><span class="tag ok">il k² era il doubling</span></td></tr>
+      <tr><td>Rapporto diffusione reticolo in equilibrio / non in equilibrio</td><td class="n">1/10 – 1/100</td><td class="n">—</td><td><span class="tag ok">l'equilibrio conta</span></td></tr>
+      <tr><td>Quota di inversione T = ⟨Γ⟩ contro m/E, autostato per autostato</td><td class="n">scarto 7·10⁻¹⁵</td><td class="n">1/γ</td><td><span class="tag ok">tempo = conteggio</span></td></tr>
+      <tr><td>Oscillazione lungo l'asse dello spin (pacchetto fermo)</td><td class="n">periodo π/E, trasversale &lt; 10⁻²</td><td class="n">Zitterbewegung</td><td><span class="tag ok">misurato</span></td></tr>
+      <tr><td>Anticommutazione {K, Γ} e E² = K² + m² (Kähler-Dirac)</td><td class="n">0 e 10⁻¹⁴ su tutti gli autostati</td><td class="n">identità</td><td><span class="tag ok">teorema</span></td></tr>
+      <tr><td>Versione a passi discreti</td><td class="n">cos ω = cos μ · cos κ, scarto 10⁻¹⁵</td><td class="n">Pitagora sferico</td><td><span class="tag ok">teorema</span></td></tr>
+      <tr><td>Modi spuri a bassa energia (doubling)</td><td class="n">258/260 (spin nelle celle); 0 (Kähler-Dirac)</td><td class="n">Nielsen-Ninomiya</td><td><span class="tag warn">2 tastes residui</span></td></tr>
+      <tr><td>Profilo del campo da un contagio critico</td><td class="n">r^(−0,986)</td><td class="n">1/r</td><td><span class="tag ok">Poisson discreto</span></td></tr>
+      <tr><td>Occupazione per impegni indipendenti</td><td class="n">1 − e^(−n), var/media = 1,000</td><td class="n">—</td><td><span class="tag ok">Poisson</span></td></tr>
+      <tr><td>Iperuniformità: S(k) a k piccolo</td><td class="n">0,002 (eq.) vs 0,05 (RSA) vs 0,9 (Poisson)</td><td class="n">—</td><td><span class="tag ok">misurato</span></td></tr>
+      <tr><td>Δx·Δk da ⟨K²⟩ per pacchetti gaussiani di larghezza s</td><td class="n">0,49 (s = 1–2 celle); 0,45 (s = 0,6)</td><td class="n">½</td><td><span class="tag ok">spettro di K</span></td></tr>
+      <tr><td>Δω·N½ (sopravvivenza sotto e^{−iK})</td><td class="n">0,80 – 0,87</td><td class="n">≥ π/4 = 0,785</td><td><span class="tag ok">Mandelstam-Tamm</span></td></tr>
+      <tr><td>Idrogeno, Schrödinger di MT su 2,7·10⁶ celle (a₀ = 4 celle, scatola 32 a₀)</td><td class="n">1s −1,2 %; 2p +0,17 %; 2s −0,28 %</td><td class="n">−μα²/2n²</td><td><span class="tag ok">laplaciano dai pesi di Hodge</span></td></tr>
+      <tr><td>Degenerazione 2s–2p; tripletto 2p; 3d sotto parete sferica</td><td class="n">0,45 %; 4·10⁻⁵; 1·10⁻⁴</td><td class="n">0; 0; 0</td><td><span class="tag ok">nessuna simmetria imposta</span></td></tr>
+      <tr><td>Lyman-α, forza d'oscillatore (⟨2p|X|1s⟩); estrapolazione a risoluzione e scatola infinite (5 corse)</td><td class="n">0,425; 0,410 – 0,414</td><td class="n">0,4162</td><td><span class="tag ok">+2,2 % / −1 %</span></td></tr>
+      <tr><td>Varietà n = 3 (scatola 50 a₀): 3s, 3p, 3d degeneri fra loro e con Rydberg/9; somme 1s→n=3, 2s→n=3, 2p→n=3</td><td class="n">0,4 %; 0,082 / 0,468 / 0,699</td><td class="n">0; 0,0791 / 0,4349 / 0,7094</td><td><span class="tag ok">+3,9 % / +7,7 % / −1,5 %</span></td></tr>
+      <tr><td>Balmer 2p→3d, forza d'oscillatore (scatola 42 a₀ e 32 a₀)</td><td class="n">0,678; 0,690</td><td class="n">0,6958</td><td><span class="tag ok">−2,6 % / −0,8 %</span></td></tr>
+      <tr><td>Controlli: riempimento 0,60–0,80; contorno periodico vs parete sferica (n = 2); rumore 10 % sui pesi; assestamento 10× peggiore</td><td class="n">Δf ≤ 1 %; identici a 0,05 %; ΔE ≤ 0,4 %; ΔE ≤ 0,3 %</td><td class="n">—</td><td><span class="tag ok">stabile</span></td></tr>
+      <tr><td>Aperture attorno ai canali (triangoli di Delaunay)</td><td class="n">sbilanciamento tipico 0,21–0,23 rad a φ = 0,70</td><td class="n">angolo di Koide 0,222</td><td><span class="tag warn">dipende da φ</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. Che cosa riproduce, e con quante assunzioni</h2>
+  <div class="cols">
+    <div>
+      <p><b>Senza parametri liberi</b></p>
+      <ul>
+        <li>Relazione energia-momento relativistica e budget v² + (1/γ)² = 1 come conseguenza dell'anticommutazione moto–inversione; il tempo proprio come conteggio delle inversioni.</li>
+        <li>Lo spettro dell'idrogeno nella scala di Rydberg, le degenerazioni accidentali e le intensità di Lyman-α e Balmer 2p→3d dall'equazione di Schrödinger del reticolo, senza costanti aggiustate; la separazione cubica dei 3d è delle immagini periodiche e sparisce con una parete sferica.</li>
+        <li>Frequenza di Zitterbewegung 2E/ħ, oscillazione lungo l'asse dello spin, ampiezza c/2m.</li>
+        <li>Deflessione 1,7516″, Shapiro 123,7 μs, GPS +38,5 μs/giorno dal principio «un deficit letto nel tempo e nello spazio» (γ = 1).</li>
+        <li>Mercurio 42,99″/secolo dalla saturazione dell'occupazione (β = 1), senza termine aggiunto.</li>
+        <li>Tre generazioni, nessuna quarta: tre facce attorno a uno spigolo di Voronoi; relazione di Koide Q = 2/3 come identità delle tre proiezioni a 120°.</li>
+        <li>Assenza di monopoli magnetici (d² = 0) e non-interazione luce-luce (linearità) per struttura.</li>
+      </ul>
+    </div>
+    <div>
+      <p><b>Con un parametro o un'identificazione</b></p>
+      <ul>
+        <li>Gerarchia 1 : 207 : 3477 se l'angolo del dipolo è lo sbilanciamento tipico dei canali, che esce 0,21–0,23 rad a riempimento 0,70 (0,28 a 0,60; 0,17–0,21 a 0,80).</li>
+        <li>Masse dei neutrini 0,38 / 8,9 / 50,7 meV (schema di Brannen): due parametri, riproduce entrambi i Δm².</li>
+        <li>G equivale a 5–6 «impegni per inversione» con la cella alla scala di Planck; ≈ metà delle 11,7 vicine che fissano α = 1/N².</li>
+        <li>Chiralità uniforme dell'universo dal primo tetraedro ordinato per nascita (segno); la quantità dell'asimmetria barionica resta da derivare.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5. Gli ostacoli noti, per nome</h2>
+  <ul>
+    <li><b>Invarianza di Lorentz.</b> Esiste un riferimento privilegiato (il reticolo). È statisticamente invisibile: le correzioni sono quadratiche, E_QG,2 ≈ 2,7 E_Planck contro limiti attuali ≈ 10⁻⁸ E_Planck; il tempo di volo di GRB 090510 viene 2·10⁻¹⁹ s.</li>
+    <li><b>Doubling dei fermioni.</b> Lo spinore nelle celle produce una densità costante di modi spuri (p = 2 nella diffusione: conversione in modi di reticolo). Kähler-Dirac li elimina al prezzo di due tastes quasi degeneri (0,1–0,3 % di splitting a λ = 15 passi). Non risolto: è il problema principale sulla materia.</li>
+    <li><b>Etere.</b> È l'etere di Lorentz reso invisibile dall'iperuniformità: parti reali, non rintracciabili da onde più lunghe delle celle. Dove differisce dalla RG è misurabile (sotto).</li>
+    <li><b>Velocità del contagio gravitazionale.</b> Il profilo 1/r è stato ottenuto con una passeggiata casuale, incompatibile con GW170817 di 30 ordini di grandezza. Il profilo sopravvive come soluzione statica di un'equazione d'onda; il meccanismo va rifatto.</li>
+    <li><b>Energia del vuoto e masse.</b> Il modello non risolve la gerarchia: la traduce in «perché l'inversione è rara» (m/m_P per batch). I 120 ordini di grandezza dell'energia del vuoto restano.</li>
+  </ul>
+
+  <h2>6. Previsioni falsificabili</h2>
+  <table>
+    <thead><tr><th>Previsione</th><th>Valore</th><th>Test</th><th>Cosa succede se è falsa</th></tr></thead>
+    <tbody>
+      <tr><td>Energia oscura costante (w = −1)</td><td class="n">Λ; p₀ = 3H₀t_P ≈ 4·10⁻⁶¹ per cella per batch</td><td>DESI finale, Euclid (2027–2030)</td><td>un w₀wₐ a 5σ richiede una dinamica dell'assestamento non ancora scritta</td></tr>
+      <tr><td>Ombra dei buchi neri</td><td class="n">+4,6 % rispetto alla RG (T² = e^(−n), niente orizzonte)</td><td>ngEHT, Sgr A* (incertezza oggi ≈ 9 %)</td><td>la saturazione in campo forte è sbagliata</td></tr>
+      <tr><td>Deflessione solare al 2º ordine</td><td class="n">+0,69 μas rispetto alla RG</td><td>missioni tipo LATOR</td><td>idem</td></tr>
+      <tr><td>Nessuna quarta generazione</td><td class="n">3 esatto</td><td>già verificato (Z, Higgs)</td><td>—</td></tr>
+      <tr><td>Somma delle masse dei neutrini</td><td class="n">60 meV, ordinamento normale, Majorana</td><td>cosmologia 2030–34</td><td>lo schema a tre proiezioni dei neutrini cade</td></tr>
+      <tr><td>Nessuna birifrangenza del vuoto; dispersione solo quadratica</td><td class="n">—</td><td>polarizzazione GRB, Fermi/CTA</td><td>il reticolo avrebbe una mano geometrica</td></tr>
+    </tbody>
+  </table>
+
+  <h2>7. Che cosa non sa fare (oggi)</h2>
+  <ol>
+    <li>Separare o interpretare i due tastes del campo di Kähler-Dirac.</li>
+    <li>Costruire l'operatore di massa «scambio cella–vuoto» che anticommuti con K (la versione ingenua trasporta invece di invertire).</li>
+    <li>Fissare il riempimento del vuoto: l'angolo di Koide è una coincidenza di un parametro finché φ non è derivato.</li>
+    <li>La crescita delle strutture con questa gravità (necessaria per confrontare i 60 meV con i limiti da lensing).</li>
+    <li>Il settore debole (W, Z, accoppiamento a una sola chiralità) e la quantità dell'asimmetria barionica.</li>
+  </ol>
+
+  <h2>8. Riproducibilità</h2>
+  <p>Tutti i numeri della tabella vengono da script Python (numpy, scipy) che girano su un portatile: generazione dei reticoli
+  (RSA, equilibrio, crescita per nascite adiacenti, cristallo CCC come controllo), misure di S(k) e varianza del numero,
+  propagazione della luce con calcolo esterno discreto (leapfrog, energia conservata a 10⁻¹²), operatori di Weyl e di
+  Kähler-Dirac con diagonalizzazione esatta su reticoli piccoli, contagio Monte Carlo. Tempi: 30 minuti per 3·10⁴ celle,
+  un'ora e mezza per 1,3·10⁵. Gli script sono nella cartella <code>code/</code> del repository (<code>mt_trasparenza.py</code>, <code>mt_luce.py</code>, <code>kdlib.py</code>, <code>mt_idrogeno_pc.py</code>), e in <code>code/analysis/</code> quelli che producono i singoli numeri della tabella (geometria dei canali, vicine, indeterminazione, commutatore, settori, urti, adattamento DESI). I numeri sulla gravità — profilo 1/r dal contagio, Mercurio dalla saturazione — vengono da script di una fase precedente non ancora consolidati nel repository: saranno aggiunti in una versione successiva.</p>
+
+  <h2>9. Letteratura su cui poggia</h2>
+  <ol class="refs">
+    <li>Desbrun, Hirani, Leok, Marsden — Discrete exterior calculus (2005); Bossavit — Computational electromagnetism.</li>
+    <li>Nielsen, Ninomiya — No-go theorem for lattice chiral fermions (1981); Christ, Friedberg, Lee — Random lattice field theory (1982); Rabin — Kähler-Dirac fermions on lattices (1982).</li>
+    <li>Torquato, Stillinger — Hyperuniformity (2003); Leseur, Pierrat, Carminati — Transparency of hyperuniform media (2016); Donev, Stillinger, Torquato — Jammed packings are hyperuniform (2005).</li>
+    <li>Feynman, Hibbs — Checkerboard (1965); Kac (1974); Gaveau, Jacobson, Kac, Schulman — Telegraph/Dirac and Brownian motion (1984); Nelson — Stochastic mechanics (1966).</li>
+    <li>Koide (1982); Brannen — Koide for neutrinos (2006).</li>
+    <li>Sorkin — Causal sets; Ambjørn, Jurkiewicz, Loll — CDT; 't Hooft — Cellular automaton interpretation; Einstein — Äther und Relativitätstheorie (Leida, 1920).</li>
+    <li>DESI DR2 (2025–26); Vasileiou et al. — Fermi constraints on Lorentz violation (2013); EHT Sgr A* (2022); Will — PPN confrontation (2014).</li>
+  </ol>
+</main>
+</body>
+</html>

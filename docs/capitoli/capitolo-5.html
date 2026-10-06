@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MT · Capitolo 5 — Max Theory — Riepilogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C1420;
+  --panel:#131F31;
+  --panel-2:#18273D;
+  --line:#243651;
+  --line-soft:#1B2A40;
+  --txt:#DEE6F2;
+  --txt-2:#8698B6;
+  --txt-3:#5D6E8A;
+  /* semantica: ambra = stazionamento (massa, tempo) */
+  --staz:#F0B24A;
+  /* semantica: ciano = propagazione (luce, energia) */
+  --prop:#5BC8D8;
+  /* semantica: viola = quota ceduta al campo */
+  --campo:#B98CE0;
+  --ok:#6FD1A6;
+  --open:#E0765F;
+  --display:'Sora',system-ui,sans-serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--txt);
+  font-family:var(--body);font-size:18px;line-height:1.68;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line);
+  padding:82px 0 0;
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--txt-3);margin:0 0 26px;
+}
+h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(46px,8vw,86px);line-height:.94;
+  letter-spacing:-.035em;margin:0 0 4px;
+}
+h1 .sub{display:block;color:var(--txt-3);font-weight:400;
+  font-size:clamp(20px,3vw,30px);letter-spacing:-.02em;margin-top:14px}
+.thesis{
+  font-size:clamp(19px,2.4vw,23px);line-height:1.55;color:var(--txt-2);
+  max-width:34em;margin:30px 0 0;font-weight:300;
+}
+.thesis em{color:var(--txt);font-style:normal}
+
+/* identita' centrale */
+.identity{
+  margin:52px 0 0;padding:30px 32px;
+  border:1px solid var(--line);border-radius:3px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+}
+.identity .eq{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(20px,4vw,34px);letter-spacing:-.02em;
+  text-align:center;margin:0;white-space:nowrap;
+  overflow-x:auto;
+}
+.i-p{color:var(--prop)}
+.i-t{color:var(--staz)}
+.i-g{color:var(--campo)}
+.legend{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:26px;background:var(--line);border:1px solid var(--line);
+}
+.legend div{background:var(--panel);padding:14px 16px}
+.legend b{
+  font-family:var(--mono);font-size:13px;font-weight:700;
+  display:block;margin-bottom:3px;
+}
+.legend span{font-size:14.5px;color:var(--txt-2);line-height:1.45}
+@media(max-width:660px){.legend{grid-template-columns:1fr}}
+
+/* reticolo */
+.lattice{display:block;width:100%;height:150px;margin-top:58px}
+
+/* ---------- SEZIONI ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--line-soft)}
+.snum{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--txt-3);text-transform:uppercase;
+  display:block;margin-bottom:12px;
+}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(28px,4.4vw,40px);line-height:1.08;
+  letter-spacing:-.03em;margin:0 0 26px;max-width:20em;
+}
+h3{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.015em;margin:38px 0 10px;color:var(--txt);
+}
+p{margin:0 0 18px;max-width:38em}
+strong{font-weight:500;color:#fff}
+.k{font-family:var(--mono);font-size:.88em;color:var(--prop)}
+.km{font-family:var(--mono);font-size:.88em;color:var(--staz)}
+
+/* blocco formula */
+.f{
+  font-family:var(--mono);font-size:16px;
+  border-left:2px solid var(--line);
+  padding:14px 0 14px 20px;margin:24px 0;color:var(--txt);
+  overflow-x:auto;
+}
+.f small{display:block;font-size:13px;color:var(--txt-3);
+  margin-top:8px;font-family:var(--body);font-size:15px}
+
+/* tag di stato epistemico */
+.tag{
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;border-radius:2px;
+  white-space:nowrap;display:inline-block;vertical-align:2px;
+}
+.t-der{color:var(--ok);border-color:#2C5A48}
+.t-ass{color:var(--staz);border-color:#5C4620}
+.t-con{color:var(--open);border-color:#5C3129}
+
+/* citazione storica */
+.quote{
+  margin:34px 0;padding:26px 30px;
+  border:1px solid var(--line);border-left:2px solid var(--campo);
+  background:var(--panel);
+}
+.quote p{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(18px,2.6vw,22px);line-height:1.45;
+  letter-spacing:-.015em;color:var(--txt);margin:0;max-width:none;
+}
+.quote cite{
+  display:block;margin-top:16px;font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--txt-3);
+}
+
+/* tabella risultati */
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:15px}
+.tbl th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--txt-3);font-weight:400;
+  text-align:left;padding:0 14px 11px 0;border-bottom:1px solid var(--line);
+}
+.tbl td{
+  padding:15px 14px 15px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.tbl td:first-child{color:var(--txt);max-width:16em}
+.tbl .num{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.tbl .num b{color:var(--prop);font-weight:500}
+.tbl .oss{font-family:var(--mono);font-size:13.5px;color:var(--txt-2);white-space:nowrap}
+@media(max-width:720px){
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+  .tbl td{border:0;padding:2px 0}
+  .tbl td:first-child{font-family:var(--display);font-weight:600;margin-bottom:6px}
+}
+
+/* card griglia */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);margin:30px 0}
+.grid > div{background:var(--panel);padding:22px 24px}
+.grid h4{
+  font-family:var(--display);font-size:16px;font-weight:600;
+  margin:0 0 8px;letter-spacing:-.01em;
+}
+.grid p{font-size:15.5px;color:var(--txt-2);margin:0;max-width:none}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+
+/* lista aperti */
+.open-list{list-style:none;padding:0;margin:24px 0 0;counter-reset:o}
+.open-list li{
+  counter-increment:o;position:relative;
+  padding:18px 0 18px 46px;border-top:1px solid var(--line-soft);
+  max-width:40em;
+}
+.open-list li::before{
+  content:counter(o,decimal-leading-zero);
+  position:absolute;left:0;top:19px;
+  font-family:var(--mono);font-size:12px;color:var(--open);
+}
+.open-list b{display:block;font-family:var(--display);font-weight:600;
+  font-size:17px;color:var(--txt);margin-bottom:4px}
+.open-list span{font-size:16px;color:var(--txt-2)}
+
+footer{padding:56px 0 90px;color:var(--txt-3);font-size:15px}
+footer .wrap{max-width:940px}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(14px);
+    transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="fade">
+  <span class="snum">Capitolo 5 di 6</span>
+  <h2>La gravità</h2>
+  <p class="lead">Contagio, saturazione, mercurio, ombra, spazio interstiziale, onde a croce.</p>
+  <p class="lead" style="font-size:.95rem">Legenda dei cartellini: <span class="tag t-der">dimostrato</span> un teorema o un risultato numerico verificato · <span class="tag t-ass">coerente</span> un meccanismo che riproduce i dati ma dipende da una scelta o da una scala non derivata · <span class="tag t-con">aperto</span> un nodo da sciogliere, con il suo numero bersaglio.</p>
+  <p class="lead" style="font-size:.9rem">Indice: <a href="capitolo-1.html">1. Il tessuto</a> · <a href="capitolo-2.html">2. La vibrazione</a> · <a href="capitolo-3.html">3. Quark e nuclei</a> · <a href="capitolo-4.html">4. Le generazioni e la mano</a> · <a href="capitolo-5.html">5. La gravità</a> · <a href="capitolo-6.html">6. L'inizio e il cosmo</a> · <a href="../nota-tecnica.html">nota tecnica</a> · <a href="../riepilogo.html">documento completo</a></p>
+  <p class="lead" style="font-size:.9rem">Deposito: DOI da inserire — M. Cesaroni, ottobre 2026. Capitolo precedente e successivo collegati nel record Zenodo.</p>
+</section>
+<section class="fade">
+  <span class="snum">04 — Gravità</span>
+  <h2>Non una forza, non una curvatura: un'occupazione</h2>
+  <p>
+    Una vibrazione che staziona <strong>ritorna ripetutamente sulle stesse celle</strong>.
+    È questa la differenza di natura tra chi ha massa e chi no: la luce visita ogni cella una
+    volta sola e passa; la materia rivisita. Le visite ripetute impegnano le celle, e una cella
+    impegnata cede parte del budget di chi la attraversa. Questo è qIG.
+  </p>
+  <p>
+    L'impegno si trasmette alle vicine per <strong>contagio</strong>, non per trasferimento:
+    la cella che contagia non perde nulla, e per questo il campo persiste finché la massa resta.
+    L'occupazione non è mai intera — è una probabilità, e può valere 10⁻⁶³ senza annullarsi.
+    Non esiste quindi soglia minima né raggio d'azione finito. <span class="tag t-der">derivato</span>
+  </p>
+
+  <div class="grid">
+    <div>
+      <h4>Il valore rallenta il tempo</h4>
+      <p>Dove qIG è alto, ogni stazionamento rende meno tempo. Dipende dalla posizione, non dal
+      moto: anche chi è in caduta libera lo subisce, come mostrano i satelliti GPS.</p>
+    </div>
+    <div>
+      <h4>Il gradiente produce il moto</h4>
+      <p>Una vibrazione è estesa su molte celle. La parte interna sta dove il campo è più intenso,
+      quella esterna dove è più debole: le parti evolvono a ritmi diversi e l'oggetto si sbilancia.</p>
+    </div>
+  </div>
+
+  <p>
+    Questo elimina un postulato della relatività generale. Lì i corpi cadono perché
+    «seguono le geodetiche» — ma nulla nella geometria dice <em>perché</em> lo facciano: è un
+    assioma indipendente. In MT il moto è la conseguenza aritmetica di essere estesi in un
+    gradiente. Il principio geodetico diventa un teorema.
+  </p>
+
+  <h3>Perché anche la luce devia</h3>
+  <p>
+    La luce ha I = 1: nessun residuo che il campo possa prelevare, e infatti la sua atemporalità
+    resta intatta. Ma il suo fronte è esteso, e i due lati attraversano regioni dove il ritmo
+    differisce. Il fronte ruota. È lo stesso identico meccanismo della caduta di un sasso —
+    la differenza è solo che la materia, stazionando, accumula anche tempo proprio.
+  </p>
+
+  <h3>Il fattore due</h3>
+  <p>
+    Un solo p₀ governa due contabilità, temporale e spaziale, ed entrambe subiscono lo stesso
+    deficit perché sono lo stesso conteggio letto in due direzioni. Da qui il fattore 2 che separa
+    Newton da Einstein — che in relatività generale resta un fatto bruto e qui è una necessità.
+  </p>
+
+  <h3>Niente singolarità</h3>
+  <p>
+    qIG è una quota di un budget unitario: non supera 1 né scende sotto 0. Il peso temporale può
+    azzerarsi, ma nulla diverge. E il quanto d'azione resta intero — un evento elementare non può
+    assottigliarsi sotto l'unità. Dove la relatività generale richiede singolarità, MT ha
+    saturazione su numeri finiti. È la divergenza più netta tra le due.
+  </p>
+</section>
+<section class="fade">
+  <span class="snum">04d — La gravità</span>
+  <h2>Il profilo è derivato; l'intensità no</h2>
+  <p>
+    Un contagio critico — ogni impegno ne produce in media uno nella cella successiva, scelta a caso fra le
+    vicine — dà un numero medio di impegni per cella che cala come 1/r (esponente −0,986). L'occupazione è
+    la probabilità che una cella abbia almeno un impegno, quindi vale 1 − e^(−n): cresce come n e poi si
+    satura. Il ritmo del tempo vale e^(−n/2).
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Mercurio, con il segno giusto</h4>
+      <p>La saturazione fissa il termine non lineare: 42,99″ per secolo. Un campo lineare darebbe 57″, uno che
+      si auto-alimenta 72″. L'auto-alimentazione assunta in estate aveva il segno sbagliato; ora non serve.
+      <span class="tag t-der">derivato</span></p>
+    </div>
+    <div>
+      <h4>Niente orizzonte, un'ombra più grande</h4>
+      <p>T² = e^(−n) non si annulla mai. L'ombra di un buco nero risulta il 4,6% più grande che in relatività
+      generale — compatibile con le misure attuali, decidibile dalla prossima generazione di strumenti. Al
+      secondo ordine la deflessione solare differisce di 0,7 microsecondi d'arco. <span class="tag t-der">previsione</span></p>
+    </div>
+    <div>
+      <h4>Lo spazio interstiziale</h4>
+      <p>Vicino a una massa le celle sono più fitte e il ritmo più lento, della stessa frazione: lo stesso
+      deficit letto due volte, da cui il fattore 2. Un regolo misura sempre lo stesso numero di celle, perché
+      è fatto di atomi immersi nella stessa geometria; cambia il numero di celle fra corpi liberi, ed è ciò che
+      gli interferometri misurano quando passa un'onda gravitazionale. <span class="tag t-ass">coerente</span></p>
+    </div>
+    <div>
+      <h4>Che cosa fissa G</h4>
+      <p>Se ogni inversione fa partire κ impegni, G corrisponde a κ ≈ 5–6 con la cella alla scala di Planck:
+      circa metà delle 11,7 vicine d'influenza, lo stesso numero che fissa α. Coincidenza entro l'ambiguità
+      di che cosa sia, in celle, una lunghezza di Planck. <span class="tag t-con">da derivare</span></p>
+    </div>
+    <div>
+      <h4>Le onde gravitazionali: perché a croce</h4>
+      <p>Niente respiro: il volume è il numero di celle, che cambia solo per nascita. Niente spostamento: le spinte si
+      chiudono su ogni cella (è la conservazione della quantità di moto). Resta la croce — stirare lungo un asse e
+      accorciare lungo il perpendicolare, a volume costante — nelle sue due orientazioni: due polarizzazioni, come la
+      luce, perché l'interstizio ha due proprietà. La portano le due rigidità dei collegamenti, che restituiscono e
+      trasmettono una cella per batch: la velocità della luce, come misurato da GW170817. Un interferometro conta le
+      celle fra specchi liberi. Precisazione: il «niente respiro» viene da Gauss, non da un'incomprimibilità del
+      tessuto, che si contrae eccome; e l'onda è la parte direzionale della deformazione, non la contrazione scalare.
+      <span class="tag t-der">ragione stabilita</span> <span class="tag t-con">dinamica sul reticolo da verificare</span></p>
+    </div>
+    <div>
+      <h4>Chi trasporta il campo</h4>
+      <p>Non il contagio che vaga, ma la spinta elastica: l'impegno altera le spinte delle vicine, che le trasmettono
+      una cella per batch. Il profilo 1/r è lo stato stazionario — Poisson — comune alla passeggiata casuale, che resta
+      come statistica dell'impegno; il transitorio va a c, il campo di un corpo in moto lo segue con il ritardo giusto, e
+      le onde gravitazionali sono la stessa spinta nella sua parte dipendente dal tempo. <span class="tag t-ass">portatore identificato; da verificare</span></p>
+    </div>
+    <div>
+      <h4>Chi gravita</h4>
+      <p>Ogni vibrazione impegna le celle che tocca in proporzione alla propria energia: la materia che
+      rivisita, la luce che passa. Così gravita tutto ciò che ha energia e il principio di equivalenza non va
+      imposto. <span class="tag t-ass">scelta fissata</span></p>
+    </div>
+  </div>
+</section>
+<section class="fade">
+  <span class="snum">Aperto</span>
+  <h2>I nodi di questo capitolo</h2>
+  <ol class="open-list">
+<li>
+      <b>La velocità del contagio: verifica</b>
+      <span>Il portatore del campo è la spinta elastica dell'interstizio — una sosta impegna le vicine verso cui torna,
+      le spinte alterate si trasmettono una cella per batch, come nella simulazione dell'urto — non la passeggiata
+      casuale, che resta come statistica dell'impegno (b = 1, saturazione). Il profilo statico 1/r è lo stesso perché
+      entrambe risolvono Poisson; il transitorio corre a c. Da verificare sul reticolo meccanico: sorgente che impegna
+      di continuo una semisfera, deformazione statica ∝ 1/r, transitorio a distanza r in r batch.</span>
+    </li>
+<li>
+      <b>G come N/2</b>
+      <span>Con il riferimento fissato (cella = ℓ_P), G richiede κ ≈ 5–6 impegni per inversione; l'ipotesi è che
+      un'inversione impegni la semisfera di vicine verso cui torna, N/2 = 5,85. Va verificata sul reticolo con il contagio
+      corretto.</span>
+    </li>
+<li>
+      <b>Le onde gravitazionali: la dinamica</b>
+      <span>Niente respiro per Gauss, non per incomprimibilità: il campo di contrazione fuori da una sorgente sferica
+      dipende solo dall'occupazione racchiusa (Birkhoff), quindi una stella che pulsa non emette nulla; niente spostamento
+      per la chiusura delle spinte. L'onda non è la contrazione scalare che si propaga — darebbe un modo di respiro
+      trasverso, escluso — ma una deformazione <em>direzionale</em> dell'interstizio: collegamenti accorciati lungo un asse
+      e allungati lungo l'altro, portata dalle due proprietà direzionali, stiramento e torsione. Da verificare sul
+      reticolo meccanico: che l'onda di taglio si propaghi isotropa e senza dispersione a onde lunghe; che due regioni
+      contratte in rotazione la emettano a frequenza doppia con parte scalare statica all'esterno; e che la sua velocità
+      coincida con quella della luce — un vincolo nuovo, perché la luce corre con le rigidità geometriche dei varchi e
+      l'onda di taglio con le spinte elastiche fra le celle, e GW170817 le vuole uguali a una parte su 10¹⁵.</span>
+    </li>
+  </ol>
+</section>
+</div>
+</body>
+</html>

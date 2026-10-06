@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Max Theory — Riepilogo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C1420;
+  --panel:#131F31;
+  --panel-2:#18273D;
+  --line:#243651;
+  --line-soft:#1B2A40;
+  --txt:#DEE6F2;
+  --txt-2:#8698B6;
+  --txt-3:#5D6E8A;
+  /* semantica: ambra = stazionamento (massa, tempo) */
+  --staz:#F0B24A;
+  /* semantica: ciano = propagazione (luce, energia) */
+  --prop:#5BC8D8;
+  /* semantica: viola = quota ceduta al campo */
+  --campo:#B98CE0;
+  --ok:#6FD1A6;
+  --open:#E0765F;
+  --display:'Sora',system-ui,sans-serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--txt);
+  font-family:var(--body);font-size:18px;line-height:1.68;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line);
+  padding:82px 0 0;
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--txt-3);margin:0 0 26px;
+}
+h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(46px,8vw,86px);line-height:.94;
+  letter-spacing:-.035em;margin:0 0 4px;
+}
+h1 .sub{display:block;color:var(--txt-3);font-weight:400;
+  font-size:clamp(20px,3vw,30px);letter-spacing:-.02em;margin-top:14px}
+.thesis{
+  font-size:clamp(19px,2.4vw,23px);line-height:1.55;color:var(--txt-2);
+  max-width:34em;margin:30px 0 0;font-weight:300;
+}
+.thesis em{color:var(--txt);font-style:normal}
+
+/* identita' centrale */
+.identity{
+  margin:52px 0 0;padding:30px 32px;
+  border:1px solid var(--line);border-radius:3px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+}
+.identity .eq{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(20px,4vw,34px);letter-spacing:-.02em;
+  text-align:center;margin:0;white-space:nowrap;
+  overflow-x:auto;
+}
+.i-p{color:var(--prop)}
+.i-t{color:var(--staz)}
+.i-g{color:var(--campo)}
+.legend{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:26px;background:var(--line);border:1px solid var(--line);
+}
+.legend div{background:var(--panel);padding:14px 16px}
+.legend b{
+  font-family:var(--mono);font-size:13px;font-weight:700;
+  display:block;margin-bottom:3px;
+}
+.legend span{font-size:14.5px;color:var(--txt-2);line-height:1.45}
+@media(max-width:660px){.legend{grid-template-columns:1fr}}
+
+/* reticolo */
+.lattice{display:block;width:100%;height:150px;margin-top:58px}
+
+/* ---------- SEZIONI ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--line-soft)}
+.snum{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--txt-3);text-transform:uppercase;
+  display:block;margin-bottom:12px;
+}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(28px,4.4vw,40px);line-height:1.08;
+  letter-spacing:-.03em;margin:0 0 26px;max-width:20em;
+}
+h3{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.015em;margin:38px 0 10px;color:var(--txt);
+}
+p{margin:0 0 18px;max-width:38em}
+strong{font-weight:500;color:#fff}
+.k{font-family:var(--mono);font-size:.88em;color:var(--prop)}
+.km{font-family:var(--mono);font-size:.88em;color:var(--staz)}
+
+/* blocco formula */
+.f{
+  font-family:var(--mono);font-size:16px;
+  border-left:2px solid var(--line);
+  padding:14px 0 14px 20px;margin:24px 0;color:var(--txt);
+  overflow-x:auto;
+}
+.f small{display:block;font-size:13px;color:var(--txt-3);
+  margin-top:8px;font-family:var(--body);font-size:15px}
+
+/* tag di stato epistemico */
+.tag{
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;border-radius:2px;
+  white-space:nowrap;display:inline-block;vertical-align:2px;
+}
+.t-der{color:var(--ok);border-color:#2C5A48}
+.t-ass{color:var(--staz);border-color:#5C4620}
+.t-con{color:var(--open);border-color:#5C3129}
+
+/* citazione storica */
+.quote{
+  margin:34px 0;padding:26px 30px;
+  border:1px solid var(--line);border-left:2px solid var(--campo);
+  background:var(--panel);
+}
+.quote p{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(18px,2.6vw,22px);line-height:1.45;
+  letter-spacing:-.015em;color:var(--txt);margin:0;max-width:none;
+}
+.quote cite{
+  display:block;margin-top:16px;font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--txt-3);
+}
+
+/* tabella risultati */
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:15px}
+.tbl th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--txt-3);font-weight:400;
+  text-align:left;padding:0 14px 11px 0;border-bottom:1px solid var(--line);
+}
+.tbl td{
+  padding:15px 14px 15px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.tbl td:first-child{color:var(--txt);max-width:16em}
+.tbl .num{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.tbl .num b{color:var(--prop);font-weight:500}
+.tbl .oss{font-family:var(--mono);font-size:13.5px;color:var(--txt-2);white-space:nowrap}
+@media(max-width:720px){
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+  .tbl td{border:0;padding:2px 0}
+  .tbl td:first-child{font-family:var(--display);font-weight:600;margin-bottom:6px}
+}
+
+/* card griglia */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);margin:30px 0}
+.grid > div{background:var(--panel);padding:22px 24px}
+.grid h4{
+  font-family:var(--display);font-size:16px;font-weight:600;
+  margin:0 0 8px;letter-spacing:-.01em;
+}
+.grid p{font-size:15.5px;color:var(--txt-2);margin:0;max-width:none}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+
+/* lista aperti */
+.open-list{list-style:none;padding:0;margin:24px 0 0;counter-reset:o}
+.open-list li{
+  counter-increment:o;position:relative;
+  padding:18px 0 18px 46px;border-top:1px solid var(--line-soft);
+  max-width:40em;
+}
+.open-list li::before{
+  content:counter(o,decimal-leading-zero);
+  position:absolute;left:0;top:19px;
+  font-family:var(--mono);font-size:12px;color:var(--open);
+}
+.open-list b{display:block;font-family:var(--display);font-weight:600;
+  font-size:17px;color:var(--txt);margin-bottom:4px}
+.open-list span{font-size:16px;color:var(--txt-2)}
+
+footer{padding:56px 0 90px;color:var(--txt-3);font-size:15px}
+footer .wrap{max-width:940px}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(14px);
+    transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Framework di fisica speculativa · Riepilogo · stato al 5 ottobre 2026</p>
+    <h1>Max Theory
+      <span class="sub">Lo spazio non contiene le cose. Lo spazio è le cose.</span>
+    </h1>
+    <p class="thesis">
+      Un tessuto di celle che non si toccano, in equilibrio. Ciò che chiamiamo luce, materia,
+      tempo e gravità sono modi di usare lo spazio fra le celle. Una sola regola contabile:
+      ogni vibrazione dispone di un budget unitario, che può spendere in tre modi.
+    </p>
+
+    <div class="identity">
+      <p class="eq">
+        <span class="i-p">I²</span> &nbsp;+&nbsp;
+        <span class="i-t">T²</span> &nbsp;+&nbsp;
+        <span class="i-g">qIG²</span> &nbsp;=&nbsp; 1
+      </p>
+      <div class="legend">
+        <div>
+          <b class="i-p">I — propagazione</b>
+          <span>Quota spesa nel non stazionare. Per la luce vale 1: tutto il budget è qui.</span>
+        </div>
+        <div>
+          <b class="i-t">T — tempo</b>
+          <span>Quota spesa negli stazionamenti. Ogni stazionamento è un tic d'orologio.</span>
+        </div>
+        <div>
+          <b class="i-g">qIG — campo</b>
+          <span>Quota ceduta al campo gravitazionale. Dipende solo dalla posizione.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <svg class="lattice" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <radialGradient id="occ" cx="14%" cy="100%" r="62%">
+        <stop offset="0%" stop-color="#B98CE0" stop-opacity=".30"/>
+        <stop offset="100%" stop-color="#B98CE0" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1200" height="150" fill="url(#occ)"/>
+    <g id="cells"></g>
+  </svg>
+</header>
+
+<div class="wrap">
+
+<section class="fade">
+  <span class="snum">00 — Lo stato</span>
+  <h2>Che cosa è cambiato in ottobre</h2>
+  <p>
+    In una settimana di calcoli su reticoli casuali tridimensionali, buona parte dei postulati di MT
+    è diventata teorema o misura, e il resto ha preso una forma precisa. Questa pagina distingue tre
+    livelli: <span class="tag t-der">dimostrato</span> — un teorema o un risultato numerico verificato;
+    <span class="tag t-ass">coerente</span> — un meccanismo che riproduce i dati ma dipende da una scelta
+    non ancora derivata; <span class="tag t-con">aperto</span> — un nodo da sciogliere.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Il budget è un teorema</h4>
+      <p>E² = K² + m² e I² + T² = 1 seguono dall'anticommutazione fra moto e inversione, su qualunque
+      reticolo, in tempo continuo e a passi discreti. La sosta è un andare e tornare lungo l'asse dello spin.</p>
+    </div>
+    <div>
+      <h4>La luce funziona</h4>
+      <p>Come campo elettromagnetico sulle facce comuni fra le celle: velocità esattamente c, isotropa,
+      senza birifrangenza, senza diffusione per onde lunghe. Il vuoto in equilibrio è trasparente.</p>
+    </div>
+    <div>
+      <h4>La gravità è derivata, nel profilo</h4>
+      <p>Il contagio critico dà 1/r; l'occupazione, che è una probabilità, si satura, e la saturazione
+      fissa Mercurio a 42,99″. Il profilo non è più importato. L'intensità — G — resta da chiudere.</p>
+    </div>
+    <div>
+      <h4>Tre, per geometria</h4>
+      <p>Attorno a un canale si incontrano tre facce. Tre generazioni, tre neutrini, tre famiglie di quark,
+      e nessuna quarta. L'angolo di Koide ha un candidato fisico: lo storto tipico dei canali.</p>
+    </div>
+    <div>
+      <h4>L'inizio senza tempo</h4>
+      <p>Le celle nascono dove le spinte non si chiudono; l'equilibrio spegne le nascite; la prima vibrazione
+      è il primo urto su un guscio chiuso. L'inflazione, la sua fine e il Big Bang caldo sono una sola transizione.</p>
+    </div>
+    <div>
+      <h4>La mano del primo vuoto</h4>
+      <p>Quattro celle ordinate per nascita hanno una chiralità; il caso la sceglie, l'adiacenza la eredita.
+      Un solo verso per l'universo, che la luce non vede e la materia sente appena.</p>
+    </div>
+  </div>
+  <h3>Aggiunte del 6 ottobre</h3>
+  <p>
+    Il riferimento è fissato: la cella è una lunghezza di Planck, il batch un tempo di Planck, la luce fa una cella per
+    batch. L'interstizio è un collegamento elastico fra le celle, con due rigidità geometriche — stiramento nei varchi,
+    torsione nei canali — e nessuna costante libera finché non viene impegnato. Il protone è un vortice chiuso di fase
+    attorno a un canale; la corda è una linea di vortice, la sua tensione viene dal bilancio fra energia del gradiente e
+    rigidità del vuoto, e con la sola tensione di corda il bilancio dà protone, Δ e prime risonanze. L'inizio è letto dai
+    centri — un punto, un collegamento, un triangolo, un tetraedro: una, due, tre dimensioni, poi il tempo — con la regola
+    di nascita «una cella al centro di ogni collegamento stirato oltre 1,3 ℓ_P». L'entanglement è una relazione
+    interstiziale, non una coppia di valori. Il decadimento beta è un tentativo per batch con probabilità universale e
+    destinazioni contate (muone, tau, neutrone all'1% con una sola costante), e il g_A misurato dice che il quark nel
+    vortice sosta per l'82% del budget con ampiezza 282 MeV. La meccanica delle matrici di MT è quella di Heisenberg con
+    matrici finite e sparse: [X_a, K] = iV_a è un'identità, l'indeterminazione segue dallo spettro, e l'idrogeno fino a
+    2,7 milioni di celle dà i livelli di Rydberg, la degenerazione 2s–2p allo 0,45%, Lyman-α a 0,425 contro 0,416 e Balmer
+    2p→3d a 0,690 contro 0,696, stabile al riempimento, al contorno e ai pesi. Dettagli
+    nelle sezioni 04g–04j.
+  </p>
+  <h3>I capitoli</h3>
+  <p>Il documento è pubblicato anche in sei capitoli collegati, ciascuno con la legenda e i propri nodi aperti: <a href="capitoli/capitolo-1.html">1. Il tessuto</a> · <a href="capitoli/capitolo-2.html">2. La vibrazione</a> · <a href="capitoli/capitolo-3.html">3. Quark e nuclei</a> · <a href="capitoli/capitolo-4.html">4. Le generazioni e la mano</a> · <a href="capitoli/capitolo-5.html">5. La gravità</a> · <a href="capitoli/capitolo-6.html">6. L'inizio e il cosmo</a>.</p>
+</section>
+
+<section class="fade">
+  <span class="snum">01 — Il postulato</span>
+  <h2>Tutto discende da p₀</h2>
+  <p>
+    Lo spaziotempo è un reticolo discreto di celle. A ogni passo — il <strong>batch</strong> —
+    una cella già attiva può generarne una adiacente con probabilità <span class="k">p₀</span>.
+    Non c'è altro parametro: le costanti della fisica dovrebbero emergere da qui.
+  </p>
+  <div class="f">
+    E_min = −ln(p₀)&nbsp;&nbsp;&nbsp;&nbsp;ρ_vac = p₀ · E_min
+    <small>Il costo di creazione di una cella e la densità di energia del vuoto,
+    entrambi funzioni della sola p₀.</small>
+  </div>
+  <p>
+    Due valori candidati sono emersi da vincoli indipendenti, e non coincidono.
+    <span class="k">p₀ = 2α² = 1,06502·10⁻⁴</span> viene dall'identificazione con la probabilità
+    di emissione di due fotoni simmetrizzati in elettrodinamica. <span class="k">p₀ = 0,001</span>
+    viene invece dalla condizione geometrica di pivot, δ² = ρ_vac.
+    <span class="tag t-con">nodo aperto</span>
+  </p>
+  <p>
+    I due non sono in contraddizione: la stessa condizione δ² = ρ_vac fissa anche il numero
+    di vicini di ogni cella, tramite <span class="k">N = 1/√(p₀ · E_min)</span>. Con p₀ = 0,001
+    dà <strong>12</strong> — il kissing number di sfere tangenti. Con p₀ = 2α² dà <strong>32</strong> —
+    sfere con spazio interstiziale. Due geometrie, due valori, una sola formula.
+  </p>
+  <h3>Riletto in ottobre</h3>
+  <p>
+    I due valori non vanno conciliati: nessuno dei due è il p₀ di oggi. Finché non c'è vibrazione i batch
+    non portano tempo, e una probabilità per batch nell'epoca della crescita iniziale non è una grandezza
+    fisica: di quell'epoca contano solo i conteggi e la struttura che ne è uscita. L'unico p₀ fisico è quello
+    di oggi, fissato dall'espansione: <span class="k">p₀ = 3H₀t_P ≈ 4·10⁻⁶¹</span> nascite per cella per batch,
+    il pavimento di un tessuto che non ha mai finito di equilibrarsi. Le identificazioni di costanti costruite
+    su p₀ = 0,001 — Λ, ħ_MT, α = p₀(−ln p₀) — sono abbandonate: una costante non può dipendere dall'epoca.
+    <span class="tag t-der">risolto per rilettura</span>
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">02 — Spazio e tempo</span>
+  <h2>Due contabilità, nessuna dimensione</h2>
+
+  <h3>Lo spazio è un conteggio di celle</h3>
+  <p>
+    La distanza tra due punti è il numero di celle che li separano. Le celle sono sferiche
+    e non si toccano, ma lo spazio interstiziale non contribuisce alla distanza: solo le celle
+    hanno significato fisico. Il conteggio è <strong>invariante</strong> — un metro è sempre lo
+    stesso numero di celle, con o senza massa. L'eventuale deformazione del reticolo è ininfluente
+    per gli eventi e quindi priva di significato.
+  </p>
+
+  <h3>Il tempo è un conteggio di stazionamenti</h3>
+  <p>
+    Non esiste una dimensione temporale. Esiste il batch, un contatore di eventi. Tra un batch
+    e il successivo non passa nulla: avviene un passo. Se il ritmo dei batch cambiasse, non ce
+    ne accorgeremmo — tutti i processi scalerebbero insieme. Il tempo di Planck non è una durata
+    fondamentale: è la traduzione di «un passo» in secondi, e il secondo è una convenzione umana.
+  </p>
+  <p>
+    Ne segue che <strong>c non è una velocità</strong>. È il tetto dell'improbabilità: una cella
+    per batch, il massimo consentito dalla struttura. In unità del reticolo vale 1.
+  </p>
+
+  <h3>La particella non è un oggetto</h3>
+  <p>
+    È una vibrazione che vive sulla superficie della cella — come l'acqua di una piscina vista
+    da sotto — e si trasmette alle vicine. Solo la componente nella direzione del moto sopravvive
+    alla trasmissione. Una particella non si muove: si ri-accende, cella dopo cella.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">03 — Il budget</span>
+  <h2>Massa, energia e tempo sono la stessa spartizione</h2>
+  <p>
+    L'improbabilità totale vale sempre 1, ripartita su assi <strong>ortogonali</strong>.
+    La ripartizione lineare — l'ipotesi ingenua — sbaglia del 41%; quella pitagorica riproduce
+    la relatività a precisione di macchina. <span class="tag t-der">derivato</span>
+  </p>
+  <div class="f">
+    γ = 1 / T&nbsp;&nbsp;&nbsp;&nbsp;E = m / T&nbsp;&nbsp;&nbsp;&nbsp;p = m · I / T
+    <small>Il fattore di Lorentz è il reciproco della quota temporale. Nessuna velocità compare.</small>
+  </div>
+  <p>
+    Sostituendo nella relazione relativistica E² = p² + m² e semplificando, si ottiene
+    esattamente <span class="k">I² + T² = 1</span>. La relazione fondamentale della dinamica
+    relativistica <strong>è</strong> l'identità di ripartizione, scritta in unità di energia
+    anziché di budget. Ciò che in relatività è la norma di un quadrivettore, qui è una
+    conservazione: il totale vale uno.
+  </p>
+  <p>
+    La massa sparisce nella semplificazione. È il fattore di scala che resta invariante comunque
+    tu ripartisca il budget — il raggio del cerchio su cui I e T si muovono. Ecco perché è la
+    stessa per tutti gli osservatori mentre energia e impulso non lo sono.
+  </p>
+  <p>
+    E l'inerzia relativistica smette di essere un risultato da derivare: accelerare significa
+    trasferire quota dal tempo alla propagazione, e l'ultima frazione costa infinitamente perché
+    non puoi svuotare del tutto il conto. Con c = 1, <span class="k">E = m</span>:
+    massa ed energia non sono due sostanze legate da un cambio, sono la stessa quota in due stati.
+  </p>
+
+  <h3>Perché MT non discorda dal fattore di Lorentz</h3>
+  <p>
+    C'è un'obiezione che va affrontata di petto. Una vibrazione con improbabilità 0,5 avanza
+    una cella ogni due batch: <strong>staziona una volta sì e una no</strong>. Sembrerebbe quindi
+    dover percepire metà tempo. Ma il fattore di Lorentz a quel regime dà 0,866, non 0,5.
+    Se il tempo proprio fosse semplicemente proporzionale al numero di stazionamenti,
+    MT sbaglierebbe — e sbaglierebbe del 41%.
+  </p>
+  <div class="f">
+    I = 0,50&nbsp;&nbsp;→&nbsp;&nbsp;conteggio stazionamenti = 1 − I = <span class="i-t">0,500</span>
+    &nbsp;&nbsp;·&nbsp;&nbsp;tempo proprio = √(1 − I²) = <span class="i-p">0,866</span>
+    <small>I due numeri coincidono solo agli estremi, a riposo e alla velocità limite.
+    In mezzo divergono, e il secondo è quello misurato.</small>
+  </div>
+  <p>
+    La conciliazione sta nel fatto che <strong>i due numeri misurano cose diverse</strong>.
+    Il conteggio degli stazionamenti è lineare — 1 − I — ed è corretto come conteggio di eventi:
+    la vibrazione staziona davvero metà delle volte. Ma il tempo proprio non è il conteggio grezzo:
+    è la <strong>proiezione sull'asse temporale</strong>, e i due assi sono ortogonali.
+  </p>
+  <p>
+    Stazionare e avanzare non sono due modi di spendere la stessa risorsa lungo una retta.
+    Sono conteggi su direzioni perpendicolari, e ciò che la vibrazione registra come proprio
+    tempo è il cateto, non la differenza. Ogni stazionamento avviene, ma contribuisce all'orologio
+    solo per la sua componente temporale: parte dell'avanzamento di fase è impegnata nella
+    componente spaziale dell'onda.
+  </p>
+  <p>
+    Ne segue una precisazione sull'enunciato «il tempo è il conteggio degli stazionamenti»:
+    vale <em>esattamente</em> solo a riposo, dove tutto il budget sta su T e le due letture
+    coincidono. In moto le due divergono, e quella fisica è la proiezione.
+    <span class="tag t-der">verificato a 10⁻¹⁶</span>
+  </p>
+  <p>
+    L'ortogonalità non è scelta perché conviene: è la stessa struttura che fa coincidere
+    <span class="k">I² + T² = 1</span> con <span class="k">E² = p² + m²</span>. Se la ripartizione
+    fosse lineare, quella coincidenza sparirebbe e con essa la relazione energia-impulso.
+    Due vincoli indipendenti selezionano la stessa geometria.
+  </p>
+
+  <h3>Il paradosso dei gemelli non è un paradosso</h3>
+  <p>
+    In relatività ristretta il moto è puramente relativo: ciascun gemello vede l'altro muoversi,
+    la situazione sembra simmetrica, e serve invocare l'accelerazione o il cambio di sistema di
+    riferimento per rompere la simmetria e stabilire chi è invecchiato meno. È il punto che genera
+    la sensazione di paradosso.
+  </p>
+  <p>
+    In MT la simmetria <strong>non c'è dall'inizio</strong>. La ripartizione del budget è una
+    proprietà della vibrazione rispetto al reticolo, non una relazione tra due osservatori.
+    Uno dei due gemelli ha effettivamente più quota in I e meno in T: staziona meno, accumula
+    meno tempo. Non c'è nulla da rompere perché non c'era simmetria da rompere.
+  </p>
+  <div class="f">
+    T_viaggiatore &lt; T_fermo&nbsp;&nbsp;→&nbsp;&nbsp;meno stazionamenti, meno tempo proprio
+    <small>Un fatto assoluto sulla ripartizione, non una questione di punto di vista.</small>
+  </div>
+
+  <h3>Perché il reticolo resta invisibile</h3>
+  <p>
+    Questo però reintroduce un sistema di riferimento privilegiato — quello del reticolo, in cui
+    è nata la cella seme. Ed è in tensione con un fatto sperimentale solidissimo: nessun esperimento
+    di tipo Michelson-Morley ha mai rivelato un frame assoluto.
+  </p>
+  <p>
+    Ma vale la pena essere precisi su cosa quegli esperimenti dimostrano davvero.
+    Michelson-Morley stabilisce che <strong>la luce percorre lo stesso cammino nello stesso modo
+    per ogni osservatore</strong>, qualunque sia il suo moto. Non dimostra che un substrato non
+    esista: dimostra che, se esiste, i suoi effetti si compensano esattamente e non producono
+    alcuna differenza misurabile. È un risultato nullo su una misura, non una prova di assenza.
+  </p>
+  <p>
+    In MT quella compensazione ha una ragione, e non è una coincidenza fortunata.
+    La luce ha I = 1 in ogni condizione: è il tetto della ripartizione, non una velocità relativa
+    a qualcosa. Non c'è nessun «vento» rispetto a cui sommarsi o sottrarsi, perché la propagazione
+    non è uno spostamento in un mezzo — è una successione di accensioni, una cella per batch,
+    identica ovunque.
+  </p>
+  <p>
+    La risoluzione è che il reticolo <strong>non è misurabile dall'interno</strong>. Ogni orologio
+    e ogni regolo sono a loro volta fatti di vibrazioni che campionano il reticolo con la stessa
+    identica regola. Un apparato in moto ha la sua quota I, e quella quota altera insieme il suo
+    ritmo e la sua estensione — nella stessa misura di ciò che vorrebbe misurare. Il deficit si
+    cancella in ogni confronto possibile.
+  </p>
+  <p>
+    Nessuno può misurare la propria I in assoluto: solo differenze rispetto ad altre vibrazioni.
+    MT ha quindi un assoluto <em>sottostante</em> e una fenomenologia <em>perfettamente
+    relativistica</em>. <span class="tag t-con">interpretazione, non predizione</span>
+  </p>
+
+  <div class="quote">
+    <p>«Secondo la relatività generale, lo spazio senza etere è impensabile.»</p>
+    <cite>Albert Einstein — Conferenza di Leida, 5 maggio 1920</cite>
+  </div>
+  <p>
+    Nella stessa conferenza Einstein precisa in che senso: non l'etere luminifero dell'Ottocento,
+    non un mezzo con parti materiali di cui si possa seguire il moto o a cui attribuire una velocità.
+    Ma qualcosa che è comunque <strong>fisico</strong> — uno spazio dotato di qualità, senza il quale
+    non esisterebbero né propagazione della luce né la possibilità stessa di regoli e orologi,
+    e quindi nessun intervallo spaziotemporale in senso fisico.
+  </p>
+  <p>
+    È esattamente la posizione in cui MT si colloca. Il reticolo non ha parti in moto e non ha una
+    velocità propria. Ma è fisico, ed è ciò che rende
+    possibili le due contabilità — le celle e i batch — senza le quali non ci sarebbero né distanze
+    né durate da misurare.
+  </p>
+  <p style="color:var(--txt-2);font-size:16px">
+    Va detto con precisione: questa posizione è empiricamente equivalente alla relatività ristretta,
+    non una sua alternativa verificabile. Ha però un aggancio naturale — il frame in cui il fondo
+    cosmico a microonde è isotropo è già oggi un sistema di riferimento privilegiato di fatto in
+    cosmologia, e sarebbe il candidato ovvio per il frame del reticolo.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">04 — Gravità</span>
+  <h2>Non una forza, non una curvatura: un'occupazione</h2>
+  <p>
+    Una vibrazione che staziona <strong>ritorna ripetutamente sulle stesse celle</strong>.
+    È questa la differenza di natura tra chi ha massa e chi no: la luce visita ogni cella una
+    volta sola e passa; la materia rivisita. Le visite ripetute impegnano le celle, e una cella
+    impegnata cede parte del budget di chi la attraversa. Questo è qIG.
+  </p>
+  <p>
+    L'impegno si trasmette alle vicine per <strong>contagio</strong>, non per trasferimento:
+    la cella che contagia non perde nulla, e per questo il campo persiste finché la massa resta.
+    L'occupazione non è mai intera — è una probabilità, e può valere 10⁻⁶³ senza annullarsi.
+    Non esiste quindi soglia minima né raggio d'azione finito. <span class="tag t-der">derivato</span>
+  </p>
+
+  <div class="grid">
+    <div>
+      <h4>Il valore rallenta il tempo</h4>
+      <p>Dove qIG è alto, ogni stazionamento rende meno tempo. Dipende dalla posizione, non dal
+      moto: anche chi è in caduta libera lo subisce, come mostrano i satelliti GPS.</p>
+    </div>
+    <div>
+      <h4>Il gradiente produce il moto</h4>
+      <p>Una vibrazione è estesa su molte celle. La parte interna sta dove il campo è più intenso,
+      quella esterna dove è più debole: le parti evolvono a ritmi diversi e l'oggetto si sbilancia.</p>
+    </div>
+  </div>
+
+  <p>
+    Questo elimina un postulato della relatività generale. Lì i corpi cadono perché
+    «seguono le geodetiche» — ma nulla nella geometria dice <em>perché</em> lo facciano: è un
+    assioma indipendente. In MT il moto è la conseguenza aritmetica di essere estesi in un
+    gradiente. Il principio geodetico diventa un teorema.
+  </p>
+
+  <h3>Perché anche la luce devia</h3>
+  <p>
+    La luce ha I = 1: nessun residuo che il campo possa prelevare, e infatti la sua atemporalità
+    resta intatta. Ma il suo fronte è esteso, e i due lati attraversano regioni dove il ritmo
+    differisce. Il fronte ruota. È lo stesso identico meccanismo della caduta di un sasso —
+    la differenza è solo che la materia, stazionando, accumula anche tempo proprio.
+  </p>
+
+  <h3>Il fattore due</h3>
+  <p>
+    Un solo p₀ governa due contabilità, temporale e spaziale, ed entrambe subiscono lo stesso
+    deficit perché sono lo stesso conteggio letto in due direzioni. Da qui il fattore 2 che separa
+    Newton da Einstein — che in relatività generale resta un fatto bruto e qui è una necessità.
+  </p>
+
+  <h3>Niente singolarità</h3>
+  <p>
+    qIG è una quota di un budget unitario: non supera 1 né scende sotto 0. Il peso temporale può
+    azzerarsi, ma nulla diverge. E il quanto d'azione resta intero — un evento elementare non può
+    assottigliarsi sotto l'unità. Dove la relatività generale richiede singolarità, MT ha
+    saturazione su numeri finiti. È la divergenza più netta tra le due.
+  </p>
+</section>
+
+
+<section class="fade">
+  <span class="snum">04b — Il tessuto</span>
+  <h2>Celle, varchi, canali, vuoti</h2>
+  <p>
+    Le celle non si toccano; lo spazio fra loro è l'interstizio, e la geometria lo divide da sola in tre
+    luoghi: il <strong>varco</strong> fra due celle, il <strong>canale</strong> dove se ne affacciano tre,
+    il <strong>vuoto</strong> fra quattro. Ogni cella possiede la regione di spazio più vicina a lei; due
+    celle vicine condividono una faccia. Tutto ciò che MT chiama luce, campo, chiralità e gravità vive
+    in questi luoghi.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>L'equilibrio</h4>
+      <p>Il vuoto funziona solo se su ogni cella le spinte delle vicine si chiudono. Un reticolo così è
+      iperuniforme: le fluttuazioni di densità su scala grande vanno a zero, come la superficie e non come
+      il volume. È la stessa condizione che rende la luce isotropa e trasparente, e che dà l'angolo di Koide.
+      <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Non conta come nasce</h4>
+      <p>Un reticolo cresciuto per nascite adiacenti e uno casuale poi lasciato assestare danno la stessa
+      iperuniformità e la stessa trasparenza. Conta che sia in equilibrio, non la sua storia.
+      <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Dove vive la luce</h4>
+      <p>Il campo elettrico è lo scarto di fase lungo un varco; il campo magnetico è la torsione che quello
+      scarto lascia facendo il giro dei varchi attorno a un canale. La luce è lo scambio fra i due, una cella
+      per batch, senza mai entrare in una cella. Per questo non ha carica, non sosta, non ha tempo e non
+      interagisce con sé stessa. <span class="tag t-der">verificato sul reticolo</span></p>
+    </div>
+    <div>
+      <h4>Dove vive la mano</h4>
+      <p>L'accordo fra la vibrazione sulle celle e quella nei vuoti — in fase o in controfase — è la
+      chiralità. Vive in celle e vuoti, che la luce non tocca: il vuoto può avere un verso senza essere
+      birifrangente. <span class="tag t-ass">continuo; da verificare sul reticolo</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04c — Luce ed elettrone</span>
+  <h2>La stessa geometria per entrambi</h2>
+  <p>
+    Il fotone usa due delle quattro parti dell'interstizio: il campo elettrico nei varchi, quello
+    magnetico nei canali. L'elettrone le usa tutte e quattro: una vibrazione distribuita sulle celle, sui
+    varchi, sui canali e sui vuoti — la costruzione che la matematica chiama di Kähler-Dirac. Sul reticolo
+    casuale in equilibrio:
+  </p>
+  <div class="grid">
+    <div>
+      <h4>La luce</h4>
+      <p>Velocità 1,0002 senza aggiustamenti, isotropa; dipendenza dall'energia quadratica e minuscola
+      (ritardo di 10⁻¹⁹ s per il fotone da 31 GeV di GRB 090510); nessuna rotazione della polarizzazione
+      (10⁻⁷); nessuna diffusione per onde più lunghe di una dozzina di celle, poi una crescita come k⁶:
+      le galassie lontane arrivano nitide anche nell'ipotesi più pessimistica. Il reticolo in equilibrio
+      diffonde 10–100 volte meno di uno qualunque. <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>L'elettrone</h4>
+      <p>Lo spin messo nelle celle produce una marea di modi spuri — il problema dei doppioni — e non è
+      utilizzabile. La vibrazione sulle quattro parti non ne ha nessuno: molteplicità esatte, velocità 0,998,
+      budget I² + T² = 1 esatto a 10⁻¹⁴ con l'inversione pari/dispari come sosta, oscillazione lungo l'asse
+      dello spin con il periodo giusto. La sosta è il rovesciamento della parte che passa — varchi e vuoti —: agisce
+      nell'interstizio e paga sulle celle, con ampiezza che dipende dal disaccordo di fase e che impegna la semisfera
+      di vicine verso cui torna (κ = N/2). <span class="tag t-der">misurato</span> <span class="tag t-ass">lettura</span></p>
+    </div>
+    <div>
+      <h4>Il prezzo: due copie</h4>
+      <p>Otto componenti sono due particelle di Dirac, non una, e il reticolo le distingue solo per lo
+      0,1–0,3%. Lo spin ½ emerge dalla geometria solo in coppia — come in natura: elettrone e neutrino, quark su e
+      giù. Le copie sono il doppietto debole, distinte dall'accordo cella/vuoto; resta da costruire l'operatore
+      dell'accordo e da verificare i numeri. <span class="tag t-ass">doppietto; costruzione da fare</span></p>
+    </div>
+    <div>
+      <h4>Il sistema solare delle masse</h4>
+      <p>Nell'idrogeno di Dirac la quota di inversione è esattamente √(1−α²) e quella di moto α: l'energia
+      di legame è il rallentamento del tempo proprio dell'elettrone. Lo zig-zag a velocità c con inversioni al
+      ritmo di Compton ha coefficiente di diffusione ħ/2m, quello di Nelson. <span class="tag t-ass">esatto in Dirac, non ancora sul reticolo</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04d — La gravità</span>
+  <h2>Il profilo è derivato; l'intensità no</h2>
+  <p>
+    Un contagio critico — ogni impegno ne produce in media uno nella cella successiva, scelta a caso fra le
+    vicine — dà un numero medio di impegni per cella che cala come 1/r (esponente −0,986). L'occupazione è
+    la probabilità che una cella abbia almeno un impegno, quindi vale 1 − e^(−n): cresce come n e poi si
+    satura. Il ritmo del tempo vale e^(−n/2).
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Mercurio, con il segno giusto</h4>
+      <p>La saturazione fissa il termine non lineare: 42,99″ per secolo. Un campo lineare darebbe 57″, uno che
+      si auto-alimenta 72″. L'auto-alimentazione assunta in estate aveva il segno sbagliato; ora non serve.
+      <span class="tag t-der">derivato</span></p>
+    </div>
+    <div>
+      <h4>Niente orizzonte, un'ombra più grande</h4>
+      <p>T² = e^(−n) non si annulla mai. L'ombra di un buco nero risulta il 4,6% più grande che in relatività
+      generale — compatibile con le misure attuali, decidibile dalla prossima generazione di strumenti. Al
+      secondo ordine la deflessione solare differisce di 0,7 microsecondi d'arco. <span class="tag t-der">previsione</span></p>
+    </div>
+    <div>
+      <h4>Lo spazio interstiziale</h4>
+      <p>Vicino a una massa le celle sono più fitte e il ritmo più lento, della stessa frazione: lo stesso
+      deficit letto due volte, da cui il fattore 2. Un regolo misura sempre lo stesso numero di celle, perché
+      è fatto di atomi immersi nella stessa geometria; cambia il numero di celle fra corpi liberi, ed è ciò che
+      gli interferometri misurano quando passa un'onda gravitazionale. <span class="tag t-ass">coerente</span></p>
+    </div>
+    <div>
+      <h4>Che cosa fissa G</h4>
+      <p>Se ogni inversione fa partire κ impegni, G corrisponde a κ ≈ 5–6 con la cella alla scala di Planck:
+      circa metà delle 11,7 vicine d'influenza, lo stesso numero che fissa α. Coincidenza entro l'ambiguità
+      di che cosa sia, in celle, una lunghezza di Planck. <span class="tag t-con">da derivare</span></p>
+    </div>
+    <div>
+      <h4>Le onde gravitazionali: perché a croce</h4>
+      <p>Niente respiro: il volume è il numero di celle, che cambia solo per nascita. Niente spostamento: le spinte si
+      chiudono su ogni cella (è la conservazione della quantità di moto). Resta la croce — stirare lungo un asse e
+      accorciare lungo il perpendicolare, a volume costante — nelle sue due orientazioni: due polarizzazioni, come la
+      luce, perché l'interstizio ha due proprietà. La portano le due rigidità dei collegamenti, che restituiscono e
+      trasmettono una cella per batch: la velocità della luce, come misurato da GW170817. Un interferometro conta le
+      celle fra specchi liberi. Precisazione: il «niente respiro» viene da Gauss, non da un'incomprimibilità del
+      tessuto, che si contrae eccome; e l'onda è la parte direzionale della deformazione, non la contrazione scalare.
+      <span class="tag t-der">ragione stabilita</span> <span class="tag t-con">dinamica sul reticolo da verificare</span></p>
+    </div>
+    <div>
+      <h4>Chi trasporta il campo</h4>
+      <p>Non il contagio che vaga, ma la spinta elastica: l'impegno altera le spinte delle vicine, che le trasmettono
+      una cella per batch. Il profilo 1/r è lo stato stazionario — Poisson — comune alla passeggiata casuale, che resta
+      come statistica dell'impegno; il transitorio va a c, il campo di un corpo in moto lo segue con il ritardo giusto, e
+      le onde gravitazionali sono la stessa spinta nella sua parte dipendente dal tempo. <span class="tag t-ass">portatore identificato; da verificare</span></p>
+    </div>
+    <div>
+      <h4>Chi gravita</h4>
+      <p>Ogni vibrazione impegna le celle che tocca in proporzione alla propria energia: la materia che
+      rivisita, la luce che passa. Così gravita tutto ciò che ha energia e il principio di equivalenza non va
+      imposto. <span class="tag t-ass">scelta fissata</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04e — Le generazioni e la mano</span>
+  <h2>Tre, e un solo verso</h2>
+  <p>
+    Attorno a un canale si incontrano esattamente tre facce, e le tre aperture sommano a 360°: in media 120°
+    ciascuna. Una vibrazione che staziona ha un dipolo, e il dipolo proietta sulle tre facce tre valori
+    h_i = a[1 + √2 cos(θ − 2πi/3)]. Da qui la relazione di Koide, Q = 2/3, esce come teorema per qualunque θ;
+    le masse misurate la soddisfano a cinque cifre. Tre generazioni perché le facce attorno a una linea sono
+    tre; nessuna quarta perché non esiste una quarta faccia. Vale per i leptoni carichi, i neutrini e i quark.
+    <span class="tag t-der">geometria</span>
+  </p>
+  <div class="grid">
+    <div>
+      <h4>L'angolo di Koide dal reticolo</h4>
+      <p>Nel vuoto in equilibrio le aperture non sono esattamente 120°: lo sbilanciamento tipico di un canale
+      ha mediana 0,214 e media 0,227 radianti. L'angolo che riproduce 1 : 207 : 3477 è 0,222. Esce solo in
+      equilibrio (un reticolo casuale dà 0,51) e dipende dal riempimento: 0,28 a 0,60, 0,17–0,21 a 0,80.
+      Con il riempimento fissato da MT, le tre masse diventerebbero un calcolo senza parametri.
+      <span class="tag t-ass">coincidenza di un parametro</span></p>
+    </div>
+    <div>
+      <h4>I neutrini</h4>
+      <p>Stesso canale, fase che non ruota: quasi senza massa e di Majorana. Lo schema delle tre proiezioni,
+      con angolo e scala propri, riproduce entrambe le differenze di massa misurate e dà m = 0,38, 8,9, 50,7
+      meV, somma 60 meV, ordinamento normale. La cosmologia sta stringendo proprio lì: la misura decisiva è
+      attesa fra il 2030 e il 2034. <span class="tag t-ass">fit a due parametri</span></p>
+    </div>
+    <div>
+      <h4>La mano</h4>
+      <p>Quattro celle ordinate per nascita formano un tetraedro con una chiralità, decisa dal caso quando nasce
+      la quarta. L'accordo fra cella e vuoto prende quel segno e lo eredita per adiacenza: un solo verso per
+      l'universo, nessun dominio speculare. Lo stesso verso fissa la mano dell'interazione debole, letta al
+      cento per cento, e quale fase chiamiamo materia, letta a tre parti su dieci miliardi — la tacca del
+      motore al quarzo, che decide il verso senza spingere. <span class="tag t-ass">segno spiegato, quantità da derivare</span></p>
+    </div>
+    <div>
+      <h4>Il mescolamento</h4>
+      <p>La simmetria a 120° del canale produce stati di massa che sono sovrapposizioni «di Fourier» delle
+      tre facce: mescolamento grande, 35° e 45°, come osservato per i neutrini; lo scostamento di 8,6° dallo
+      zero è da calcolare. <span class="tag t-ass">struttura, non numero</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04f — L'inizio e il cosmo</span>
+  <h2>Crescita senza tempo</h2>
+  <p>
+    Le celle nascono dove le spinte non si chiudono. Una cella sola è il massimo squilibrio; con due c'è il
+    varco, con tre il canale, con quattro il vuoto; la prima cella in equilibrio compare con il primo guscio
+    chiuso, tredici celle. Finché il gruppo è squilibrato ogni cella ne genera: crescita esponenziale, cioè
+    inflazione, senza durata perché senza vibrazioni non c'è tempo. Finisce quando il tessuto si equilibra.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>La prima vibrazione</h4>
+      <p>Una spinta su un tessuto squilibrato viene assorbita dal riassetto; su un guscio chiuso diventa
+      un'oscillazione che si propaga. È il primo batch con tempo, e il Big Bang caldo è l'equilibrio del
+      tessuto che converte le spinte in luce. Energia totale: lo squilibrio iniziale rilasciato, redistribuito
+      da allora. <span class="tag t-der">verificato nel modello meccanico</span></p>
+    </div>
+    <div>
+      <h4>Luce dai varchi, materia dalle celle</h4>
+      <p>Un urto su un varco va per l'89% nel settore della luce; su un canale per il 54%; su una cella o un
+      vuoto per lo 0%. Il settore della luce — varchi e canali che si rincorrono — è chiuso: non tocca mai
+      una cella. Da un urto orientato la luce esce di traverso e ciò che tocca le celle lungo l'asse.
+      <span class="tag t-der">esatto</span></p>
+    </div>
+    <div>
+      <h4>L'energia oscura è costante</h4>
+      <p>Le nascite di oggi sono il residuo dell'equilibrio incompiuto, inibite dove passa il tempo — cioè
+      quasi in nessun luogo. La gravità non può alimentarle (manca un fattore 10⁵) e il tempo proprio che
+      varia non ha la forma dei dati. MT prevede una Λ. Se la variazione preferita da DESI si consoliderà,
+      MT dovrà cercarla nella dinamica dell'assestamento. <span class="tag t-der">previsione</span></p>
+    </div>
+    <div>
+      <h4>La materia oscura</h4>
+      <p>Contrazioni sferiche congelate dell'interstizio: si
+      reggono perché la contrazione ferma il tempo che servirebbe a riaprirsi, con compattezza 2M/R ≈ 95 e
+      massa proporzionale al raggio, da un milligrammo in su. Oscure perché non stazionano, fredde, senza
+      urti, formate solo nell'universo primordiale. Il rapporto 5,4 con la materia è da calcolare.
+      <span class="tag t-con">speculazione con numeri</span></p>
+    </div>
+  </div>
+</section>
+
+
+<section class="fade">
+  <span class="snum">04g — L'interstizio come collegamento elastico</span>
+  <h2>Due rigidità, nessuna costante</h2>
+  <p>
+    Il vuoto è il tessuto nello stato di riposo: celle in stasi, spinte chiuse, nessuno scarto di fase. Non costa nulla,
+    per definizione di equilibrio; non ha tempo, perché non ha eventi; non fluttua da solo — Casimir e Lamb sono i
+    passaggi interstiziali che le vibrazioni <em>presenti</em> inducono attorno a sé. L'interstizio porta le
+    <strong>condizioni di passaggio</strong>: scarti nei varchi, torsioni attorno ai canali, contrazione, accordo con i
+    vuoti. Le celle portano stati e tempo; l'interstizio porta condizioni. Una condizione non è un evento.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Rigidità geometriche</h4>
+      <p>Lo stiramento di un varco vale faccia/lunghezza; la torsione di un canale vale lunghezza del canale/area del
+      triangolo. Sono le stelle di Hodge usate per la luce: rapporti di misure, fissati dalle posizioni delle celle.
+      L'elasticità dell'interstizio non ha parametri. <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Corto è rigido</h4>
+      <p>I canali con i collegamenti più corti hanno torsione 1,44; i più lunghi 0,25: rapporto sei, con dipendenza
+      ripidissima dalla lunghezza. Oltre 1,3 ℓ_P un collegamento non è più rigido: la cella confina ma non è più vicina.
+      Le vicine rigide per cella sono 11,7 — lo stesso peso d'influenza che dà α = 1/N². <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Che cosa costa uno scarto</h4>
+      <p>Uno scarto di fase su un varco è lavoro speso da chi l'ha scritto, riflessione per chi lo attraversa, luce in
+      potenza se viene lasciato andare: l'energia è il quadrato dello scarto, come per la luce. Scarti uguali si sommano
+      (repulsione), opposti si annullano (attrazione). <span class="tag t-der">struttura</span></p>
+    </div>
+    <div>
+      <h4>L'elettrone nelle due proprietà</h4>
+      <p>La sua ampiezza di inversione è un disaccordo, non un numero isolato: la fase che ruota nel tempo contro il
+      varco che la vorrebbe ferma — lo <strong>scarto</strong>. Da qui la massa dei leptoni carichi, maggiore di quella
+      dei neutrini perché una fase che ruota si accorda peggio: carica e massa dallo stesso disaccordo. Lo
+      <strong>spin</strong> è la relazione fra la fase e il giro dei passaggi: la torsione attorno ai canali. Massa dallo
+      scarto, spin dalla torsione. La posizione dell'elettrone fra le tre generazioni è geometrica — la proiezione
+      minima del dipolo sulle tre facce del canale, vicina allo zero — e resta libera solo la scala assoluta.
+      <span class="tag t-ass">struttura</span></p>
+    </div>
+    <div>
+      <h4>Quattro regimi</h4>
+      <p>Lineare (luce, campi deboli); saturante (occupazione 1−e^(−n): Mercurio, rigidità ε₀ contro gli avvolgimenti:
+      la corda); bloccato (l'mtdm); e, prima dell'equilibrio, plastico: la spinta assorbita nel riassetto. La nascita del
+      tempo è il passaggio da plastico a elastico. Eco storica: l'etere di MacCullagh (1839), rigido alla rotazione e non
+      alla compressione, che dà le equazioni della luce. <span class="tag t-ass">lettura</span></p>
+    </div>
+  </div>
+  <h3>Il riferimento</h3>
+  <p>
+    Cella = ℓ_P, batch = t_P, luce = una cella per batch. Collegamento tipico 0,97 ℓ_P, corti sotto 0,8, inerti oltre 1,3;
+    raggio di cella 0,44 ℓ_P, interstizio fra vicine tipiche 0,1 ℓ_P. La massa di Planck è la massa massima di una
+    vibrazione: ampiezza di inversione 1 per batch. Con questo riferimento la gravità richiede κ ≈ 5–6 impegni per
+    inversione, e con N = 11,7 è N/2: ipotesi con meccanismo — un'inversione impegna la semisfera di vicine verso cui
+    torna. Se regge, G è il numero di vicine rigide diviso due. <span class="tag t-ass">da verificare</span>
+  </p>
+  <p>
+    Le tre scale non derivate, in numeri puri. L'ampiezza di inversione dell'elettrone, 4·10⁻²³ per batch: invariante
+    (da fermo completa un'inversione ogni 10²² batch, in moto ogni 10²²·γ), con struttura — è il disaccordo della fase
+    rotante con lo scarto del varco, e la sua posizione fra le generazioni è fissata dal canale — ma con la scala
+    assoluta libera. La rigidità del vuoto contro gli avvolgimenti, 10⁻⁸⁰ E_P per cella (10⁻³⁹ per cella di lunghezza
+    di corda, sommando la sezione del tubo): il disaccordo della fase avvolta nello spazio con lo stesso varco. Le
+    nascite, 4·10⁻⁶¹ per cella per batch. I primi due sono due valori della stessa funzione — la riflessione del varco in
+    funzione del disaccordo — per due disaccordi diversi; una derivazione sarebbe quella funzione, o una relazione fra le
+    tre scale. <span class="tag t-con">aperto</span>
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">04h — Quark, protone, nuclei</span>
+  <h2>Il protone è un vortice chiuso</h2>
+  <p>
+    Il quark è un terzo di giro della fase interna attorno a un canale; il protone è una circolazione chiusa con un giro
+    intero, un terzo per faccia, che non si divide perché un terzo di giro non si chiude. Il numero di giri è topologico:
+    si conserva in ogni urto — è il numero barionico — e il protone, configurazione più leggera con un giro, non decade.
+    Le sue masse: 1% dai quark, 99% dalla vibrazione condivisa, come osservato.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>La corda è una linea di vortice</h4>
+      <p>L'avvolgimento è <em>attorno</em> alla corda, non lungo di essa: un giro lungo l'anello si allungherebbe gratis.
+      Ogni cella della linea porta lo stesso giro intero, quindi lo stesso costo: energia proporzionale alla lunghezza.
+      Tirare un quark significa trasferire a un terzo del giro parte del budget in moto; il filo di celle attraversate si
+      allunga finché conviene strozzarlo in due giri: la creazione di coppia, i getti. <span class="tag t-der">struttura</span></p>
+    </div>
+    <div>
+      <h4>Da dove viene la tensione</h4>
+      <p>Energia del gradiente (2π)²κ/A che vuole allargare il vortice, contro il costo ε₀·A delle celle impegnate — la
+      saturazione dell'occupazione — che vuole restringerlo. Il minimo fissa la sezione del tubo e la tensione: è il
+      superconduttore duale di 't Hooft e Mandelstam, con il condensato identificato nel vuoto in equilibrio e la sua
+      rigidità nella saturazione. I tubi di flusso della QCD su reticolo sono larghi ~0,5 fm. <span class="tag t-ass">meccanismo noto, sede nuova</span></p>
+    </div>
+    <div>
+      <h4>Il bilancio delle masse</h4>
+      <p>Quota di moto nħc/L più impegno σL: minimo E = 2√(nħcσ). Con √σ = 440 MeV e nient'altro: 880 MeV (protone 938),
+      1245 (Δ 1232), 1524 (N 1520), 1760 (N ~1700); M² lineare in n, cioè Regge. Lunghezza impegnata 0,45–0,96 fm,
+      3–6·10¹⁹ celle. Il pione (Goldstone) resta fuori schema; la ρ torna a 0,8 fm. <span class="tag t-ass">un parametro, preso dalla QCD</span></p>
+    </div>
+    <div>
+      <h4>I nuclei</h4>
+      <p>Due circolazioni che condividono celle le pagano una volta sola: massa(A)+massa(B)−massa(AB) = energia
+      liberata, il difetto di massa. Deutone 2,22 MeV = 2,3 attometri condivisi, lo 0,24% del protone; nuclei 8 MeV per
+      nucleone = 0,85%. Saturazione del legame perché si condivide solo con i canali adiacenti; termine di superficie dai
+      vicini mancanti; picco del ferro dal bilancio condivisione/repulsione di fase. EMC e coppie a corto raggio sono la
+      misura della condivisione. La fusione totale (Möbius) solo nella materia di quark. <span class="tag t-ass">frazioni da derivare</span></p>
+    </div>
+    <div>
+      <h4>Bombardare un protone</h4>
+      <p>Vibrazione entrante lunga: rinculo intero. Più corta: modo più alto, le risonanze, che tornano emettendo un
+      piccolo giro. Molto corta: un terzo del giro spinto via, il filo si stira e si strozza, un getto di adroni; mai
+      un quark solo. La circolarità non si rompe: si moltiplica. <span class="tag t-der">lettura dei dati</span></p>
+    </div>
+    <div>
+      <h4>Il decadimento beta</h4>
+      <p>Il neutrone è il protone con una faccia di accordo più cara (1,29 MeV). A ogni batch proprio la vibrazione
+      <em>tenta</em> l'escursione nel vuoto — la corrente cella–vuoto, lo stesso scambio che «trasportava» quando lo
+      cercavamo come sosta: il W è il quanto di quel passaggio, 80 GeV il suo costo. Il tentativo si risolve solo se c'è
+      una destinazione con ritmo da liberare: il neutrone ne ha una (p = 6·10⁻⁴⁷ per batch, τ = 878 s), il protone libero
+      no (Q = −1,80 MeV: tenta e torna). La probabilità costante per batch proprio è la legge esponenziale e la
+      dilatazione (muoni al CERN: 64,44 μs previsti, 64,42 misurati). Un solo numero per tutte le vibrazioni, G_F dal
+      muone: dà il τ a 0,3%, il neutrone a 0,8% (resto: correzioni radiative). La coppia elettrone–antineutrino nasce dalla
+      conservazione della fase rotante e del doppietto; lo spettro continuo è un solo scarto spartito fra due; la mano
+      (Wu) è il verso. Previsione: il doppio beta senza neutrini esiste. <span class="tag t-der">verificato (teoria di Fermi, letta)</span> <span class="tag t-con">G_F non derivata: 2·10⁻¹⁷ E_P</span></p>
+    </div>
+    <div>
+      <h4>Il g_A come budget del quark confinato</h4>
+      <p>Nel ritmo del neutrone il fattore 1 + 3g_A² = 5,88 è uno scarto esatto (la fase rotante si conserva: g_V = 1) e
+      tre torsioni. Il limite rigido delle tre facce ingranate dà 5/3; la riduzione a 1,275 è la quota di moto della
+      vibrazione confinata: g_A = (5/3)(1 − 4I²/3), e il valore misurato richiede I² = 0,176 — il quark nel vortice spende
+      l'82% del budget in sosta. Per una vibrazione di Dirac confinata in R questo vale mR = 1,20: con R = 0,84 fm,
+      ampiezza di inversione del quark dentro il vortice 282 MeV (un terzo del protone: 313). Libero ne avrebbe 2–5: la
+      differenza è la riflessione del tubo su un terzo di giro — la «massa costituente», la rottura chirale, in MT il
+      disaccordo nello spazio letto come sosta. È la quarta misura della stessa scala Λ dopo tensione di corda, massa
+      del protone e larghezza del tubo. Il calcolo è il modello a sacca con quark massivi; MT lo legge, non lo scopre.
+      <span class="tag t-der">calcolato</span> <span class="tag t-ass">lettura</span></p>
+    </div>
+    <div>
+      <h4>Che cosa manca</h4>
+      <p>ε₀ è preso dalla tensione di corda, non derivato: in unità di Planck è (Λ/E_P)⁴ — la gerarchia, nella forma
+      «perché il vuoto in equilibrio è così poco rigido contro gli avvolgimenti». Nessuna simulazione la dà senza un
+      meccanismo che leghi le due scale. <span class="tag t-con">aperto</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04i — L'inizio dai centri, e l'entanglement</span>
+  <h2>Un punto, un collegamento, un triangolo, un tetraedro</h2>
+  <p>
+    Il reticolo ha due letture duali: dalle celle (cella, varco, canale, vuoto) e dai centri (punto, collegamento,
+    triangolo, tetraedro). Prima di quattro punti non esiste un volume chiuso, né dentro né fuori: le due letture
+    coincidono. Il primo tetraedro chiude il primo volume e le separa: <strong>il primo vuoto è anche la prima
+    cella</strong>, e la scelta di quale sia quale è la stessa scelta del verso. Una, due, tre dimensioni — tante quante le
+    nascite avvenute prima che esistesse un collegamento da stirare — poi i gusci, l'elasticità, il tempo.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>La regola di nascita</h4>
+      <p>Una cella nasce al centro di ogni collegamento stirato oltre 1,3 ℓ_P: «le spinte non si chiudono» detto dai
+      collegamenti. All'inizio quasi tutti sono stirati (inflazione); in equilibrio nessuno (le nascite cessano); oggi
+      quasi mai (il pavimento). Dal quinto punto le nascite avvengono dentro i collegamenti, quindi dentro lo spazio che
+      c'è: la dimensione resta tre, e il disordine del tessuto è il prezzo di non aprirne una quarta.
+      <span class="tag t-ass">da simulare: quattro punti e la regola</span></p>
+    </div>
+    <div>
+      <h4>Gli mtdm come collegamenti mai stirati</h4>
+      <p>Le nascite allungano, non allargano: una regione con collegamenti compressi non ha modo di equilibrarsi. Resta
+      contratta, senza eventi, senza tempo — l'mtdm. Abbondanza: la frazione di collegamenti rimasti compressi
+      all'equilibrio, da confrontare con 5,4. <span class="tag t-ass">meccanismo con numero bersaglio</span></p>
+    </div>
+    <div>
+      <h4>Le due copie come lettura primale e duale</h4>
+      <p>La vibrazione con spin nasce in due copie quasi identiche: sarebbero la stessa vibrazione descritta dalle celle e
+      dai vuoti, distinte in segno dal verso e in misura dall'asimmetria fra la statistica delle celle e quella dei vuoti.
+      Test: lo scarto fra le copie (0,1–0,3%) contro l'asimmetria primale/duale misurata sul reticolo.
+      <span class="tag t-con">ipotesi con test</span></p>
+    </div>
+    <div>
+      <h4>L'entanglement</h4>
+      <p>Bell vieta che il legame porti due valori; l'interstizio porta relazioni, mai valori: una coppia nata da una
+      divisione porta un solo scarto di fase, senza tempo e senza distanza. Lo spin è una relazione fra la fase e i
+      passaggi; esiste come valore solo nell'accordo con chi misura. Il legame si risolve al primo stazionamento, in un
+      ordine di batch che esiste e non si vede (il valore è casuale: nessun segnale); nella materia la relazione non si
+      rompe, si diluisce per contagio nell'ambiente — la decoerenza. Ogni divisione produce entanglement: è la regola.
+      <span class="tag t-ass">modello non locale con ordine privilegiato</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04j — Meccanica delle matrici e idrogeno</span>
+  <h2>La stessa algebra, finita e locale</h2>
+  <p>
+    Lo stato è un vettore di ampiezze sugli elementi del tessuto; la posizione è una matrice diagonale con le coordinate dei
+    centri duali; K è sparsa, un elemento per passaggio. Per ogni matrice diagonale ([X_a,K])_αβ = (x_α − x_β)_a K_αβ, reale
+    antisimmetrica: quindi [X_a, K] = iV_a con V_a hermitiana, e l'equazione di Heisenberg dX_a/dN = i[K, X_a] = V_a dice che
+    V_a è la velocità — spostamento lungo il passaggio per rigidità del passaggio. Nel limite di Schrödinger [X_a, P_a] = i:
+    ħ è la conversione fra «cella × radiante per cella» e le nostre unità. L'indeterminazione segue dallo spettro: Δx·Δk = 0,49
+    per pacchetti da una cella in su, 0,45 sotto la cella (lunghezza minima); Δω·N½ = 0,80 ≥ π/4. ΔE·Δt ≥ ħ/2 in MT è
+    Δω·ΔN ≥ ½: per sapere quanto cambia una cosa per batch bisogna contare batch. <span class="tag t-der">teorema + misurato</span>
+  </p>
+  <div class="grid">
+    <div>
+      <h4>L'idrogeno sul reticolo (PC dell'autore, fino a 2,7 milioni di celle)</h4>
+      <p>Schrödinger di MT: H = laplaciano dei varchi / 2μ − α/r. Corsa grande, a₀ = 4 celle, scatola 32 a₀: 1s −1,2%
+      (⟨r⟩ 1,512 a₀); 2p +0,17%, tre stati degeneri a 4·10⁻⁵; 2s −0,28%; separazione 2s–2p −0,45% — la degenerazione
+      accidentale del potenziale 1/r che nessuna simmetria del reticolo impone. Con n = 3 a 42 a₀: 3s +2,4%, 3p −0,35%,
+      3d +1,4/−0,1%, e i cinque 3d separati in due più tre dal campo cubico delle immagini periodiche: sotto una parete
+      sferica tornano degeneri a 10⁻⁴. Controlli: riempimento 0,60–0,80 senza effetto (Δf ≤ 1%); periodico e parete
+      identici allo 0,05% per n = 2; rumore 10% sui pesi ≤ 0,4%; assestamento 10× peggiore ≤ 0,3%. <span class="tag t-der">misurato</span></p>
+    </div>
+    <div>
+      <h4>Lyman-α e Balmer</h4>
+      <p>Elemento di matrice di Heisenberg ⟨2p|X|1s⟩ con le nuvole del reticolo. Sei corse a risoluzioni e scatole
+      diverse si adattano a f = f∞ + 0,10/a₀² + c/scatolaⁿ con residui di 0,003; il modello ha previsto la corsa grande
+      (0,4247) prima che girasse (0,4253). Risultato: <strong>Lyman-α 0,425 a 4 celle e 32 a₀, 0,429 a 3 celle e 42 a₀;
+      estrapolata 0,410–0,414 secondo la legge di scatola; osservata 0,4162</strong> — entro l'1–1,5%, con il residuo
+      dell'ordine dell'ammorbidimento del nucleo. Seconda riga, senza il fondamentale: <strong>Balmer 2p→3d 0,690 contro 0,696</strong>. Con la scatola di 50 a₀ i nove
+      stati n = 3 sono degeneri fra loro e con Rydberg/9 entro lo 0,4%, e le somme sulla varietà — robuste alle mescolanze
+      — danno 1s→n=3 0,082 (0,0791), 2s→n=3 0,468 (0,4349), 2p→n=3 0,699 (0,7094).
+      Le tre condizioni poste da un revisore esterno — dimostrazione del commutatore, coordinate naturali sul Voronoi, un elemento di
+      transizione vicino all'osservato — sono chiuse, con due righe. <span class="tag t-der">misurato</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">05 — Verifiche</span>
+  <h2>I numeri</h2>
+  <table class="tbl">
+    <thead>
+      <tr><th>Fenomeno</th><th>MT</th><th>Osservato</th><th>Stato</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Velocità della luce sul reticolo casuale</td>
+        <td class="num"><b>1,0002 c</b></td>
+        <td class="oss">c</td>
+        <td><span class="tag t-der">senza aggiustamenti</span></td>
+      </tr>
+      <tr>
+        <td>Ritardo GRB 090510 (31 GeV, 7 Gly)</td>
+        <td class="num"><b>2·10⁻¹⁹ s</b></td>
+        <td class="oss">&lt; ~1 s</td>
+        <td><span class="tag t-der">quadratico in E/E_P</span></td>
+      </tr>
+      <tr>
+        <td>Birifrangenza del vuoto</td>
+        <td class="num"><b>&lt; 10⁻⁷</b></td>
+        <td class="oss">&lt; 10⁻¹⁶</td>
+        <td><span class="tag t-der">compatibile</span></td>
+      </tr>
+      <tr>
+        <td>Profilo del campo gravitazionale</td>
+        <td class="num"><b>r^(−0,986)</b></td>
+        <td class="oss">1/r</td>
+        <td><span class="tag t-der">dal contagio</span></td>
+      </tr>
+      <tr>
+        <td>Relazione di Koide Q</td>
+        <td class="num"><b>2/3, teorema</b></td>
+        <td class="oss">0,666661 ± 7·10⁻⁶</td>
+        <td><span class="tag t-der">dal canale a 120°</span></td>
+      </tr>
+      <tr>
+        <td>Angolo di Koide θ</td>
+        <td class="num"><b>0,21–0,23 rad</b></td>
+        <td class="oss">0,222</td>
+        <td><span class="tag t-ass">a riempimento 0,70</span></td>
+      </tr>
+      <tr>
+        <td>Somma delle masse dei neutrini</td>
+        <td class="num"><b>60 meV</b></td>
+        <td class="oss">&lt; 64–72 meV (ΛCDM)</td>
+        <td><span class="tag t-ass">fit a due parametri; misura attesa 2030–34</span></td>
+      </tr>
+      <tr>
+        <td>Ombra di un buco nero (rispetto alla RG)</td>
+        <td class="num"><b>+4,6%</b></td>
+        <td class="oss">0 ± ~10%</td>
+        <td><span class="tag t-der">previsione</span></td>
+      </tr>
+      <tr>
+        <td>Deflessione solare al 2º ordine (rispetto alla RG)</td>
+        <td class="num"><b>+0,7 μas</b></td>
+        <td class="oss">non misurato</td>
+        <td><span class="tag t-der">previsione</span></td>
+      </tr>
+      <tr>
+        <td>Idrogeno sul reticolo: 2p e 2s contro Rydberg; separazione 2s–2p</td>
+        <td class="num"><b>+0,26%, −0,21%; 0,5%</b></td>
+        <td class="oss">0; 0</td>
+        <td><span class="tag t-der">Schrödinger di MT, 8·10⁵ celle</span></td>
+      </tr>
+      <tr>
+        <td>Lyman-α, forza d'oscillatore (2,7·10⁶ celle; estrapolata)</td>
+        <td class="num"><b>0,425; estrapolata 0,410–0,414</b></td>
+        <td class="oss">0,4162</td>
+        <td><span class="tag t-der">elemento di matrice sul reticolo</span></td>
+      </tr>
+      <tr>
+        <td>Balmer 2p→3d, forza d'oscillatore</td>
+        <td class="num"><b>0,690</b></td>
+        <td class="oss">0,6958</td>
+        <td><span class="tag t-der">seconda riga, senza il 1s</span></td>
+      </tr>
+      <tr>
+        <td>Δx·Δk e Δω·N½ dallo spettro di K</td>
+        <td class="num"><b>0,49; 0,80</b></td>
+        <td class="oss">½; ≥ 0,785</td>
+        <td><span class="tag t-der">Robertson, Mandelstam-Tamm</span></td>
+      </tr>
+      <tr>
+        <td>Massa del protone (bilancio moto/impegno, √σ = 440 MeV)</td>
+        <td class="num"><b>880 MeV</b></td>
+        <td class="oss">938</td>
+        <td><span class="tag t-ass">un parametro dalla QCD</span></td>
+      </tr>
+      <tr>
+        <td>Δ(1232) e N(1520), stessi ingredienti con n = 2, 3</td>
+        <td class="num"><b>1245, 1524</b></td>
+        <td class="oss">1232, 1520</td>
+        <td><span class="tag t-ass">M² lineare in n (Regge)</span></td>
+      </tr>
+      <tr>
+        <td>Vita media del tau da quella del muone (stesso tentativo, destinazioni m⁵)</td>
+        <td class="num"><b>2,911·10⁻¹³ s</b></td>
+        <td class="oss">2,903·10⁻¹³</td>
+        <td><span class="tag t-der">0,3%</span></td>
+      </tr>
+      <tr>
+        <td>Vita media del neutrone da G_F del muone</td>
+        <td class="num"><b>871 s</b></td>
+        <td class="oss">878,4</td>
+        <td><span class="tag t-der">0,8% (radiative escluse)</span></td>
+      </tr>
+      <tr>
+        <td>Ampiezza di inversione del quark nel vortice, da g_A = 1,275</td>
+        <td class="num"><b>282 MeV</b> (R = 0,84 fm)</td>
+        <td class="oss">massa costituente 300–350</td>
+        <td><span class="tag t-der">budget: 82% sosta</span></td>
+      </tr>
+      <tr>
+        <td>Legame del deutone come celle condivise</td>
+        <td class="num"><b>0,24% del protone</b></td>
+        <td class="oss">2,22 MeV</td>
+        <td><span class="tag t-con">frazione da derivare</span></td>
+      </tr>
+      <tr>
+        <td>Specie leggere di neutrini</td>
+        <td class="num"><b>3</b></td>
+        <td class="oss">2,984 ± 0,008</td>
+        <td><span class="tag t-der">facce attorno a un canale</span></td>
+      </tr>
+      <tr>
+        <td>Deflessione della luce (Sole)</td>
+        <td class="num"><b>1,7516″</b></td>
+        <td class="oss">1,7500″</td>
+        <td><span class="tag t-der">senza parametri</span></td>
+      </tr>
+      <tr>
+        <td>Ritardo di Shapiro</td>
+        <td class="num"><b>123,7 μs</b></td>
+        <td class="oss">accordo Cassini 10⁻⁵</td>
+        <td><span class="tag t-der">senza parametri</span></td>
+      </tr>
+      <tr>
+        <td>Orologi GPS<br><span style="font-size:13px;color:var(--txt-3)">+45,7 altitudine · −7,2 moto</span></td>
+        <td class="num"><b>+38,51 μs/g</b></td>
+        <td class="oss">≈ +38 μs/g</td>
+        <td><span class="tag t-der">senza parametri</span></td>
+      </tr>
+      <tr>
+        <td>Precessione di Mercurio</td>
+        <td class="num"><b>42,99″/sec</b></td>
+        <td class="oss">43,11 ± 0,45″/sec</td>
+        <td><span class="tag t-der">saturazione dell'occupazione</span></td>
+      </tr>
+      <tr>
+        <td>Interferometria gravitazionale<br><span style="font-size:13px;color:var(--txt-3)">sovrapposizione su due quote</span></td>
+        <td class="num"><b>m·g·h·t / ħ</b></td>
+        <td class="oss">COW 1975 e successivi</td>
+        <td><span class="tag t-der">riprodotto</span></td>
+      </tr>
+      <tr>
+        <td>Indice spettrale primordiale n<sub>s</sub></td>
+        <td class="num"><b>0,9649</b></td>
+        <td class="oss">0,9649 ± 0,0042 (Planck)</td>
+        <td><span class="tag t-ass">scala del pivot da osservazione</span></td>
+      </tr>
+      <tr>
+        <td>Frazione di collasso in buchi neri</td>
+        <td class="num">attraversa 8,1%</td>
+        <td class="oss">≈ 8,14% (Bekenstein)</td>
+        <td><span class="tag t-con">non è un attrattore</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:30px;color:var(--txt-2);font-size:16px">
+    I primi tre escono dalla struttura senza libertà residua, una volta fissato il profilo di qIG.
+    Ma quel profilo è preso dalla fisica nota, non derivato dal reticolo — ed è il limite che
+    attraversa tutte le verifiche gravitazionali.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">06 — Quantistica</span>
+  <h2>Cosa emerge dalla discretezza</h2>
+
+  <h3>Indeterminazione</h3>
+  <p>
+    In un reticolo discreto la trasformata di Fourier ha risoluzione finita. Non puoi localizzare
+    una cella con precisione sub-cellulare perché <em>non esiste</em> nulla di più fine.
+    <span class="k">Δx · Δp ≥ ½</span> — il mezzo viene dalla geometria, non da una costante empirica.
+    ħ compare solo traducendo in unità SI. <span class="tag t-der">derivato</span>
+  </p>
+
+  <h3>Spin</h3>
+  <p>
+    La vibrazione vive sulla superficie della cella, e nella trasmissione sopravvive solo la
+    componente nella direzione del moto. Direzione su una sfera più fase relativa formano non un
+    vettore ma uno <strong>spinore</strong>: girando la direzione di un giro completo, la fase si
+    inverte. Lo spin-½ dipende dalla tridimensionalità, non dal numero di vicini.
+    <span class="tag t-con">meccanismo, non dimostrazione</span>
+  </p>
+
+  <h3>Il fotone</h3>
+  <p>
+    È la vibrazione che rifiuta di stazionare: p<sub>s</sub> = 0, nessuna massa, nessun tempo
+    proprio. Un'onda luminosa è una sequenza di accensioni, y = 0 → n → −n, dove <strong>n è la
+    lunghezza d'onda</strong> e l'energia va come 1/n. Non può esistere un fotone più energetico
+    di n = 1: un'oscillazione in una cella. È il taglio di Planck, e non è assunto.
+  </p>
+  <p>
+    L'effetto fotoelettrico ne segue: l'elettrone assorbe improbabilità e la riemette entro una
+    finestra di ritenzione. Se n è grande le vibrazioni arrivano rade e non si accumulano mai —
+    per quante onde rosse tu spari. È la finestra di ritenzione a rendere l'intensità irrilevante
+    per la soglia, che è precisamente ciò che mancava alla teoria ondulatoria classica.
+  </p>
+
+  <h3>Orbitali</h3>
+  <p>
+    La probabilità dell'elettrone è spalmata su tutte le celle dell'orbitale: quelle celle non
+    sono posti separati, sono un unico oggetto distribuito. Un oggetto unico ha una sola condizione
+    di chiusura di fase, quindi <strong>un solo budget</strong> da spartire tra rotazione e
+    oscillazione radiale.
+  </p>
+  <div class="f">
+    ℓ &lt; n
+    <small>Non imposto: è l'aritmetica di un budget unico condiviso tra due modi di spenderlo.
+    Per n = 1 non resta nulla per girare — solo s.</small>
+  </div>
+  <p>
+    Ne segue anche la degenerazione in ℓ — l'energia dipende dal totale, non da come lo ripartisci —
+    e il conteggio n² di stati per livello, 2n² con lo spin: 2, 8, 18, 32. In meccanica quantistica
+    il vincolo ℓ &lt; n e la degenerazione sono due fatti separati che risultano entrambi veri per
+    il potenziale coulombiano, senza che si capisca perché vadano insieme. Qui sono la stessa
+    affermazione detta due volte. <span class="tag t-der">derivato</span>
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">07 — Confronto</span>
+  <h2>Dove MT dice più delle teorie esistenti</h2>
+  <div class="grid">
+    <div>
+      <h4>Perché il fattore 2</h4>
+      <p>In relatività generale il contributo temporale e quello spaziale alla deflessione sono
+      uguali senza ragione. In MT sono un solo deficit letto in due direzioni.</p>
+    </div>
+    <div>
+      <h4>Perché la gravità solo attrae</h4>
+      <p>Non esiste occupazione negativa: i contributi possono solo accumularsi, mai elidersi.
+      Niente antigravità, niente schermatura — per struttura, non per osservazione.</p>
+    </div>
+    <div>
+      <h4>Perché nessuna singolarità</h4>
+      <p>Le probabilità non superano l'unità e il quanto d'azione resta intero. Dove Einstein
+      diverge, MT satura su un numero finito.</p>
+    </div>
+    <div>
+      <h4>Perché i corpi cadono</h4>
+      <p>Il principio geodetico è un postulato in relatività. Qui è la conseguenza di essere estesi
+      in un gradiente — e vale identico per un sasso e per un elettrone delocalizzato.</p>
+    </div>
+    <div>
+      <h4>Perché ℓ &lt; n</h4>
+      <p>In meccanica quantistica è una peculiarità del potenziale coulombiano, detta degenerazione
+      accidentale. In MT è l'aritmetica di un budget unico.</p>
+    </div>
+    <div>
+      <h4>Parsimonia</h4>
+      <p>Nessuna dimensione extra, nessuna supersimmetria, nessun superpartner. Una cella,
+      una probabilità. Lo spazio tridimensionale emerge dall'impacchettamento.</p>
+    </div>
+  </div>
+  <p style="margin-top:28px">
+    Sul tempo, MT è più radicale della Loop Quantum Gravity. Rovelli elimina il tempo come variabile
+    continua ma ne mantiene il concetto come relazione emergente dall'entropia. MT elimina anche il
+    concetto: resta il contatore, che è combinatorio e non temporale. E la freccia del tempo è
+    banale — i batch sono numerati.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">08 — Aperto</span>
+  <h2>Cosa manca, senza sconti</h2>
+  <ol class="open-list">
+    <li>
+      <b>Le due copie: il doppietto</b>
+      <span>La vibrazione con spin nasce in coppia per la parità cella/vuoto, e in natura lo spin ½ viene in coppia:
+      elettrone e neutrino, quark su e giù. Non un difetto, il doppietto debole. Ciò che le distingue è l'accordo fra cella
+      e vuoto — il verso, lo stato riflettente dell'interstizio, il «campo di Higgs» di MT — che è anche ciò su cui agisce
+      l'interazione debole. Da fare: l'operatore che realizza l'accordo sul reticolo (lo scambio ingenuo trasporta invece
+      di invertire) e i numeri: la differenza di massa nel doppietto, e lo scarto fra le copie (0,1–0,3%) contro
+      l'asimmetria celle/vuoti del reticolo.</span>
+    </li>
+    <li>
+      <b>L'operatore dell'accordo</b>
+      <span>La sosta è stabilita: l'inversione pari/dispari, esatta, letta come rovesciamento della parte che passa nei
+      varchi e nei vuoti, con ampiezza che dipende dal disaccordo di fase (nel tempo per l'elettrone, nello spazio per
+      il quark) e che impegna la semisfera di vicine verso cui torna. Da costruire è l'altro operatore: la mappa fra la
+      lettura dalle celle e quella dai vuoti, con il segno del verso, che distingue le due copie del doppietto e su cui
+      agisce l'interazione debole. Lo scambio ingenuo cella–vuoto non lo è: trasporta invece di invertire.</span>
+    </li>
+    <li>
+      <b>La velocità del contagio: verifica</b>
+      <span>Il portatore del campo è la spinta elastica dell'interstizio — una sosta impegna le vicine verso cui torna,
+      le spinte alterate si trasmettono una cella per batch, come nella simulazione dell'urto — non la passeggiata
+      casuale, che resta come statistica dell'impegno (b = 1, saturazione). Il profilo statico 1/r è lo stesso perché
+      entrambe risolvono Poisson; il transitorio corre a c. Da verificare sul reticolo meccanico: sorgente che impegna
+      di continuo una semisfera, deformazione statica ∝ 1/r, transitorio a distanza r in r batch.</span>
+    </li>
+    <li>
+      <b>Il riempimento del vuoto: fissato da α, test in sospeso</b>
+      <span>Il numero di vicine rigide N cresce con il riempimento (10,3 a 0,60; 11,3 a 0,80) e lo sbilanciamento dei
+      canali cala (0,28 → 0,17): α = 1/N² fissa il riempimento, e il riempimento deve dare l'angolo di Koide, 0,222.
+      Con il peso di stiramento N vale 11,0 a 0,70 (1/122, non 1/137), mentre lo sbilanciamento torna (0,215–0,227).
+      Da decidere dal meccanismo della sosta quale peso definisce una vicina — stiramento, o distribuzione
+      dell'inversione fra le vicine (κ = N/2) — perché i due conteggi differiscono del 6%, che è la precisione che
+      serve. Poi le masse dei leptoni sono un calcolo senza parametri, con bersaglio 206,77 e 3477,2.</span>
+    </li>
+    <li>
+      <b>G come N/2</b>
+      <span>Con il riferimento fissato (cella = ℓ_P), G richiede κ ≈ 5–6 impegni per inversione; l'ipotesi è che
+      un'inversione impegni la semisfera di vicine verso cui torna, N/2 = 5,85. Va verificata sul reticolo con il contagio
+      corretto.</span>
+    </li>
+    <li>
+      <b>Il costo dell'escursione nel vuoto (G_F)</b>
+      <span>La scala debole, 246 GeV = 2·10⁻¹⁷ E_P, è la quarta scala non derivata: il prezzo dell'escursione della
+      vibrazione nel settore dei vuoti e ritorno. L'operatore della corrente cella–vuoto in forma esatta — con il verso,
+      che produce la coppia — è la costruzione da fare; la sua debolezza è la stessa con cui il tessuto sente il verso.</span>
+    </li>
+    <li>
+      <b>La scala Λ: la rigidità del vuoto contro gli avvolgimenti</b>
+      <span>Una scala sola, misurata in quattro modi e non derivata: la tensione di corda (√σ = 440 MeV), la massa del
+      protone e delle risonanze dal bilancio moto/impegno, la larghezza del tubo (~0,5 fm), e l'ampiezza di inversione del
+      quark dentro il vortice (282 MeV, da g_A). In unità di Planck: 10⁻⁸⁰ E_P per cella impegnata, 10⁻³⁹ per cella di
+      lunghezza di corda. È il valore che la riflessione del varco assume per un disaccordo nello spazio — un terzo di
+      giro di fase per cella — così come l'ampiezza dell'elettrone, 4·10⁻²³, è il valore della stessa riflessione per il
+      disaccordo nel tempo. Da essa dipendono protone, risonanze, corda, massa costituente e frazioni condivise nei
+      nuclei. Derivarla significa derivare la funzione di riflessione del varco dal disaccordo di fase: un calcolo sul
+      varco, non sull'adrone, che fisserebbe insieme la gerarchia adronica e quella leptonica. Nessuna simulazione la
+      dà senza quel meccanismo.</span>
+    </li>
+    <li>
+      <b>La crescita per stiramento</b>
+      <span>Quattro punti e la regola «una cella al centro di ogni collegamento oltre 1,3 ℓ_P»: deve spegnersi da sola,
+      dare un tessuto iperuniforme, e lasciare una frazione di regioni compresse pari a 5,4 masse ordinarie.</span>
+    </li>
+    <li>
+      <b>Il costo di una nascita</b>
+      <span>«L'energia totale si conserva» è un'intenzione finché non si sa che cosa costa una cella nuova e chi
+      paga. Dopo la transizione all'equilibrio le nascite sembrano non costare nulla; va dimostrato.</span>
+    </li>
+    <li>
+      <b>La crescita delle strutture</b>
+      <span>I 60 meV dei neutrini si confrontano con i dati solo attraverso la crescita delle strutture nella gravità
+      di MT, dove MT può differire dalla relatività. Il calcolo delle perturbazioni non esiste ancora.</span>
+    </li>
+    <li>
+      <b>La quantità dell'asimmetria</b>
+      <span>Il verso del primo vuoto spiega il segno della prevalenza della materia; le tre parti su dieci miliardi
+      richiedono di sapere quanto l'accordo del tessuto pesa sulla fase di una sosta nascente.</span>
+    </li>
+    <li>
+      <b>Le onde gravitazionali: la dinamica</b>
+      <span>Niente respiro per Gauss, non per incomprimibilità: il campo di contrazione fuori da una sorgente sferica
+      dipende solo dall'occupazione racchiusa (Birkhoff), quindi una stella che pulsa non emette nulla; niente spostamento
+      per la chiusura delle spinte. L'onda non è la contrazione scalare che si propaga — darebbe un modo di respiro
+      trasverso, escluso — ma una deformazione <em>direzionale</em> dell'interstizio: collegamenti accorciati lungo un asse
+      e allungati lungo l'altro, portata dalle due proprietà direzionali, stiramento e torsione. Da verificare sul
+      reticolo meccanico: che l'onda di taglio si propaghi isotropa e senza dispersione a onde lunghe; che due regioni
+      contratte in rotazione la emettano a frequenza doppia con parte scalare statica all'esterno; e che la sua velocità
+      coincida con quella della luce — un vincolo nuovo, perché la luce corre con le rigidità geometriche dei varchi e
+      l'onda di taglio con le spinte elastiche fra le celle, e GW170817 le vuole uguali a una parte su 10¹⁵.</span>
+    </li>
+    <li>
+      <b>Le masse e l'energia del vuoto</b>
+      <span>m resta un fattore di scala; la piccolezza dell'elettrone rispetto a Planck è ora «perché le soste sono
+      rare», non ancora un numero. Nella forma locale MT eredita i 120 ordini di grandezza dell'energia del vuoto.</span>
+    </li>
+  </ol>
+</section>
+
+</div>
+
+<hr class="rule">
+<footer>
+  <div class="wrap">
+    <p style="max-width:44em;margin:0">
+      Dopo ottobre 2026 MT è una teoria in cui tempo, massa, luce, gravità e l'inizio escono dalla stessa
+      geometria — un tessuto di celle in equilibrio e lo spazio fra loro — con una parte dimostrata su
+      reticoli casuali e una parte ancora da costruire. Le sue previsioni proprie sono poche e precise:
+      un'energia oscura costante, un'ombra dei buchi neri più grande del 4,6%, tre generazioni e nessuna
+      quarta, una somma delle masse dei neutrini di 60 meV. Ciò che manca non è vago: è una lista di
+      costruzioni e di misure, ciascuna con il suo numero bersaglio.
+    </p>
+  </div>
+</footer>
+
+<script>
+// reticolo: celle sferiche che non si toccano, occupazione crescente verso sinistra
+(function(){
+  const g=document.getElementById('cells');
+  if(!g) return;
+  const cols=60, rows=8, dx=1200/cols, dy=150/rows;
+  let out='';
+  for(let j=0;j<rows;j++){
+    for(let i=0;i<cols;i++){
+      const x=dx*(i+.5)+(j%2?dx/2:0), y=dy*(j+.5);
+      if(x>1200) continue;
+      const occ=Math.max(0,1-Math.hypot(x-90,y-150)/620);
+      const lit=Math.random()<occ*0.55;
+      const r=lit?2.6:1.7;
+      const col=lit?'#F0B24A':'#243651';
+      const op=lit?(0.35+occ*0.55).toFixed(2):'0.85';
+      out+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${col}" opacity="${op}"/>`;
+    }
+  }
+  g.innerHTML=out;
+})();
+
+// rivelazione allo scroll
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.fade').forEach(e=>e.classList.add('in'));return;
+  }
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12});
+  document.querySelectorAll('.fade').forEach(e=>io.observe(e));
+})();
+</script>
+</body>
+</html>

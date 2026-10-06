@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this material, please cite this repository."
+title: "Max Theory (MT): a discrete model of space — documents, code and numerical results"
+type: software
+authors:
+  - family-names: "Cesaroni"
+    given-names: "M."
+version: "1.0.0"
+date-released: "2026-10-07"
+license: MIT
+repository-code: "https://github.com/m-cesaroni/hyperuniform-lattice-model"
+keywords:
+  - discrete spacetime
+  - hyperuniform
+  - random lattice
+  - discrete exterior calculus
+  - Kähler-Dirac
+  - hydrogen atom

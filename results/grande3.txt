@@ -1,0 +1,31 @@
+reticolo 2700000 celle, lato 126.4 = 42.1 a0; alpha = 0.125, mu = 2.6667, a0 = 3.0 celle; Rydberg di MT = 0.020833
+vicine per cella 14.22; rigidita' dei varchi: mediana 0.368
+
+ k   E reticolo      <r>/a0   anisotropia   identificato (sovrapposizione^2)
+  0    -0.0204477     1.52      0.00       1s (1.00)
+  1    -0.0052262     4.97      1.20       2p (1.00)
+  2    -0.0052260     4.97      1.20       2p (1.00)
+  3    -0.0052254     4.98      1.20       2p (1.00)
+  4    -0.0051822     6.02      0.00       2s (1.00)
+  5    -0.0023707    14.09      0.06       3s (0.98)
+  6    -0.0023437    10.98      0.87       3d (0.99)
+  7    -0.0023435    10.96      0.94       3d (0.99)
+  8    -0.0023083    10.24      0.96       3d (1.00)
+  9    -0.0023083    10.24      0.96       3d (1.00)
+ 10    -0.0023082    10.24      0.99       3d (1.00)
+ 11    -0.0022970    12.04      1.29       3p (0.99)
+ 12    -0.0022969    12.04      1.19       3p (0.99)
+ 13    -0.0022965    12.09      1.32       3p (0.99)
+
+1s: -0.0204477  contro Rydberg -0.0208333: scarto -1.85%   <r>/a0 = 1.518 (continuo 1,500)
+2p (tre stati): -0.0052259 ± 3.6e-07  contro -0.0052083: scarto +0.34%;  degenerazione fra i tre: 7.0e-05
+2s: -0.0051822  contro -0.0052083: scarto -0.50%;  separazione 2s-2p: -0.84% (continuo 0)
+rapporto E(1s)/E(2p) = 3.9128 (Rydberg 4)
+
+Lyman-alfa: Sum|<2p|r|1s>|^2 = 1.7626 a0^2 (continuo 1,6653; quadratura sul reticolo con funzioni analitiche 1.6622)
+            Delta E = 0.36532 hartree (continuo 0,37500);  forza d'oscillatore f = 0.4293  (osservato 0,4162; scarto +3.1%)
+
+Lyman-beta 1s->3p: f = 0.0846  (noto 0.0791; scarto +6.9%)   Delta E = 0.4356 hartree, 1->3 stati
+Balmer 2s->3p : f = 0.4780  (noto 0.4349; scarto +9.9%)   Delta E = 0.0693 hartree, 1->3 stati
+Balmer 2p->3s : f = 0.0111  (noto 0.01359; scarto -18.6%)   Delta E = 0.0685 hartree, 3->1 stati
+Balmer 2p->3d : f = 0.6830  (noto 0.6958; scarto -1.8%)   Delta E = 0.0697 hartree, 3->5 stati
