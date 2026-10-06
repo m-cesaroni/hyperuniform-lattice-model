@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Max Theory — a discrete model of space: overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0C1420;
+  --panel:#131F31;
+  --panel-2:#18273D;
+  --line:#243651;
+  --line-soft:#1B2A40;
+  --txt:#DEE6F2;
+  --txt-2:#8698B6;
+  --txt-3:#5D6E8A;
+  /* semantica: ambra = stazionamento (massa, tempo) */
+  --staz:#F0B24A;
+  /* semantica: ciano = propagazione (luce, energia) */
+  --prop:#5BC8D8;
+  /* semantica: viola = quota ceduta al campo */
+  --campo:#B98CE0;
+  --ok:#6FD1A6;
+  --open:#E0765F;
+  --display:'Sora',system-ui,sans-serif;
+  --body:'Newsreader',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--ink);color:var(--txt);
+  font-family:var(--body);font-size:18px;line-height:1.68;
+  font-weight:300;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  border-bottom:1px solid var(--line);
+  padding:82px 0 0;
+}
+.hero .wrap{position:relative;z-index:2}
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--txt-3);margin:0 0 26px;
+}
+h1{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(46px,8vw,86px);line-height:.94;
+  letter-spacing:-.035em;margin:0 0 4px;
+}
+h1 .sub{display:block;color:var(--txt-3);font-weight:400;
+  font-size:clamp(20px,3vw,30px);letter-spacing:-.02em;margin-top:14px}
+.thesis{
+  font-size:clamp(19px,2.4vw,23px);line-height:1.55;color:var(--txt-2);
+  max-width:34em;margin:30px 0 0;font-weight:300;
+}
+.thesis em{color:var(--txt);font-style:normal}
+
+/* identita' centrale */
+.identity{
+  margin:52px 0 0;padding:30px 32px;
+  border:1px solid var(--line);border-radius:3px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+}
+.identity .eq{
+  font-family:var(--mono);font-weight:500;
+  font-size:clamp(20px,4vw,34px);letter-spacing:-.02em;
+  text-align:center;margin:0;white-space:nowrap;
+  overflow-x:auto;
+}
+.i-p{color:var(--prop)}
+.i-t{color:var(--staz)}
+.i-g{color:var(--campo)}
+.legend{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  margin-top:26px;background:var(--line);border:1px solid var(--line);
+}
+.legend div{background:var(--panel);padding:14px 16px}
+.legend b{
+  font-family:var(--mono);font-size:13px;font-weight:700;
+  display:block;margin-bottom:3px;
+}
+.legend span{font-size:14.5px;color:var(--txt-2);line-height:1.45}
+@media(max-width:660px){.legend{grid-template-columns:1fr}}
+
+/* reticolo */
+.lattice{display:block;width:100%;height:150px;margin-top:58px}
+
+/* ---------- SEZIONI ---------- */
+section{padding:74px 0;border-bottom:1px solid var(--line-soft)}
+.snum{
+  font-family:var(--mono);font-size:11px;letter-spacing:.2em;
+  color:var(--txt-3);text-transform:uppercase;
+  display:block;margin-bottom:12px;
+}
+h2{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(28px,4.4vw,40px);line-height:1.08;
+  letter-spacing:-.03em;margin:0 0 26px;max-width:20em;
+}
+h3{
+  font-family:var(--display);font-weight:600;font-size:19px;
+  letter-spacing:-.015em;margin:38px 0 10px;color:var(--txt);
+}
+p{margin:0 0 18px;max-width:38em}
+strong{font-weight:500;color:#fff}
+.k{font-family:var(--mono);font-size:.88em;color:var(--prop)}
+.km{font-family:var(--mono);font-size:.88em;color:var(--staz)}
+
+/* blocco formula */
+.f{
+  font-family:var(--mono);font-size:16px;
+  border-left:2px solid var(--line);
+  padding:14px 0 14px 20px;margin:24px 0;color:var(--txt);
+  overflow-x:auto;
+}
+.f small{display:block;font-size:13px;color:var(--txt-3);
+  margin-top:8px;font-family:var(--body);font-size:15px}
+
+/* tag di stato epistemico */
+.tag{
+  font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;
+  padding:3px 8px;border:1px solid;border-radius:2px;
+  white-space:nowrap;display:inline-block;vertical-align:2px;
+}
+.t-der{color:var(--ok);border-color:#2C5A48}
+.t-ass{color:var(--staz);border-color:#5C4620}
+.t-con{color:var(--open);border-color:#5C3129}
+
+/* citazione storica */
+.quote{
+  margin:34px 0;padding:26px 30px;
+  border:1px solid var(--line);border-left:2px solid var(--campo);
+  background:var(--panel);
+}
+.quote p{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(18px,2.6vw,22px);line-height:1.45;
+  letter-spacing:-.015em;color:var(--txt);margin:0;max-width:none;
+}
+.quote cite{
+  display:block;margin-top:16px;font-style:normal;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--txt-3);
+}
+
+/* tabella risultati */
+.tbl{width:100%;border-collapse:collapse;margin:8px 0 0;font-size:15px}
+.tbl th{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--txt-3);font-weight:400;
+  text-align:left;padding:0 14px 11px 0;border-bottom:1px solid var(--line);
+}
+.tbl td{
+  padding:15px 14px 15px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+}
+.tbl td:first-child{color:var(--txt);max-width:16em}
+.tbl .num{font-family:var(--mono);font-size:13.5px;white-space:nowrap}
+.tbl .num b{color:var(--prop);font-weight:500}
+.tbl .oss{font-family:var(--mono);font-size:13.5px;color:var(--txt-2);white-space:nowrap}
+@media(max-width:720px){
+  .tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}
+  .tbl thead{display:none}
+  .tbl tr{border-bottom:1px solid var(--line);padding:16px 0}
+  .tbl td{border:0;padding:2px 0}
+  .tbl td:first-child{font-family:var(--display);font-weight:600;margin-bottom:6px}
+}
+
+/* card griglia */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);margin:30px 0}
+.grid > div{background:var(--panel);padding:22px 24px}
+.grid h4{
+  font-family:var(--display);font-size:16px;font-weight:600;
+  margin:0 0 8px;letter-spacing:-.01em;
+}
+.grid p{font-size:15.5px;color:var(--txt-2);margin:0;max-width:none}
+@media(max-width:660px){.grid{grid-template-columns:1fr}}
+
+/* lista aperti */
+.open-list{list-style:none;padding:0;margin:24px 0 0;counter-reset:o}
+.open-list li{
+  counter-increment:o;position:relative;
+  padding:18px 0 18px 46px;border-top:1px solid var(--line-soft);
+  max-width:40em;
+}
+.open-list li::before{
+  content:counter(o,decimal-leading-zero);
+  position:absolute;left:0;top:19px;
+  font-family:var(--mono);font-size:12px;color:var(--open);
+}
+.open-list b{display:block;font-family:var(--display);font-weight:600;
+  font-size:17px;color:var(--txt);margin-bottom:4px}
+.open-list span{font-size:16px;color:var(--txt-2)}
+
+footer{padding:56px 0 90px;color:var(--txt-3);font-size:15px}
+footer .wrap{max-width:940px}
+hr.rule{border:0;border-top:1px solid var(--line);margin:0}
+
+@media (prefers-reduced-motion:no-preference){
+  .fade{opacity:0;transform:translateY(14px);
+    transition:opacity .7s ease,transform .7s ease}
+  .fade.in{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">A discrete model of space · Working document · October 2026 · <a href="riepilogo.html" style="color:inherit">Italian original</a></p>
+    <h1>Max Theory
+      <span class="sub">Space does not contain things; space is the things.</span>
+    </h1>
+    <p class="thesis">
+      A lattice of cells that do not touch, held in mechanical equilibrium. What we call light, matter,
+      time and gravity are ways of using the space between the cells. A single accounting rule governs
+      every excitation: each vibration disposes of a unit budget, which it may spend in three ways.
+    </p>
+
+    <div class="identity">
+      <p class="eq">
+        <span class="i-p">I²</span> &nbsp;+&nbsp;
+        <span class="i-t">T²</span> &nbsp;+&nbsp;
+        <span class="i-g">qIG²</span> &nbsp;=&nbsp; 1
+      </p>
+      <div class="legend">
+        <div>
+          <b class="i-p">I — propagation</b>
+          <span>The share spent in not pausing. For light it equals 1: the entire budget is here.</span>
+        </div>
+        <div>
+          <b class="i-t">T — time</b>
+          <span>The share spent in pauses. Each pause is one tick of the clock.</span>
+        </div>
+        <div>
+          <b class="i-g">qIG — field</b>
+          <span>The share ceded to the gravitational field. It depends on position alone.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg class="lattice" viewBox="0 0 1200 150" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <radialGradient id="occ" cx="14%" cy="100%" r="62%">
+        <stop offset="0%" stop-color="#B98CE0" stop-opacity=".30"/>
+        <stop offset="100%" stop-color="#B98CE0" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1200" height="150" fill="url(#occ)"/>
+    <g id="cells"></g>
+  </svg>
+</header>
+
+<div class="wrap">
+
+<section class="fade">
+  <span class="snum">00 — Status</span>
+  <h2>What holds and what is missing</h2>
+  <p>
+    On three-dimensional random lattices in mechanical equilibrium, most of the postulates of MT are
+    now either theorems or measurements, and the remainder has a definite form. This document
+    distinguishes three levels: <span class="tag t-der">demonstrated</span> — a theorem or a verified
+    numerical result; <span class="tag t-ass">coherent</span> — a mechanism that reproduces the data but
+    depends on a choice not yet derived; <span class="tag t-con">open</span> — a problem still to be solved.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>The budget is a theorem</h4>
+      <p>E² = K² + m² and I² + T² = 1 follow from the anticommutation of motion and inversion, on any
+      lattice, in continuous time and at discrete steps. The pause is a to-and-fro motion along the spin axis.</p>
+    </div>
+    <div>
+      <h4>Light propagates correctly</h4>
+      <p>As an electromagnetic field on the faces shared by adjacent cells: speed exactly c, isotropic,
+      without birefringence, without scattering of long waves. The equilibrium vacuum is transparent.</p>
+    </div>
+    <div>
+      <h4>Gravity is derived in its profile</h4>
+      <p>The critical contagion yields 1/r; the occupation, being a probability, saturates, and the
+      saturation fixes Mercury's perihelion advance at 42.99″. The profile is no longer imported. The
+      strength — G — remains to be derived.</p>
+    </div>
+    <div>
+      <h4>Three, by geometry</h4>
+      <p>Three faces meet around a channel. Three generations, three neutrinos, three families of quarks,
+      and no fourth. Koide's angle has a physical candidate: the typical imbalance of the channels.</p>
+    </div>
+    <div>
+      <h4>A beginning without time</h4>
+      <p>Cells are born where the pushes fail to close; equilibrium extinguishes the births; the first
+      vibration is the first impact on a closed shell. Inflation, its end and the hot Big Bang are a single transition.</p>
+    </div>
+    <div>
+      <h4>The handedness of the first vacuum</h4>
+      <p>Four cells ordered by birth possess a chirality; chance selects it, adjacency inherits it. One
+      handedness for the whole universe, invisible to light and barely felt by matter.</p>
+    </div>
+  </div>
+  <h3>The framework in brief</h3>
+  <p>
+    The reference scale is fixed: a cell is one Planck length, a step one Planck time, and light advances
+    one cell per step. The interstice is an elastic connection between cells, with two geometric
+    stiffnesses — stretching at the apertures, torsion in the channels — and no free constant until it is
+    engaged. The proton is a closed vortex of phase around a channel; the string is a vortex line, its
+    tension arises from the balance between gradient energy and the stiffness of the vacuum, and with the
+    string tension alone the balance yields the proton, the Δ and the first resonances. The beginning is
+    read from the centres — a point, a connection, a triangle, a tetrahedron: one, two, three dimensions,
+    then time — with the birth rule «one cell at the centre of every connection stretched beyond 1.3 ℓ_P».
+    Entanglement is an interstitial relation, not a pair of values. Beta decay is one attempt per step with
+    a universal probability and counted destinations (muon, tau and neutron lifetimes within 1 % from a
+    single constant), and the measured g_A implies that the quark in the vortex pauses for 82 % of its
+    budget with an amplitude of 282 MeV. The matrix mechanics of MT is Heisenberg's with finite sparse
+    matrices: [X_a, K] = iV_a is an identity, the uncertainty relations follow from the spectrum, and
+    hydrogen on lattices of up to 2.7 million cells yields the Rydberg levels, the 2s–2p degeneracy to
+    0.45 %, Lyman-α at 0.425 against 0.416 and Balmer 2p→3d at 0.690 against 0.696, stable under changes of
+    packing fraction, boundary and weights. Details in sections 04g–04j.
+  </p>
+  <h3>The chapters</h3>
+  <p>The document is also published as six linked chapters (in Italian), each with the legend and its own open
+  problems: <a href="capitoli/capitolo-1.html">1. The lattice</a> · <a href="capitoli/capitolo-2.html">2. The vibration</a> ·
+  <a href="capitoli/capitolo-3.html">3. Quarks and nuclei</a> · <a href="capitoli/capitolo-4.html">4. Generations and handedness</a> ·
+  <a href="capitoli/capitolo-5.html">5. Gravity</a> · <a href="capitoli/capitolo-6.html">6. The beginning and the cosmos</a>.</p>
+</section>
+
+<section class="fade">
+  <span class="snum">01 — The postulate</span>
+  <h2>A lattice that is born and settles</h2>
+  <p>
+    Spacetime is a discrete lattice of cells. At each step — the <strong>batch</strong> — a cell may
+    generate an adjacent one where the pushes between cells fail to close: at the centre of a connection
+    stretched beyond 1.3 ℓ_P. The birth probability per cell and per step, <span class="k">p₀</span>, is
+    not a constant of nature but the state of the lattice: large while the lattice is out of equilibrium,
+    small once it has settled.
+  </p>
+  <div class="f">
+    p₀ = 3H₀t_P ≈ 4·10⁻⁶¹ &nbsp;births per cell per step
+    <small>Today's value, fixed by the expansion: the floor of a lattice that has never finished settling.
+    It is the only physical p₀.</small>
+  </div>
+  <p>
+    In the epoch of initial growth there is no vibration; the steps therefore carry no time, and a
+    probability per step in that epoch is not a physical quantity. Of that epoch only the counts and the
+    resulting structure matter — the packing fraction, the neighbours, the channels. The constants of
+    physics do not descend from p₀: they descend from the geometry of the equilibrium lattice (α from the
+    rigid neighbours, the three generations from the channels) and from the four scales not yet derived,
+    listed in the closing section.
+    <span class="tag t-der">position fixed</span>
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">02 — Space and time</span>
+  <h2>Two accountings, no dimensions</h2>
+  <h3>Space is a count of cells</h3>
+  <p>
+    The distance between two points is the number of cells separating them. The cells are spherical and
+    do not touch, but the interstitial space does not contribute to distance: only cells carry physical
+    meaning. The count is <strong>invariant</strong> — a metre is always the same number of cells, with or
+    without mass present. Any deformation of the lattice is irrelevant to events and therefore devoid of meaning.
+  </p>
+  <h3>Time is a count of pauses</h3>
+  <p>
+    There is no temporal dimension. There is the step, a counter of events. Nothing elapses between one
+    step and the next: a step occurs. Were the rhythm of the steps to change, no observer could notice —
+    every process would rescale together. The Planck time is not a fundamental duration: it is the
+    translation of «one step» into seconds, and the second is a human convention.
+  </p>
+  <p>
+    It follows that <strong>c is not a velocity</strong>. It is the ceiling of improbability: one cell per
+    step, the maximum the structure permits. In lattice units it equals 1.
+  </p>
+  <h3>The particle is not an object</h3>
+  <p>
+    It is a vibration living on the surface of a cell — like the surface of a pool seen from below — and
+    transmitted to the neighbours. Only the component along the direction of motion survives transmission.
+    A particle does not move: it is re-ignited, cell after cell.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">03 — The budget</span>
+  <h2>Mass, energy and time are the same partition</h2>
+  <p>
+    The total improbability always equals 1, partitioned over <strong>orthogonal</strong> axes. The linear
+    partition — the naive hypothesis — is wrong by 41 %; the Pythagorean one reproduces relativity to
+    machine precision. <span class="tag t-der">derived</span>
+  </p>
+  <div class="f">
+    γ = 1 / T&nbsp;&nbsp;&nbsp;&nbsp;E = m / T&nbsp;&nbsp;&nbsp;&nbsp;p = m · I / T
+    <small>The Lorentz factor is the reciprocal of the temporal share. No velocity appears.</small>
+  </div>
+  <p>
+    Substituting into the relativistic relation E² = p² + m² and simplifying yields exactly
+    <span class="k">I² + T² = 1</span>. The fundamental relation of relativistic dynamics <strong>is</strong>
+    the partition identity, written in units of energy rather than of budget. What in relativity is the
+    norm of a four-vector is here a conservation law: the total equals one.
+  </p>
+  <p>
+    The mass cancels in the simplification. It is the scale factor that remains invariant however the
+    budget is partitioned — the radius of the circle on which I and T move. This is why it is the same for
+    all observers while energy and momentum are not.
+  </p>
+  <p>
+    Relativistic inertia ceases to be a result to be derived: to accelerate is to transfer share from
+    time to propagation, and the last fraction costs infinitely because the account cannot be emptied
+    entirely. With c = 1, <span class="k">E = m</span>: mass and energy are not two substances related by
+    an exchange rate; they are the same share in two states.
+  </p>
+  <h3>Why MT agrees with the Lorentz factor</h3>
+  <p>
+    One objection must be met directly. A vibration with improbability 0.5 advances one cell every two
+    steps: <strong>it pauses every other step</strong>. It would therefore seem to experience half the
+    time. But the Lorentz factor in that regime gives 0.866, not 0.5. If proper time were simply
+    proportional to the number of pauses, MT would be wrong — by 41 %.
+  </p>
+  <div class="f">
+    I = 0.50&nbsp;&nbsp;→&nbsp;&nbsp;count of pauses = 1 − I = <span class="i-t">0.500</span>
+    &nbsp;&nbsp;·&nbsp;&nbsp;proper time = √(1 − I²) = <span class="i-p">0.866</span>
+    <small>The two numbers coincide only at the extremes, at rest and at the limiting speed. In between
+    they diverge, and the second is the one measured.</small>
+  </div>
+  <p>
+    The reconciliation lies in the fact that <strong>the two numbers measure different things</strong>.
+    The count of pauses is linear — 1 − I — and is correct as a count of events: the vibration does pause
+    half of the time. But proper time is not the raw count: it is the <strong>projection onto the temporal
+    axis</strong>, and the two axes are orthogonal.
+  </p>
+  <p>
+    Pausing and advancing are not two ways of spending the same resource along a line. They are counts
+    along perpendicular directions, and what the vibration registers as its own time is the leg of the
+    right triangle, not the difference. Every pause occurs, but contributes to the clock only through its
+    temporal component: part of the phase advance is committed to the spatial component of the wave.
+  </p>
+  <p>
+    A qualification of the statement «time is the count of pauses» follows: it holds <em>exactly</em> only
+    at rest, where the entire budget lies on T and the two readings coincide. In motion they diverge, and
+    the physical one is the projection. <span class="tag t-der">verified to 10⁻¹⁶</span>
+  </p>
+  <p>
+    Orthogonality is not chosen for convenience: it is the very structure that makes
+    <span class="k">I² + T² = 1</span> coincide with <span class="k">E² = p² + m²</span>. Were the
+    partition linear, that coincidence would disappear, and with it the energy–momentum relation. Two
+    independent constraints select the same geometry.
+  </p>
+  <h3>The twin paradox is not a paradox</h3>
+  <p>
+    In special relativity motion is purely relative: each twin sees the other move, the situation appears
+    symmetric, and acceleration or a change of reference frame must be invoked to break the symmetry and
+    establish who has aged less. This is the point that generates the sense of paradox.
+  </p>
+  <p>
+    In MT the symmetry <strong>is absent from the outset</strong>. The partition of the budget is a
+    property of the vibration with respect to the lattice, not a relation between two observers. One of
+    the twins does hold a larger share in I and a smaller one in T: it pauses less and accumulates less
+    time. There is nothing to break, because there was no symmetry to break.
+  </p>
+  <div class="f">
+    T_traveller &lt; T_at rest&nbsp;&nbsp;→&nbsp;&nbsp;fewer pauses, less proper time
+    <small>An absolute fact about the partition, not a matter of viewpoint.</small>
+  </div>
+  <h3>Why the lattice remains invisible</h3>
+  <p>
+    This, however, reintroduces a privileged reference frame — that of the lattice, in which the seed cell
+    was born. It stands in tension with a very robust experimental fact: no Michelson–Morley-type
+    experiment has ever revealed an absolute frame.
+  </p>
+  <p>
+    It is worth being precise about what those experiments actually establish. Michelson–Morley shows that
+    <strong>light traverses the same path in the same way for every observer</strong>, whatever the
+    observer's motion. It does not show that no substrate exists: it shows that, if one exists, its
+    effects compensate exactly and produce no measurable difference. It is a null result on a measurement,
+    not a proof of absence.
+  </p>
+  <p>
+    In MT that compensation has a reason, and it is not a fortunate coincidence. Light has I = 1 under
+    all conditions: it is the ceiling of the partition, not a velocity relative to anything. There is no
+    «wind» to add to or subtract from, because propagation is not a displacement through a medium — it is
+    a succession of ignitions, one cell per step, identical everywhere.
+  </p>
+  <p>
+    The resolution is that the lattice <strong>cannot be measured from within</strong>. Every clock and
+    every rod is itself made of vibrations that sample the lattice by the very same rule. An apparatus in
+    motion has its share I, and that share alters its rhythm and its extension together — by exactly the
+    amount of what it would seek to measure. The deficit cancels in every possible comparison.
+  </p>
+  <p>
+    No observer can measure its own I absolutely: only differences with respect to other vibrations. MT
+    therefore has an <em>underlying</em> absolute and a <em>perfectly relativistic</em> phenomenology.
+    <span class="tag t-con">interpretation, not prediction</span>
+  </p>
+  <div class="quote">
+    <p>«According to the general theory of relativity, space without ether is unthinkable.»</p>
+    <cite>Albert Einstein — Leiden lecture, 5 May 1920</cite>
+  </div>
+  <p>
+    In the same lecture Einstein specifies in what sense: not the luminiferous ether of the nineteenth
+    century, not a medium with material parts whose motion could be followed or to which a velocity could
+    be ascribed, but something nonetheless <strong>physical</strong> — a space endowed with qualities,
+    without which neither the propagation of light nor the very possibility of rods and clocks would
+    exist, and hence no spacetime interval in the physical sense.
+  </p>
+  <p>
+    This is precisely the position MT occupies. The lattice has no moving parts and no velocity of its
+    own. But it is physical, and it is what makes the two accountings possible — cells and steps —
+    without which there would be neither distances nor durations to measure.
+  </p>
+  <p style="color:var(--txt-2);font-size:16px">
+    It should be stated precisely: this position is empirically equivalent to special relativity, not a
+    testable alternative to it. It does have a natural anchor — the frame in which the cosmic microwave
+    background is isotropic is already, de facto, a privileged reference frame in cosmology, and would be
+    the obvious candidate for the frame of the lattice.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">04 — Gravity</span>
+  <h2>Neither a force nor a curvature: an occupation</h2>
+  <p>
+    A vibration that pauses <strong>returns repeatedly to the same cells</strong>. This is the difference
+    in kind between what has mass and what has not: light visits each cell once and passes; matter
+    revisits. Repeated visits engage the cells, and an engaged cell takes a share of the budget of whatever
+    passes through it. This share is qIG.
+  </p>
+  <p>
+    The engagement is transmitted to the neighbours by <strong>contagion</strong>, not by transfer: the
+    cell that spreads it loses nothing, which is why the field persists as long as the mass remains. The
+    occupation is never integral — it is a probability, and may be as small as 10⁻⁶³ without vanishing.
+    There is therefore neither a minimum threshold nor a finite range. <span class="tag t-der">derived</span>
+  </p>
+  <div class="grid">
+    <div>
+      <h4>The value slows time</h4>
+      <p>Where qIG is large, each pause yields less time. It depends on position, not on motion: a body in
+      free fall is subject to it as well, as the GPS satellites show.</p>
+    </div>
+    <div>
+      <h4>The gradient produces motion</h4>
+      <p>A vibration extends over many cells. Its inner part lies where the field is stronger, its outer
+      part where it is weaker: the parts evolve at different rates and the object becomes unbalanced.</p>
+    </div>
+  </div>
+  <p>
+    This removes a postulate of general relativity. There, bodies fall because they «follow geodesics» —
+    but nothing in the geometry says <em>why</em> they should: it is an independent axiom. In MT the motion
+    is the arithmetical consequence of being extended within a gradient. The geodesic principle becomes a theorem.
+  </p>
+  <h3>Why light is deflected too</h3>
+  <p>
+    Light has I = 1: no residual share the field could withdraw, and indeed its timelessness remains
+    intact. But its wavefront is extended, and its two sides traverse regions where the rhythm differs.
+    The front rotates. The mechanism is identical to the fall of a stone — the only difference is that
+    matter, by pausing, also accumulates proper time.
+  </p>
+  <h3>The factor of two</h3>
+  <p>
+    A single p₀ governs two accountings, temporal and spatial, and both suffer the same deficit because
+    they are the same count read in two directions. Hence the factor 2 separating Newton from Einstein —
+    a brute fact in general relativity, a necessity here.
+  </p>
+  <h3>No singularities</h3>
+  <p>
+    qIG is a share of a unit budget: it neither exceeds 1 nor falls below 0. The temporal weight may
+    vanish, but nothing diverges. And the quantum of action remains integral — an elementary event cannot
+    be thinned below unity. Where general relativity requires singularities, MT has saturation at finite
+    values. This is the sharpest divergence between the two.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">04b — The lattice</span>
+  <h2>Cells, apertures, channels, voids</h2>
+  <p>
+    The cells do not touch; the space between them is the interstice, and geometry alone divides it into
+    three places: the <strong>aperture</strong> between two cells, the <strong>channel</strong> onto which
+    three cells open, the <strong>void</strong> among four. Each cell owns the region of space nearest to
+    it; two neighbouring cells share a face. Everything MT calls light, field, chirality and gravity
+    resides in these places.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Equilibrium</h4>
+      <p>The vacuum functions only if on every cell the pushes of the neighbours close. Such a lattice is
+      hyperuniform: large-scale density fluctuations vanish, scaling as the surface rather than the volume.
+      It is the same condition that makes light isotropic and transparent, and that yields Koide's angle.
+      <span class="tag t-der">measured</span></p>
+    </div>
+    <div>
+      <h4>Its origin does not matter</h4>
+      <p>A lattice grown by adjacent births and a random lattice subsequently relaxed exhibit the same
+      hyperuniformity and the same transparency. What matters is equilibrium, not history.
+      <span class="tag t-der">measured</span></p>
+    </div>
+    <div>
+      <h4>Where light resides</h4>
+      <p>The electric field is the phase difference along an aperture; the magnetic field is the torsion
+      that difference leaves when going round the apertures that surround a channel. Light is the exchange
+      between the two, one cell per step, without ever entering a cell. Hence it carries no charge, does not
+      pause, has no time and does not interact with itself. <span class="tag t-der">verified on the lattice</span></p>
+    </div>
+    <div>
+      <h4>Where handedness resides</h4>
+      <p>The agreement between the vibration on the cells and that in the voids — in phase or in
+      antiphase — is chirality. It resides in cells and voids, which light does not touch: the vacuum may
+      have a handedness without being birefringent. <span class="tag t-ass">continuum; to be verified on the lattice</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04c — Light and the electron</span>
+  <h2>The same geometry for both</h2>
+  <p>
+    The photon uses two of the four parts of the interstice: the electric field in the apertures, the
+    magnetic field in the channels. The electron uses all four: a vibration distributed over cells,
+    apertures, channels and voids — the construction known in mathematics as Kähler–Dirac. On the random
+    equilibrium lattice:
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Light</h4>
+      <p>Speed 1.0002 without adjustment, isotropic; energy dependence quadratic and minute (a delay of
+      10⁻¹⁹ s for the 31 GeV photon of GRB 090510); no rotation of the polarisation (10⁻⁷); no scattering
+      for waves longer than a dozen cells, then a growth as k⁶: distant galaxies arrive sharp even under the
+      most pessimistic assumption. The equilibrium lattice scatters 10–100 times less than an arbitrary one.
+      <span class="tag t-der">measured</span></p>
+    </div>
+    <div>
+      <h4>The electron</h4>
+      <p>A spinor placed on the cells produces a multitude of spurious modes — the doubling problem — and is
+      unusable. The vibration on the four parts has none: exact multiplicities, speed 0.998, budget
+      I² + T² = 1 exact to 10⁻¹⁴ with the even/odd inversion as the pause, oscillation along the spin axis
+      with the correct period. The pause is the reversal of the passing part — apertures and voids —: it
+      acts in the interstice and pays on the cells, with an amplitude that depends on the phase mismatch and
+      engages the half-sphere of neighbours towards which it returns (κ = N/2).
+      <span class="tag t-der">measured</span> <span class="tag t-ass">interpretation</span></p>
+    </div>
+    <div>
+      <h4>The price: two copies</h4>
+      <p>Eight components are two Dirac particles, not one, and the lattice distinguishes them only at the
+      0.1–0.3 % level. Spin ½ emerges from the geometry only in pairs — as in nature: electron and
+      neutrino, up and down quark. The copies are the weak doublet, distinguished by the cell/void
+      agreement; the agreement operator remains to be constructed and the numbers to be verified.
+      <span class="tag t-ass">doublet; construction pending</span></p>
+    </div>
+    <div>
+      <h4>The solar system of masses</h4>
+      <p>In Dirac's hydrogen the inversion share is exactly √(1−α²) and the motion share α: the binding
+      energy is the slowing of the electron's proper time. The zigzag at speed c with inversions at the
+      Compton rate has diffusion coefficient ħ/2m, Nelson's value.
+      <span class="tag t-ass">exact in Dirac's theory, not yet on the lattice</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04d — Gravity, continued</span>
+  <h2>The profile is derived; the strength is not</h2>
+  <p>
+    A critical contagion — each engagement produces on average one in the next cell, chosen at random
+    among the neighbours — gives a mean number of engagements per cell that falls as 1/r (exponent
+    −0.986). The occupation is the probability that a cell carries at least one engagement, hence
+    1 − e^(−n): it grows as n and then saturates. The rate of time is e^(−n/2).
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Mercury, with the correct sign</h4>
+      <p>The saturation fixes the non-linear term: 42.99″ per century. A linear field would give 57″, a
+      self-feeding one 72″. No self-feeding term is required.
+      <span class="tag t-der">derived</span></p>
+    </div>
+    <div>
+      <h4>No horizon, a larger shadow</h4>
+      <p>T² = e^(−n) never vanishes. The shadow of a black hole comes out 4.6 % larger than in general
+      relativity — compatible with current measurements, decidable by the next generation of instruments.
+      At second order the solar deflection differs by 0.7 microarcseconds.
+      <span class="tag t-der">prediction</span></p>
+    </div>
+    <div>
+      <h4>The interstitial space</h4>
+      <p>Near a mass the cells are denser and the rhythm slower, by the same fraction: the same deficit read
+      twice, whence the factor 2. A rod always measures the same number of cells, because it is made of
+      atoms immersed in the same geometry; what changes is the number of cells between free bodies, and
+      this is what interferometers measure when a gravitational wave passes.
+      <span class="tag t-ass">coherent</span></p>
+    </div>
+    <div>
+      <h4>What fixes G</h4>
+      <p>If each inversion launches κ engagements, G corresponds to κ ≈ 5–6 with the cell at the Planck
+      scale: about half of the 11.7 neighbours of influence, the same number that fixes α. A coincidence
+      within the ambiguity of what a Planck length is, in cells.
+      <span class="tag t-con">to be derived</span></p>
+    </div>
+    <div>
+      <h4>Gravitational waves: why quadrupolar</h4>
+      <p>No breathing mode: the volume is the number of cells, which changes only by birth. No
+      displacement mode: the pushes close on every cell (this is the conservation of momentum). What
+      remains is the cross — stretching along one axis and shortening along the perpendicular one, at
+      constant volume — in its two orientations: two polarisations, as for light, because the interstice has
+      two properties. It is carried by the two stiffnesses of the connections, which restore and transmit
+      one cell per step: the speed of light, as measured by GW170817. An interferometer counts the cells
+      between free mirrors. A clarification: the absence of a breathing mode follows from Gauss's law, not
+      from any incompressibility of the lattice, which does contract; and the wave is the directional part of
+      the deformation, not the scalar contraction.
+      <span class="tag t-der">reason established</span> <span class="tag t-con">lattice dynamics to be verified</span></p>
+    </div>
+    <div>
+      <h4>What carries the field</h4>
+      <p>Not a wandering contagion, but the elastic push: the engagement alters the pushes of the
+      neighbours, which transmit them one cell per step. The 1/r profile is the stationary state — Poisson —
+      shared with the random walk, which survives as the statistics of engagement; the transient travels at
+      c, the field of a moving body follows it with the correct delay, and gravitational waves are the same
+      push in its time-dependent part.
+      <span class="tag t-ass">carrier identified; to be verified</span></p>
+    </div>
+    <div>
+      <h4>What gravitates</h4>
+      <p>Every vibration engages the cells it touches in proportion to its own energy: matter, which
+      revisits, and light, which passes. Thus everything that carries energy gravitates, and the equivalence
+      principle need not be imposed.
+      <span class="tag t-ass">choice fixed</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04e — Generations and handedness</span>
+  <h2>Three, and a single orientation</h2>
+  <p>
+    Exactly three faces meet around a channel, and the three openings sum to 360°: 120° each on average.
+    A pausing vibration has a dipole, and the dipole projects onto the three faces three values
+    h_i = a[1 + √2 cos(θ − 2πi/3)]. From these Koide's relation, Q = 2/3, follows as a theorem for any θ;
+    the measured masses satisfy it to five figures. Three generations because the faces around a line are
+    three; no fourth because there is no fourth face. This holds for the charged leptons, the neutrinos and
+    the quarks. <span class="tag t-der">geometry</span>
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Koide's angle from the lattice</h4>
+      <p>In the equilibrium vacuum the openings are not exactly 120°: the typical imbalance of a channel has
+      median 0.214 and mean 0.227 radians. The angle that reproduces 1 : 207 : 3477 is 0.222. It emerges
+      only in equilibrium (a random lattice gives 0.51) and depends on the packing fraction: 0.28 at 0.60,
+      0.17–0.21 at 0.80. With the packing fraction fixed by MT, the three masses would become a
+      parameter-free calculation. <span class="tag t-ass">one-parameter coincidence</span></p>
+    </div>
+    <div>
+      <h4>The neutrinos</h4>
+      <p>Same channel, non-rotating phase: almost massless and of Majorana type. The three-projection
+      scheme, with its own angle and scale, reproduces both measured mass-squared differences and gives
+      m = 0.38, 8.9, 50.7 meV, sum 60 meV, normal ordering. Cosmology is tightening precisely there: the
+      decisive measurement is expected between 2030 and 2034. <span class="tag t-ass">two-parameter fit</span></p>
+    </div>
+    <div>
+      <h4>Handedness</h4>
+      <p>Four cells ordered by birth form a tetrahedron with a chirality, decided by chance when the fourth
+      is born. The cell/void agreement takes that sign and inherits it by adjacency: one orientation for the
+      universe, no mirror domains. The same orientation fixes the handedness of the weak interaction, read at
+      one hundred per cent, and which phase we call matter, read at three parts in ten billion — the
+      escapement of a quartz movement, which decides the direction without pushing.
+      <span class="tag t-ass">sign explained; magnitude to be derived</span></p>
+    </div>
+    <div>
+      <h4>Mixing</h4>
+      <p>The 120° symmetry of the channel produces mass states that are «Fourier» superpositions of the
+      three faces: large mixing, 35° and 45°, as observed for the neutrinos; the 8.6° departure from zero
+      remains to be calculated. <span class="tag t-ass">structure, not a number</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04f — The beginning and the cosmos</span>
+  <h2>Growth without time</h2>
+  <p>
+    Cells are born where the pushes fail to close. A single cell is the maximal imbalance; with two there
+    is an aperture, with three a channel, with four a void; the first cell in equilibrium appears with the
+    first closed shell, thirteen cells. As long as the group is unbalanced every cell generates: exponential
+    growth, that is inflation, without duration because without vibrations there is no time. It ends when
+    the lattice reaches equilibrium.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>The first vibration</h4>
+      <p>A push on an unbalanced lattice is absorbed by the rearrangement; on a closed shell it becomes a
+      propagating oscillation. This is the first step that carries time, and the hot Big Bang is the
+      equilibrium of the lattice converting pushes into light. Total energy: the initial imbalance released,
+      redistributed ever since. <span class="tag t-der">verified in the mechanical model</span></p>
+    </div>
+    <div>
+      <h4>Light from the apertures, matter from the cells</h4>
+      <p>An impact on an aperture goes 89 % into the light sector; on a channel, 54 %; on a cell or a void,
+      0 %. The light sector — apertures and channels feeding each other — is closed: it never touches a
+      cell. From an oriented impact light emerges sideways and what touches the cells along the axis.
+      <span class="tag t-der">exact</span></p>
+    </div>
+    <div>
+      <h4>Dark energy is constant</h4>
+      <p>Today's births are the residue of the unfinished equilibrium, inhibited wherever time passes —
+      that is, almost nowhere. Gravity cannot feed them (a factor 10⁵ is missing) and a varying proper time
+      does not have the form of the data. MT predicts a Λ. Should the variation favoured by DESI be
+      confirmed, MT would have to seek it in the dynamics of the settling. <span class="tag t-der">prediction</span></p>
+    </div>
+    <div>
+      <h4>Dark matter</h4>
+      <p>Frozen spherical contractions of the interstice: they persist because the contraction stops the
+      time that would be needed to reopen, with compactness 2M/R ≈ 95 and mass proportional to the radius,
+      from a milligram upwards. Dark because they do not pause, cold, collisionless, formed only in the
+      primordial universe. The ratio of 5.4 to ordinary matter remains to be calculated.
+      <span class="tag t-con">a conjecture with numbers</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04g — The interstice as an elastic connection</span>
+  <h2>Two stiffnesses, no constant</h2>
+  <p>
+    The vacuum is the lattice in its state of rest: cells at rest, pushes closed, no phase difference. It
+    costs nothing, by the definition of equilibrium; it has no time, because it has no events; it does not
+    fluctuate by itself — the Casimir and Lamb effects are the interstitial passages that the vibrations
+    <em>present</em> induce around themselves. The interstice carries the <strong>conditions of
+    passage</strong>: differences at the apertures, torsions around the channels, contraction, agreement
+    with the voids. The cells carry states and time; the interstice carries conditions. A condition is not an event.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Geometric stiffnesses</h4>
+      <p>The stretching of an aperture is face area over length; the torsion of a channel is channel length
+      over triangle area. These are the Hodge stars used for light: ratios of measures, fixed by the
+      positions of the cells. The elasticity of the interstice has no parameters.
+      <span class="tag t-der">measured</span></p>
+    </div>
+    <div>
+      <h4>Short is stiff</h4>
+      <p>The channels with the shortest connections have torsion 1.44; the longest 0.25: a ratio of six,
+      with a very steep dependence on length. Beyond 1.3 ℓ_P a connection is no longer stiff: the cell is
+      adjacent but no longer a neighbour. The stiff neighbours per cell number 11.7 — the same weight of
+      influence that gives α = 1/N². <span class="tag t-der">measured</span></p>
+    </div>
+    <div>
+      <h4>What a phase difference costs</h4>
+      <p>A phase difference across an aperture is work spent by whatever wrote it, reflection for whatever
+      crosses it, and potential light if it is released: the energy is the square of the difference, as for
+      light. Equal differences add (repulsion), opposite ones cancel (attraction).
+      <span class="tag t-der">structure</span></p>
+    </div>
+    <div>
+      <h4>The electron in the two properties</h4>
+      <p>Its inversion amplitude is a mismatch, not an isolated number: the phase rotating in time against
+      the aperture that would hold it still — the <strong>difference</strong>. Hence the mass of the charged
+      leptons, larger than that of the neutrinos because a rotating phase agrees less well: charge and mass
+      from the same mismatch. <strong>Spin</strong> is the relation between the phase and the circuit of
+      passages: the torsion around the channels. Mass from the difference, spin from the torsion. The
+      position of the electron among the three generations is geometric — the minimal projection of the
+      dipole onto the three faces of the channel, close to zero — and only the absolute scale remains free.
+      <span class="tag t-ass">structure</span></p>
+    </div>
+    <div>
+      <h4>Four regimes</h4>
+      <p>Linear (light, weak fields); saturating (occupation 1−e^(−n): Mercury; stiffness ε₀ against
+      windings: the string); blocked (dark matter); and, before equilibrium, plastic: the push absorbed in
+      the rearrangement. The birth of time is the transition from plastic to elastic. A historical echo:
+      MacCullagh's ether (1839), rigid under rotation and not under compression, which yields the equations
+      of light. <span class="tag t-ass">interpretation</span></p>
+    </div>
+  </div>
+  <h3>The reference scale</h3>
+  <p>
+    Cell = ℓ_P, step = t_P, light = one cell per step. Typical connection 0.97 ℓ_P, short below 0.8,
+    inert beyond 1.3; cell radius 0.44 ℓ_P, interstice between typical neighbours 0.1 ℓ_P. The Planck mass
+    is the maximal mass of a vibration: inversion amplitude 1 per step. With this reference, gravity
+    requires κ ≈ 5–6 engagements per inversion, and with N = 11.7 this is N/2: a hypothesis with a
+    mechanism — an inversion engages the half-sphere of neighbours towards which it returns. If it holds,
+    G is the number of stiff neighbours divided by two. <span class="tag t-ass">to be verified</span>
+  </p>
+  <p>
+    The three underived scales, as pure numbers. The inversion amplitude of the electron, 4·10⁻²³ per
+    step: invariant (at rest it completes one inversion every 10²² steps, in motion every 10²²·γ), with
+    structure — it is the mismatch of the rotating phase with the difference at the aperture, and its
+    position among the generations is fixed by the channel — but with the absolute scale free. The
+    stiffness of the vacuum against windings, 10⁻⁸⁰ E_P per cell (10⁻³⁹ per cell of string length, summing
+    over the cross-section of the tube): the mismatch of the phase wound in space with the same aperture.
+    The births, 4·10⁻⁶¹ per cell per step. The first two are two values of the same function — the
+    reflection of the aperture as a function of the mismatch — for two different mismatches; a derivation
+    would be that function, or a relation among the three scales. <span class="tag t-con">open</span>
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">04h — Quarks, the proton, nuclei</span>
+  <h2>The proton is a closed vortex</h2>
+  <p>
+    A quark is one third of a turn of the internal phase around a channel; the proton is a closed
+    circulation with one full turn, one third per face, which does not divide because a third of a turn
+    does not close. The number of turns is topological: it is conserved in every collision — it is the
+    baryon number — and the proton, the lightest configuration with one turn, does not decay. Its mass:
+    1 % from the quarks, 99 % from the shared vibration, as observed.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>The string is a vortex line</h4>
+      <p>The winding is <em>around</em> the string, not along it: a turn along the ring would lengthen at no
+      cost. Every cell of the line carries the same full turn, hence the same cost: energy proportional to
+      length. Pulling a quark means transferring to one third of the turn part of the budget in motion; the
+      thread of traversed cells lengthens until it is cheaper to pinch it into two turns: pair creation, jets.
+      <span class="tag t-der">structure</span></p>
+    </div>
+    <div>
+      <h4>Where the tension comes from</h4>
+      <p>Gradient energy (2π)²κ/A, which would widen the vortex, against the cost ε₀·A of the engaged cells
+      — the saturation of the occupation — which would narrow it. The minimum fixes the cross-section of
+      the tube and the tension: this is the dual superconductor of 't Hooft and Mandelstam, with the
+      condensate identified with the equilibrium vacuum and its stiffness with the saturation. The flux
+      tubes of lattice QCD are about 0.5 fm wide. <span class="tag t-ass">known mechanism, new seat</span></p>
+    </div>
+    <div>
+      <h4>The mass balance</h4>
+      <p>Motion share nħc/L plus engagement σL: minimum E = 2√(nħcσ). With √σ = 440 MeV and nothing else:
+      880 MeV (proton 938), 1245 (Δ 1232), 1524 (N 1520), 1760 (N ~1700); M² linear in n, that is, Regge
+      behaviour. Engaged length 0.45–0.96 fm, 3–6·10¹⁹ cells. The pion (a Goldstone boson) lies outside the
+      scheme; the ρ returns at 0.8 fm. <span class="tag t-ass">one parameter, taken from QCD</span></p>
+    </div>
+    <div>
+      <h4>Nuclei</h4>
+      <p>Two circulations sharing cells pay for them once: mass(A) + mass(B) − mass(AB) = energy released,
+      the mass defect. Deuteron 2.22 MeV = 2.3 attometres shared, 0.24 % of the proton; nuclei 8 MeV per
+      nucleon = 0.85 %. Saturation of binding because sharing occurs only with adjacent channels; a surface
+      term from the missing neighbours; the iron peak from the balance of sharing against phase repulsion.
+      The EMC effect and short-range correlated pairs are the measure of the sharing. Complete fusion
+      (Möbius) only in quark matter. <span class="tag t-ass">fractions to be derived</span></p>
+    </div>
+    <div>
+      <h4>Striking a proton</h4>
+      <p>Long incoming vibration: recoil as a whole. Shorter: a higher mode, the resonances, which return
+      by emitting a small turn. Very short: one third of the turn pushed away, the thread stretches and
+      pinches, a jet of hadrons; never a lone quark. The circularity is not broken: it multiplies.
+      <span class="tag t-der">reading of the data</span></p>
+    </div>
+    <div>
+      <h4>Beta decay</h4>
+      <p>The neutron is the proton with one more expensive face of agreement (1.29 MeV). At every proper
+      step the vibration <em>attempts</em> the excursion into the void — the cell–void current, the same
+      exchange that «transported» when it was sought as the pause: the W is the quantum of that passage,
+      80 GeV its cost. The attempt succeeds only if there is a destination with rhythm to release: the
+      neutron has one (p = 6·10⁻⁴⁷ per step, τ = 878 s), the free proton has none (Q = −1.80 MeV: it
+      attempts and returns). A constant probability per proper step is the exponential law and time
+      dilation (muons at CERN: 64.44 μs predicted, 64.42 measured). One number for all vibrations, G_F from
+      the muon: it gives the τ lifetime to 0.3 %, the neutron to 0.8 % (the remainder: radiative
+      corrections). The electron–antineutrino pair arises from the conservation of the rotating phase and
+      of the doublet; the continuous spectrum is a single difference shared between two; the handedness (Wu)
+      is the orientation. Prediction: neutrinoless double beta decay exists.
+      <span class="tag t-der">verified (Fermi's theory, reinterpreted)</span> <span class="tag t-con">G_F not derived: 2·10⁻¹⁷ E_P</span></p>
+    </div>
+    <div>
+      <h4>g_A as the budget of the confined quark</h4>
+      <p>In the neutron rate the factor 1 + 3g_A² = 5.88 is one exact difference (the rotating phase is
+      conserved: g_V = 1) and three torsions. The rigid limit of three meshed faces gives 5/3; the reduction
+      to 1.275 is the motion share of the confined vibration: g_A = (5/3)(1 − 4I²/3), and the measured value
+      requires I² = 0.176 — the quark in the vortex spends 82 % of its budget pausing. For a Dirac vibration
+      confined within R this means mR = 1.20: with R = 0.84 fm, the inversion amplitude of the quark inside
+      the vortex is 282 MeV (one third of the proton: 313). Free, it would have 2–5: the difference is the
+      reflection of the tube on one third of a turn — the «constituent mass», chiral symmetry breaking, in
+      MT the spatial mismatch read as a pause. This is the fourth measurement of the same scale Λ, after the
+      string tension, the proton mass and the width of the tube. The calculation is the bag model with
+      massive quarks; MT reinterprets it, it does not discover it.
+      <span class="tag t-der">calculated</span> <span class="tag t-ass">interpretation</span></p>
+    </div>
+    <div>
+      <h4>What is missing</h4>
+      <p>ε₀ is taken from the string tension, not derived: in Planck units it is (Λ/E_P)⁴ — the hierarchy,
+      in the form «why the equilibrium vacuum is so weakly stiff against windings». No simulation yields it
+      without a mechanism linking the two scales. <span class="tag t-con">open</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04i — The beginning from the centres, and entanglement</span>
+  <h2>A point, a connection, a triangle, a tetrahedron</h2>
+  <p>
+    The lattice admits two dual readings: from the cells (cell, aperture, channel, void) and from the
+    centres (point, connection, triangle, tetrahedron). Before four points no closed volume exists, neither
+    inside nor outside: the two readings coincide. The first tetrahedron closes the first volume and
+    separates them: <strong>the first void is also the first cell</strong>, and the choice of which is
+    which is the same choice as that of the orientation. One, two, three dimensions — as many as the births
+    that occurred before any connection existed to be stretched — then the shells, elasticity, time.
+  </p>
+  <div class="grid">
+    <div>
+      <h4>The birth rule</h4>
+      <p>A cell is born at the centre of every connection stretched beyond 1.3 ℓ_P: «the pushes fail to
+      close», stated in terms of connections. At the beginning almost all are stretched (inflation); in
+      equilibrium none (births cease); today almost never (the floor). From the fifth point onwards births
+      occur inside connections, hence inside the space that exists: the dimension remains three, and the
+      disorder of the lattice is the price of not opening a fourth.
+      <span class="tag t-ass">to be simulated: four points and the rule</span></p>
+    </div>
+    <div>
+      <h4>Dark matter as connections never stretched</h4>
+      <p>Births lengthen, they do not widen: a region with compressed connections has no way to reach
+      equilibrium. It remains contracted, without events, without time — dark matter. Abundance: the
+      fraction of connections left compressed at equilibrium, to be compared with 5.4.
+      <span class="tag t-ass">mechanism with a target number</span></p>
+    </div>
+    <div>
+      <h4>The two copies as primal and dual readings</h4>
+      <p>The spin vibration arises in two nearly identical copies: they would be the same vibration
+      described by the cells and by the voids, distinguished in sign by the orientation and in magnitude by
+      the asymmetry between the statistics of cells and that of voids. Test: the splitting between the
+      copies (0.1–0.3 %) against the primal/dual asymmetry measured on the lattice.
+      <span class="tag t-con">hypothesis with a test</span></p>
+    </div>
+    <div>
+      <h4>Entanglement</h4>
+      <p>Bell's theorem forbids the bond from carrying two values; the interstice carries relations, never
+      values: a pair born from a division carries a single phase difference, without time and without
+      distance. Spin is a relation between the phase and the passages; it exists as a value only in the
+      agreement with whatever measures it. The bond is resolved at the first pause, in an order of steps
+      that exists but cannot be observed (the value is random: no signal); in matter the relation is not
+      broken but diluted by contagion into the environment — decoherence. Every division produces
+      entanglement: it is the rule. <span class="tag t-ass">non-local model with a privileged order</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">04j — Matrix mechanics and hydrogen</span>
+  <h2>The same algebra, finite and local</h2>
+  <p>
+    The state is a vector of amplitudes on the elements of the lattice; position is a diagonal matrix
+    with the coordinates of the dual centres; K is sparse, one entry per passage. For any diagonal matrix
+    ([X_a,K])_αβ = (x_α − x_β)_a K_αβ, real and antisymmetric: hence [X_a, K] = iV_a with V_a Hermitian,
+    and Heisenberg's equation dX_a/dN = i[K, X_a] = V_a identifies V_a with the velocity — displacement
+    along the passage times the stiffness of the passage. In the Schrödinger limit [X_a, P_a] = i: ħ is
+    the conversion between «cell × radian per cell» and ordinary units. The uncertainty relations follow
+    from the spectrum: Δx·Δk = 0.49 for packets one cell wide and larger, 0.45 below one cell (minimal
+    length); Δω·N½ = 0.80 ≥ π/4. ΔE·Δt ≥ ħ/2 in MT reads Δω·ΔN ≥ ½: to know how much a quantity changes per
+    step, steps must be counted. <span class="tag t-der">theorem + measured</span>
+  </p>
+  <div class="grid">
+    <div>
+      <h4>Hydrogen on the lattice (author's PC, up to 2.7 million cells)</h4>
+      <p>The Schrödinger equation of MT: H = aperture Laplacian / 2μ − α/r. Large run, a₀ = 4 cells, box
+      32 a₀: 1s −1.2 % (⟨r⟩ 1.512 a₀); 2p +0.17 %, three states degenerate to 4·10⁻⁵; 2s −0.28 %; 2s–2p
+      splitting −0.45 % — the accidental degeneracy of the 1/r potential, which no symmetry of the lattice
+      imposes. With n = 3 at 42 a₀: 3s +2.4 %, 3p −0.35 %, 3d +1.4/−0.1 %, with the five 3d states split
+      two-plus-three by the cubic field of the periodic images: under a spherical wall they return
+      degenerate to 10⁻⁴. Controls: packing fraction 0.60–0.80 without effect (Δf ≤ 1 %); periodic and
+      walled boxes identical to 0.05 % for n = 2; 10 % noise on the weights ≤ 0.4 %; relaxation ten times
+      worse ≤ 0.3 %. <span class="tag t-der">measured</span></p>
+    </div>
+    <div>
+      <h4>Lyman-α and Balmer</h4>
+      <p>Heisenberg's matrix element ⟨2p|X|1s⟩ with the lattice wavefunctions. Six runs at different
+      resolutions and box sizes fit f = f∞ + 0.10/a₀² + c/boxⁿ with residuals of 0.003; the model predicted
+      the large run (0.4247) before it was executed (0.4253). Result: <strong>Lyman-α 0.425 at 4 cells and
+      32 a₀, 0.429 at 3 cells and 42 a₀; extrapolated 0.410–0.414 according to the box law; observed
+      0.4162</strong> — within 1–1.5 %, with a residual of the order of the softening of the nucleus. A second
+      line, without the ground state: <strong>Balmer 2p→3d 0.690 against 0.696</strong>. With the 50 a₀ box
+      the nine n = 3 states are degenerate among themselves and with Rydberg/9 to within 0.4 %, and the
+      manifold sums — robust against mixing — give 1s→n=3 0.082 (0.0791), 2s→n=3 0.468 (0.4349), 2p→n=3
+      0.699 (0.7094). The three conditions set by an external reviewer — proof of the commutator, natural
+      coordinates on the Voronoi tessellation, a transition element close to the observed one — are
+      satisfied, with two lines. <span class="tag t-der">measured</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="fade">
+  <span class="snum">05 — Checks</span>
+  <h2>The numbers</h2>
+  <table class="tbl">
+    <thead>
+      <tr><th>Phenomenon</th><th>MT</th><th>Observed</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Speed of light on the random lattice</td><td class="num"><b>1.0002 c</b></td><td class="oss">c</td><td><span class="tag t-der">no adjustment</span></td></tr>
+      <tr><td>Delay of GRB 090510 (31 GeV, 7 Gly)</td><td class="num"><b>2·10⁻¹⁹ s</b></td><td class="oss">&lt; ~1 s</td><td><span class="tag t-der">quadratic in E/E_P</span></td></tr>
+      <tr><td>Vacuum birefringence</td><td class="num"><b>&lt; 10⁻⁷</b></td><td class="oss">&lt; 10⁻¹⁶</td><td><span class="tag t-der">compatible</span></td></tr>
+      <tr><td>Profile of the gravitational field</td><td class="num"><b>r^(−0.986)</b></td><td class="oss">1/r</td><td><span class="tag t-der">from the contagion</span></td></tr>
+      <tr><td>Koide relation Q</td><td class="num"><b>2/3, theorem</b></td><td class="oss">0.666661 ± 7·10⁻⁶</td><td><span class="tag t-der">from the 120° channel</span></td></tr>
+      <tr><td>Koide angle θ</td><td class="num"><b>0.21–0.23 rad</b></td><td class="oss">0.222</td><td><span class="tag t-ass">at packing fraction 0.70</span></td></tr>
+      <tr><td>Sum of neutrino masses</td><td class="num"><b>60 meV</b></td><td class="oss">&lt; 64–72 meV (ΛCDM)</td><td><span class="tag t-ass">two-parameter fit; measurement expected 2030–34</span></td></tr>
+      <tr><td>Black-hole shadow (relative to GR)</td><td class="num"><b>+4.6 %</b></td><td class="oss">0 ± ~10 %</td><td><span class="tag t-der">prediction</span></td></tr>
+      <tr><td>Second-order solar deflection (relative to GR)</td><td class="num"><b>+0.7 μas</b></td><td class="oss">not measured</td><td><span class="tag t-der">prediction</span></td></tr>
+      <tr><td>Hydrogen on the lattice: 2p and 2s against Rydberg; 2s–2p splitting</td><td class="num"><b>+0.26 %, −0.21 %; 0.5 %</b></td><td class="oss">0; 0</td><td><span class="tag t-der">Schrödinger equation of MT, 8·10⁵ cells</span></td></tr>
+      <tr><td>Lyman-α oscillator strength (2.7·10⁶ cells; extrapolated)</td><td class="num"><b>0.425; extrapolated 0.410–0.414</b></td><td class="oss">0.4162</td><td><span class="tag t-der">matrix element on the lattice</span></td></tr>
+      <tr><td>Balmer 2p→3d oscillator strength</td><td class="num"><b>0.690</b></td><td class="oss">0.6958</td><td><span class="tag t-der">second line, without 1s</span></td></tr>
+      <tr><td>Δx·Δk and Δω·N½ from the spectrum of K</td><td class="num"><b>0.49; 0.80</b></td><td class="oss">½; ≥ 0.785</td><td><span class="tag t-der">Robertson, Mandelstam–Tamm</span></td></tr>
+      <tr><td>Proton mass (motion/engagement balance, √σ = 440 MeV)</td><td class="num"><b>880 MeV</b></td><td class="oss">938</td><td><span class="tag t-ass">one parameter from QCD</span></td></tr>
+      <tr><td>Δ(1232) and N(1520), same ingredients with n = 2, 3</td><td class="num"><b>1245, 1524</b></td><td class="oss">1232, 1520</td><td><span class="tag t-ass">M² linear in n (Regge)</span></td></tr>
+      <tr><td>Tau lifetime from the muon lifetime (same attempt, destinations ∝ m⁵)</td><td class="num"><b>2.911·10⁻¹³ s</b></td><td class="oss">2.903·10⁻¹³</td><td><span class="tag t-der">0.3 %</span></td></tr>
+      <tr><td>Neutron lifetime from the muon's G_F</td><td class="num"><b>871 s</b></td><td class="oss">878.4</td><td><span class="tag t-der">0.8 % (radiative corrections excluded)</span></td></tr>
+      <tr><td>Inversion amplitude of the quark in the vortex, from g_A = 1.275</td><td class="num"><b>282 MeV</b> (R = 0.84 fm)</td><td class="oss">constituent mass 300–350</td><td><span class="tag t-der">budget: 82 % pause</span></td></tr>
+      <tr><td>Deuteron binding as shared cells</td><td class="num"><b>0.24 % of the proton</b></td><td class="oss">2.22 MeV</td><td><span class="tag t-con">fraction to be derived</span></td></tr>
+      <tr><td>Light neutrino species</td><td class="num"><b>3</b></td><td class="oss">2.984 ± 0.008</td><td><span class="tag t-der">faces around a channel</span></td></tr>
+      <tr><td>Deflection of light (Sun)</td><td class="num"><b>1.7516″</b></td><td class="oss">1.7500″</td><td><span class="tag t-der">no parameters</span></td></tr>
+      <tr><td>Shapiro delay</td><td class="num"><b>123.7 μs</b></td><td class="oss">Cassini agreement 10⁻⁵</td><td><span class="tag t-der">no parameters</span></td></tr>
+      <tr><td>GPS clocks<br><span style="font-size:13px;color:var(--txt-3)">+45.7 altitude · −7.2 motion</span></td><td class="num"><b>+38.51 μs/day</b></td><td class="oss">≈ +38 μs/day</td><td><span class="tag t-der">no parameters</span></td></tr>
+      <tr><td>Perihelion precession of Mercury</td><td class="num"><b>42.99″/century</b></td><td class="oss">43.11 ± 0.45″/century</td><td><span class="tag t-der">saturation of the occupation</span></td></tr>
+      <tr><td>Gravitational interferometry<br><span style="font-size:13px;color:var(--txt-3)">superposition at two heights</span></td><td class="num"><b>m·g·h·t / ħ</b></td><td class="oss">COW 1975 and later</td><td><span class="tag t-der">reproduced</span></td></tr>
+      <tr><td>Primordial spectral index n<sub>s</sub></td><td class="num"><b>0.9649</b></td><td class="oss">0.9649 ± 0.0042 (Planck)</td><td><span class="tag t-ass">pivot scale from observation</span></td></tr>
+      <tr><td>Collapse fraction into black holes</td><td class="num">crosses 8.1 %</td><td class="oss">≈ 8.14 % (Bekenstein)</td><td><span class="tag t-con">not an attractor</span></td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:30px;color:var(--txt-2);font-size:16px">
+    The first three follow from the structure with no residual freedom once the profile of qIG is fixed.
+    But that profile is taken from known physics, not derived from the lattice — and this is the limit
+    running through all the gravitational checks.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">06 — Quantum behaviour</span>
+  <h2>What emerges from discreteness</h2>
+  <h3>Uncertainty</h3>
+  <p>
+    On a discrete lattice the Fourier transform has finite resolution. A cell cannot be located with
+    sub-cellular precision because nothing finer <em>exists</em>. <span class="k">Δx · Δp ≥ ½</span> — the
+    one half comes from the geometry, not from an empirical constant. ħ appears only in the translation to
+    SI units. <span class="tag t-der">derived</span>
+  </p>
+  <h3>Spin</h3>
+  <p>
+    The vibration lives on the surface of the cell, and only the component along the direction of motion
+    survives transmission. A direction on a sphere together with a relative phase forms not a vector but a
+    <strong>spinor</strong>: rotating the direction through a full turn inverts the phase. Spin ½ depends on
+    three-dimensionality, not on the number of neighbours. <span class="tag t-con">mechanism, not proof</span>
+  </p>
+  <h3>The photon</h3>
+  <p>
+    It is the vibration that refuses to pause: p<sub>s</sub> = 0, no mass, no proper time. A light wave is
+    a sequence of ignitions, y = 0 → n → −n, where <strong>n is the wavelength</strong> and the energy scales
+    as 1/n. No photon more energetic than n = 1 can exist: one oscillation in one cell. This is Planck's
+    cutoff, and it is not assumed.
+  </p>
+  <p>
+    The photoelectric effect follows: the electron absorbs improbability and re-emits it within a
+    retention window. If n is large the vibrations arrive sparsely and never accumulate — however many red
+    waves are sent. It is the retention window that makes intensity irrelevant to the threshold, which is
+    precisely what the classical wave theory lacked.
+  </p>
+  <h3>Orbitals</h3>
+  <p>
+    The probability of the electron is spread over all the cells of the orbital: those cells are not
+    separate places but a single distributed object. A single object has a single phase-closure condition,
+    hence <strong>a single budget</strong> to be shared between rotation and radial oscillation.
+  </p>
+  <div class="f">
+    ℓ &lt; n
+    <small>Not imposed: it is the arithmetic of one budget shared between two ways of spending it. For
+    n = 1 nothing remains for rotation — only s.</small>
+  </div>
+  <p>
+    The degeneracy in ℓ also follows — the energy depends on the total, not on its partition — and so does
+    the count of n² states per level, 2n² with spin: 2, 8, 18, 32. In quantum mechanics the constraint
+    ℓ &lt; n and the degeneracy are two separate facts that both happen to hold for the Coulomb potential,
+    without an explanation of why they go together. Here they are the same statement made twice.
+    <span class="tag t-der">derived</span>
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">07 — Comparison</span>
+  <h2>Where MT says more than the existing theories</h2>
+  <div class="grid">
+    <div>
+      <h4>Why the factor of two</h4>
+      <p>In general relativity the temporal and the spatial contributions to the deflection are equal for
+      no stated reason. In MT they are a single deficit read in two directions.</p>
+    </div>
+    <div>
+      <h4>Why gravity only attracts</h4>
+      <p>There is no negative occupation: contributions can only accumulate, never cancel. No antigravity,
+      no screening — by structure, not by observation.</p>
+    </div>
+    <div>
+      <h4>Why no singularities</h4>
+      <p>Probabilities do not exceed unity and the quantum of action remains integral. Where Einstein's
+      theory diverges, MT saturates at a finite value.</p>
+    </div>
+    <div>
+      <h4>Why bodies fall</h4>
+      <p>The geodesic principle is a postulate in relativity. Here it is the consequence of being extended
+      within a gradient — and it holds identically for a stone and for a delocalised electron.</p>
+    </div>
+    <div>
+      <h4>Why ℓ &lt; n</h4>
+      <p>In quantum mechanics it is a peculiarity of the Coulomb potential, called accidental degeneracy.
+      In MT it is the arithmetic of a single budget.</p>
+    </div>
+    <div>
+      <h4>Parsimony</h4>
+      <p>No extra dimensions, no supersymmetry, no superpartners. One cell, one probability.
+      Three-dimensional space emerges from the packing.</p>
+    </div>
+  </div>
+  <p style="margin-top:28px">
+    On time, MT is more radical than loop quantum gravity. Rovelli eliminates time as a continuous
+    variable but retains the concept as a relation emerging from entropy. MT eliminates the concept as
+    well: what remains is the counter, which is combinatorial and not temporal. And the arrow of time is
+    trivial — the steps are numbered.
+  </p>
+</section>
+
+<section class="fade">
+  <span class="snum">08 — Open problems</span>
+  <h2>What is missing, stated without concession</h2>
+  <ol class="open-list">
+    <li>
+      <b>The two copies: the doublet</b>
+      <span>The spin vibration arises in pairs by cell/void parity, and in nature spin ½ comes in pairs:
+      electron and neutrino, up and down quark. Not a defect but the weak doublet. What distinguishes them
+      is the agreement between cell and void — the orientation, the reflective state of the interstice, the
+      «Higgs field» of MT — which is also what the weak interaction acts upon. To be done: the operator that
+      realises the agreement on the lattice (the naive exchange transports instead of inverting) and the
+      numbers: the mass difference within the doublet, and the splitting between the copies (0.1–0.3 %)
+      against the cell/void asymmetry of the lattice.</span>
+    </li>
+    <li>
+      <b>The agreement operator</b>
+      <span>The pause is established: the even/odd inversion, exact, read as the reversal of the passing part
+      in apertures and voids, with an amplitude that depends on the phase mismatch (in time for the
+      electron, in space for the quark) and engages the half-sphere of neighbours towards which it returns.
+      What remains to be constructed is the other operator: the map between the reading from the cells and
+      that from the voids, carrying the sign of the orientation, which distinguishes the two copies of the
+      doublet and on which the weak interaction acts. The naive cell–void exchange is not it: it transports
+      instead of inverting.</span>
+    </li>
+    <li>
+      <b>The speed of the contagion: verification</b>
+      <span>The carrier of the field is the elastic push of the interstice — a pause engages the neighbours
+      towards which it returns, the altered pushes propagate one cell per step, as in the impact simulation
+      — not the random walk, which survives as the statistics of engagement (b = 1, saturation). The static
+      1/r profile is the same because both solve Poisson's equation; the transient travels at c. To be
+      verified on the mechanical lattice: a source that continuously engages a half-sphere, static
+      deformation ∝ 1/r, transient at distance r after r steps.</span>
+    </li>
+    <li>
+      <b>The packing fraction of the vacuum: fixed by α, test pending</b>
+      <span>The number of stiff neighbours N grows with the packing fraction (10.3 at 0.60; 11.3 at 0.80) and
+      the channel imbalance decreases (0.28 → 0.17): α = 1/N² fixes the packing fraction, and the packing
+      fraction must yield Koide's angle, 0.222. With the stretching weight N equals 11.0 at 0.70 (1/122, not
+      1/137), while the imbalance is reproduced (0.215–0.227). It must be decided from the mechanism of the
+      pause which weight defines a neighbour — stretching, or distribution of the inversion among the
+      neighbours (κ = N/2) — because the two counts differ by 6 %, which is the precision required. The
+      lepton masses then become a parameter-free calculation, with targets 206.77 and 3477.2.</span>
+    </li>
+    <li>
+      <b>G as N/2</b>
+      <span>With the reference scale fixed (cell = ℓ_P), G requires κ ≈ 5–6 engagements per inversion; the
+      hypothesis is that an inversion engages the half-sphere of neighbours towards which it returns,
+      N/2 = 5.85. To be verified on the lattice with the correct contagion.</span>
+    </li>
+    <li>
+      <b>The cost of the excursion into the void (G_F)</b>
+      <span>The weak scale, 246 GeV = 2·10⁻¹⁷ E_P, is the fourth underived scale: the price of the
+      vibration's excursion into the sector of the voids and back. The exact form of the cell–void current
+      operator — with the orientation, which produces the pair — is the construction to be made; its
+      weakness is the same with which the lattice feels the orientation.</span>
+    </li>
+    <li>
+      <b>The scale Λ: the stiffness of the vacuum against windings</b>
+      <span>A single scale, measured in four ways and not derived: the string tension (√σ = 440 MeV), the
+      mass of the proton and of the resonances from the motion/engagement balance, the width of the tube
+      (~0.5 fm), and the inversion amplitude of the quark inside the vortex (282 MeV, from g_A). In Planck
+      units: 10⁻⁸⁰ E_P per engaged cell, 10⁻³⁹ per cell of string length. It is the value the reflection of
+      the aperture takes for a spatial mismatch — one third of a turn of phase per cell — just as the
+      electron's amplitude, 4·10⁻²³, is the value of the same reflection for the temporal mismatch. On it
+      depend the proton, the resonances, the string, the constituent mass and the shared fractions in
+      nuclei. Deriving it means deriving the reflection function of the aperture from the phase mismatch: a
+      calculation on the aperture, not on the hadron, which would fix the hadronic and the leptonic
+      hierarchies together. No simulation yields it without that mechanism.</span>
+    </li>
+    <li>
+      <b>Growth by stretching</b>
+      <span>Four points and the rule «one cell at the centre of every connection beyond 1.3 ℓ_P»: it must
+      extinguish itself, yield a hyperuniform lattice, and leave a fraction of compressed regions equal to
+      5.4 times the ordinary matter.</span>
+    </li>
+    <li>
+      <b>The cost of a birth</b>
+      <span>«Total energy is conserved» remains an intention until it is known what a new cell costs and
+      who pays. After the transition to equilibrium births appear to cost nothing; this must be proved.</span>
+    </li>
+    <li>
+      <b>The growth of structure</b>
+      <span>The 60 meV of the neutrinos can be compared with the data only through the growth of structure
+      in the gravity of MT, where MT may differ from relativity. The perturbation calculation does not yet exist.</span>
+    </li>
+    <li>
+      <b>The magnitude of the asymmetry</b>
+      <span>The orientation of the first vacuum explains the sign of the prevalence of matter; the three
+      parts in ten billion require knowing how much the agreement of the lattice weighs on the phase of a
+      nascent pause.</span>
+    </li>
+    <li>
+      <b>Gravitational waves: the dynamics</b>
+      <span>No breathing mode by Gauss's law, not by incompressibility: the contraction field outside a
+      spherical source depends only on the enclosed occupation (Birkhoff), so a pulsating star emits
+      nothing; no displacement mode because the pushes close. The wave is not the propagating scalar
+      contraction — that would give a transverse breathing mode, which is excluded — but a
+      <em>directional</em> deformation of the interstice: connections shortened along one axis and
+      lengthened along the other, carried by the two directional properties, stretching and torsion. To be
+      verified on the mechanical lattice: that the shear wave propagates isotropically and without
+      dispersion at long wavelengths; that two contracted regions in rotation emit it at twice the
+      frequency with a static scalar part outside; and that its speed coincides with that of light — a new
+      constraint, because light travels with the geometric stiffnesses of the apertures and the shear wave
+      with the elastic pushes between cells, and GW170817 requires them to agree to one part in 10¹⁵.</span>
+    </li>
+    <li>
+      <b>Masses and the vacuum energy</b>
+      <span>m remains a scale factor; the smallness of the electron relative to the Planck mass is now
+      «because pauses are rare», not yet a number. In its local form MT inherits the 120 orders of
+      magnitude of the vacuum energy.</span>
+    </li>
+  </ol>
+</section>
+
+</div>
+
+<hr class="rule">
+<footer>
+  <div class="wrap">
+    <p style="max-width:44em;margin:0">
+      MT is a model in which time, mass, light, gravity and the beginning emerge from the same geometry
+      — a lattice of cells in equilibrium and the space between them — with one part demonstrated on
+      random lattices and one part still to be constructed. Its own predictions are few and precise: a
+      constant dark energy, a black-hole shadow larger by 4.6 %, three generations and no fourth, a sum of
+      neutrino masses of 60 meV. What is missing is not vague: it is a list of constructions and
+      measurements, each with its target number.
+    </p>
+  </div>
+</footer>
+<script>
+// reticolo: celle sferiche che non si toccano, occupazione crescente verso sinistra
+(function(){
+  const g=document.getElementById('cells');
+  if(!g) return;
+  const cols=60, rows=8, dx=1200/cols, dy=150/rows;
+  let out='';
+  for(let j=0;j<rows;j++){
+    for(let i=0;i<cols;i++){
+      const x=dx*(i+.5)+(j%2?dx/2:0), y=dy*(j+.5);
+      if(x>1200) continue;
+      const occ=Math.max(0,1-Math.hypot(x-90,y-150)/620);
+      const lit=Math.random()<occ*0.55;
+      const r=lit?2.6:1.7;
+      const col=lit?'#F0B24A':'#243651';
+      const op=lit?(0.35+occ*0.55).toFixed(2):'0.85';
+      out+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" fill="${col}" opacity="${op}"/>`;
+    }
+  }
+  g.innerHTML=out;
+})();
+
+// rivelazione allo scroll
+(function(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.fade').forEach(e=>e.classList.add('in'));return;
+  }
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
+  },{threshold:.12});
+  document.querySelectorAll('.fade').forEach(e=>io.observe(e));
+})();
+</script>
+</body>
+</html>
