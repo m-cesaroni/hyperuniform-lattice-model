@@ -4,7 +4,7 @@
 
 A discrete model of space: a three-dimensional random lattice of cells that do not touch, held in mechanical equilibrium (every cell's pushes close), with the space between cells — the *interstice* — carrying the rules of passage. Light, matter, time and gravity are read as ways of using the cells and the passages between them: light as a phase difference that runs through the faces (apertures) and twists around the edges (channels) of the Voronoi complex; mass as the inversion of a vibration at the interstice — its pause; proper time as the count of those pauses; gravity as the fraction of a cell's steps spent on engagements launched by pausing matter.
 
-The name honours Max Planck and his *mathematical artifice* of 1900 — the first acceptance that nature counts in steps. It has nothing to do with the author's name, which is why the author signs with an initial.
+The name honours Max Planck and his *mathematical artifice* of 1900 — the first acceptance that nature counts in steps.
 
 **This is a working model, not an established theory.** Everything in this repository is labelled with one of three statuses: *demonstrated* (a theorem or a reproducible numerical result), *coherent* (a mechanism that reproduces data but still depends on a choice or a scale not yet derived), *open* (a problem to solve, with its target number). The status map is the heart of `docs/riepilogo.html`.
 
